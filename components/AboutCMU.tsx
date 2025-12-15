@@ -19,7 +19,7 @@ export default function AboutCMU() {
             About Carnegie Mellon
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            My journey at one of the world's leading computer science programs
+            My journey at one of the world&apos;s leading computer science programs
           </p>
         </motion.div>
 
