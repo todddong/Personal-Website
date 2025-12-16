@@ -1,8 +1,63 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+
+function TypingText({ text, speed = 100, delay = 0 }: { text: string; speed?: number; delay?: number }) {
+  const [displayedText, setDisplayedText] = useState("");
+  const [showCursor, setShowCursor] = useState(true);
+  const [isTyping, setIsTyping] = useState(true);
+  const [hasStarted, setHasStarted] = useState(false);
+
+  useEffect(() => {
+    if (delay > 0 && !hasStarted) {
+      const delayTimeout = setTimeout(() => {
+        setHasStarted(true);
+      }, delay);
+      return () => clearTimeout(delayTimeout);
+    } else if (delay === 0) {
+      setHasStarted(true);
+    }
+  }, [delay, hasStarted]);
+
+  useEffect(() => {
+    if (!hasStarted) return;
+
+    let currentIndex = 0;
+    const typingInterval = setInterval(() => {
+      if (currentIndex < text.length) {
+        setDisplayedText(text.slice(0, currentIndex + 1));
+        currentIndex++;
+      } else {
+        setIsTyping(false);
+        clearInterval(typingInterval);
+      }
+    }, speed);
+
+    return () => clearInterval(typingInterval);
+  }, [text, speed, hasStarted]);
+
+  // Cursor only visible during typing
+  useEffect(() => {
+    if (isTyping && hasStarted) {
+      // Keep cursor visible during typing
+      setShowCursor(true);
+    } else if (!isTyping && hasStarted) {
+      // Hide cursor after typing is complete
+      setShowCursor(false);
+    }
+  }, [isTyping, hasStarted]);
+
+  return (
+    <span>
+      {displayedText}
+      {hasStarted && isTyping && (
+        <span className="text-white">|</span>
+      )}
+    </span>
+  );
+}
 
 export default function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -48,25 +103,25 @@ export default function Hero() {
           transition={{ duration: 0.8 }}
           className="text-5xl md:text-7xl font-bold mb-4 gradient-text text-center"
         >
-          Todd Dong
+          <TypingText text="Todd Dong" speed={150} delay={0} />
         </motion.h1>
         
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          transition={{ duration: 0.8 }}
           className="text-lg md:text-xl text-gray-300 mb-2 text-center"
         >
-          Computer Science @ Carnegie Mellon
+          <TypingText text="Computer Science @ Carnegie Mellon" speed={80} delay={1500} />
         </motion.p>
         
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
+          transition={{ duration: 0.8 }}
           className="text-base md:text-lg text-gray-400 font-light text-center"
         >
-          Machine Learning Research Assistant • Student Athlete • Incoming Software Engineering Intern at First Citizens Bank
+          <TypingText text="Machine Learning Research Assistant • Student Athlete • Incoming Software Engineering Intern at First Citizens Bank" speed={50} delay={4500} />
         </motion.p>
       </div>
 
