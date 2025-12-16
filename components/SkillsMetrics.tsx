@@ -30,7 +30,7 @@ const metrics: Array<{ label: string; value: string; suffix: string }> = [];
 
 export default function SkillsMetrics() {
   return (
-    <section id="skills" className="py-24 px-4 md:px-8 relative">
+    <section id="skills" className="py-24 px-4 md:px-8 relative bg-gradient-to-b from-transparent to-gray-900/30">
       <div className="max-w-7xl mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -43,7 +43,7 @@ export default function SkillsMetrics() {
         </motion.h2>
 
         {/* Skills Grid */}
-        <div className="grid md:grid-cols-2 gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
           {skills.map((skill, index) => {
             const Icon = skill.icon;
             return (
@@ -53,7 +53,7 @@ export default function SkillsMetrics() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-gray-900/50 border border-gray-800 rounded-lg p-6 hover:border-gray-700 transition-all"
+                className="bg-gray-900/50 border border-gray-800 rounded-lg p-6 hover:border-gray-700 transition-all duration-300"
               >
                 <div className="flex items-center gap-3 mb-4">
                   <Icon className="text-blue-400" size={24} />
@@ -90,7 +90,7 @@ export default function SkillsMetrics() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
-                className="text-center p-6 bg-gray-900/50 border border-gray-800 rounded-lg hover:border-gray-700 transition-all"
+                className="bg-gray-900/50 border border-gray-800 rounded-lg p-6 hover:border-gray-700 transition-all duration-300 text-center"
               >
                 <div className="text-4xl md:text-5xl font-bold text-blue-400 mb-2">
                   {metric.value}
