@@ -2,7 +2,6 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Projects from "@/components/Projects";
 import AthleteSystems from "@/components/AthleteSystems";
-import SkillsMetrics from "@/components/SkillsMetrics";
 import Experience from "@/components/Experience";
 import AboutCMU from "@/components/AboutCMU";
 import Highlights from "@/components/Highlights";
@@ -17,7 +16,6 @@ export default function Home() {
       <AthleteSystems />
       <Experience />
       <Projects />
-      <SkillsMetrics />
       <AboutCMU />
       <HighSchoolSwim />
       <Highlights />
