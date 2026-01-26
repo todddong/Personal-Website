@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ExternalLink, Github } from "lucide-react";
+import { ExternalLink, Github, Youtube } from "lucide-react";
 
 const projects = [
   {
@@ -55,15 +55,15 @@ const projects = [
     github: "https://github.com/todddong/15-112-Term-Project",
   },
   {
-    title: "Coming soon ... 👀",
-    description: "Exciting new project in development",
-    problem: "",
-    system: "",
-    impact: "",
-    tech: [],
-    link: "#",
-    github: "#",
-    isPlaceholder: true,
+    title: "DSC Datathon 2026",
+    description: "Data science competition project featuring interactive dashboard, map visualizations, and deep search capabilities for analyzing complex datasets",
+    problem: "Large-scale datasets require intuitive visualization and search tools to extract meaningful insights and patterns",
+    system: "Interactive web dashboard with map visualizations, deep search functionality, and comprehensive data analysis pipeline built with Jupyter Notebooks and data science tools",
+    impact: "Developed comprehensive data analysis solution with interactive visualizations, enabling users to explore and understand complex datasets through intuitive interface",
+    tech: ["Python", "Jupyter Notebooks", "Data Science", "Data Visualization", "Interactive Dashboard"],
+    link: "https://youtu.be/_cCfMuyg-Jw",
+    github: "https://github.com/45seconds/datathon-2026",
+    youtube: "https://youtu.be/_cCfMuyg-Jw",
   },
 ];
 
@@ -96,7 +96,18 @@ export default function Projects() {
                   {project.title}
                 </h3>
                 <div className="flex gap-2">
-                  {project.link !== "#" && (
+                  {(project as any).youtube && (
+                    <a
+                      href={(project as any).youtube}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-400 hover:text-red-400 transition-colors"
+                      title="Video Demo"
+                    >
+                      <Youtube size={20} />
+                    </a>
+                  )}
+                  {project.link !== "#" && project.link !== (project as any).youtube && (
                     <a
                       href={project.link}
                       target="_blank"
