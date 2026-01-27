@@ -205,6 +205,28 @@ const locations = [
       { src: "/media/cmu-about.jpg", alt: "Schenley Park Sunset" },
     ],
   },
+  {
+    id: 11,
+    name: "Girdwood, AK",
+    lat: 60.9428,
+    lng: -149.1664,
+    visitCount: 1,
+    activities: [],
+    photos: [
+      { src: "/media/alaska/alaska-3.jpg", alt: "Girdwood, Alaska" },
+    ],
+  },
+  {
+    id: 12,
+    name: "Port of Anchorage, AK",
+    lat: 61.2233,
+    lng: -149.9000,
+    visitCount: 1,
+    activities: [],
+    photos: [
+      { src: "/media/alaska/alaska-11.jpg", alt: "Port of Anchorage" },
+    ],
+  },
 ];
 
 // Find Cleveland and Nashville locations
