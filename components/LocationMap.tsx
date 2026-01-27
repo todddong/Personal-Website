@@ -15,16 +15,17 @@ L.Icon.Default.mergeOptions({
   shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png",
 });
 
-// Custom marker icon - map pin vector
+// Custom marker icon - modern red map pin
 const createCustomIcon = () => {
   return L.divIcon({
     className: "custom-marker",
-    html: `<svg class="marker-pin" width="24" height="32" viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg" style="cursor: pointer; transition: all 0.2s ease; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-      <path d="M12 0C7.03 0 3 4.03 3 9c0 5.25 9 20 9 20s9-14.75 9-20c0-4.97-4.03-9-9-9z" fill="#1a1a1a"/>
-      <circle cx="12" cy="9" r="3" fill="#ffffff"/>
+    html: `<svg class="marker-pin" width="20" height="28" viewBox="0 0 20 28" xmlns="http://www.w3.org/2000/svg" style="cursor: pointer; transition: all 0.3s ease;">
+      <path d="M10 0C5.86 0 2.5 3.36 2.5 7.5c0 5.62 7.5 18.5 7.5 18.5s7.5-12.88 7.5-18.5C17.5 3.36 14.14 0 10 0z" fill="#ef4444" stroke="#ffffff" stroke-width="1.5"/>
+      <circle cx="10" cy="7.5" r="2.5" fill="#ffffff"/>
     </svg>`,
-    iconSize: [24, 32],
-    iconAnchor: [12, 32],
+    iconSize: [20, 28],
+    iconAnchor: [10, 28],
+    popupAnchor: [0, -28],
   });
 };
 
@@ -504,14 +505,15 @@ export default function LocationMap() {
           border: none !important;
         }
         .custom-marker .marker-pin {
-          transition: all 0.2s ease;
+          transition: all 0.3s ease;
+          filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
         }
         .custom-marker:hover .marker-pin {
-          transform: scale(1.3);
-          filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+          transform: scale(1.4);
+          filter: drop-shadow(0 4px 12px rgba(239, 68, 68, 0.4));
         }
         .custom-marker:hover .marker-pin path {
-          fill: #93C572;
+          fill: #dc2626;
         }
         .leaflet-control-zoom {
           border: none !important;

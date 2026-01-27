@@ -87,7 +87,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="flex items-start justify-between mb-2">
+      <div className="flex items-start justify-between">
         <h3 className="text-lg font-normal text-gray-900 group-hover:text-[#93C572] transition-colors">
           {project.title}
         </h3>

@@ -124,7 +124,7 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
-            className="relative w-full max-w-md mx-auto aspect-[9/16] rounded-3xl overflow-hidden border-4 border-gray-300 shadow-2xl"
+            className="relative w-full max-w-xs mx-auto aspect-[9/16] rounded-3xl overflow-hidden border-4 border-gray-300 shadow-2xl"
           >
             <video
               ref={videoRef}
