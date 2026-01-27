@@ -8,20 +8,15 @@ export default function AboutCMU() {
   return (
     <section id="about-cmu" className="py-8 px-4 md:px-8 relative bg-[#faf8f4] border-t border-gray-200">
       <div className="max-w-6xl mx-auto">
-        <motion.div
+        <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-left mb-4"
+          className="text-xl md:text-2xl font-normal mb-6 text-left text-[#93C572]"
         >
-          <h2 className="text-xl md:text-2xl font-normal mb-2 text-[#93C572]">
-            about carnegie mellon
-          </h2>
-          <p className="text-gray-500 text-sm max-w-2xl">
-            My journey at one of the world&apos;s leading computer science programs
-          </p>
-        </motion.div>
+          about carnegie mellon
+        </motion.h2>
 
         <div className="grid md:grid-cols-2 gap-6 items-center">
           {/* Photo */}
