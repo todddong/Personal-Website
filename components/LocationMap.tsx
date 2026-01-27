@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup, useMap, Polyline, GeoJSON } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, useMap, Polyline, GeoJSON, Circle } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { motion } from "framer-motion";
@@ -70,6 +70,7 @@ const locations = [
     name: "Pittsburgh, PA",
     lat: 40.4406,
     lng: -79.9959,
+    visitCount: 10, // Most visited - CMU + multiple photos
     activities: [
       {
         title: "Carnegie Mellon University",
@@ -87,12 +88,21 @@ const locations = [
         logo: "/media/logos/cmu.jpg",
       },
     ],
+    photos: [
+      { src: "/media/swim-1.jpg", alt: "Swim Photo 1" },
+      { src: "/media/swim-2.jpg", alt: "Swim Photo 2" },
+      { src: "/media/swim-3.jpg", alt: "Swim Photo 3" },
+      { src: "/media/swim-team-podium.jpg", alt: "Swim Team Podium" },
+      { src: "/media/general/photo-1.jpg", alt: "Photo 1" },
+      { src: "/media/general/photo-5.jpg", alt: "Photo 5" },
+    ],
   },
   {
     id: 2,
     name: "Anchorage, AK",
     lat: 61.2181,
     lng: -149.9003,
+    visitCount: 2,
     activities: [
       {
         title: "University of Alaska Anchorage AI Lab",
@@ -100,18 +110,55 @@ const locations = [
         logo: "/media/logos/uaa.png",
       },
     ],
+    photos: [
+      { src: "/media/general/photo-3.jpg", alt: "Flat Top Mountain" },
+    ],
   },
   {
     id: 3,
     name: "Raleigh, NC",
     lat: 35.7796,
     lng: -78.6382,
+    visitCount: 1,
     activities: [
       {
         title: "First Citizens Bank",
         period: "2026",
         logo: "/media/logos/first-citizens.jpg",
       },
+    ],
+  },
+  {
+    id: 4,
+    name: "Ocoee River, Chattanooga, TN",
+    lat: 35.1,
+    lng: -84.5,
+    visitCount: 1,
+    activities: [],
+    photos: [
+      { src: "/media/general/photo-2.jpg", alt: "Ocoee River" },
+    ],
+  },
+  {
+    id: 5,
+    name: "Lake Lanier, GA",
+    lat: 34.2,
+    lng: -83.9,
+    visitCount: 1,
+    activities: [],
+    photos: [
+      { src: "/media/general/photo-4.jpg", alt: "Lake Lanier" },
+    ],
+  },
+  {
+    id: 6,
+    name: "Downtown Pittsburgh, PA",
+    lat: 40.44,
+    lng: -80.0,
+    visitCount: 1,
+    activities: [],
+    photos: [
+      { src: "/media/general/photo-6.jpg", alt: "Downtown Pittsburgh" },
     ],
   },
 ];
@@ -122,6 +169,15 @@ const arcPaths = [
   createArcPath([locations[1].lat, locations[1].lng], [locations[0].lat, locations[0].lng]), // Anchorage back to Pittsburgh
   createArcPath([locations[0].lat, locations[0].lng], [locations[2].lat, locations[2].lng]), // Pittsburgh to Raleigh
 ];
+
+// Heat map data - create circles for frequently visited locations
+const heatMapData = locations.map(loc => ({
+  lat: loc.lat,
+  lng: loc.lng,
+  intensity: loc.visitCount,
+  radius: Math.min(loc.visitCount * 50000, 200000), // Scale radius based on visit count
+  opacity: Math.min(0.1 + (loc.visitCount * 0.05), 0.3), // Darker for more visits
+}));
 
 // Component to set map view
 function MapView() {
@@ -202,6 +258,21 @@ export default function LocationMap() {
         {/* State boundaries overlay using GeoJSON */}
         <StateBoundaries />
         
+        {/* Heat map circles */}
+        {heatMapData.map((heat, idx) => (
+          <Circle
+            key={`heat-${idx}`}
+            center={[heat.lat, heat.lng]}
+            radius={heat.radius}
+            pathOptions={{
+              fillColor: "#ef4444",
+              fillOpacity: heat.opacity,
+              color: "transparent",
+              weight: 0,
+            }}
+          />
+        ))}
+        
         {/* Arc paths connecting locations */}
         {arcPaths.map((path, idx) => (
           <Polyline
@@ -224,7 +295,7 @@ export default function LocationMap() {
           >
             <Popup className="custom-popup" maxWidth={200}>
               <div className="p-2">
-                {location.activities.map((activity, idx) => (
+                {location.activities.length > 0 && location.activities.map((activity, idx) => (
                   <div key={idx} className="mb-2 last:mb-0">
                     <div className="flex items-center gap-2 mb-1">
                       {activity.logo && (
@@ -244,6 +315,23 @@ export default function LocationMap() {
                     </div>
                   </div>
                 ))}
+                {location.photos && location.photos.length > 0 && (
+                  <div className="mt-2 pt-2 border-t border-gray-200">
+                    <p className="text-xs text-gray-500 mb-1">Photos:</p>
+                    <div className="grid grid-cols-2 gap-1">
+                      {location.photos.map((photo, idx) => (
+                        <div key={idx} className="relative w-full h-16 rounded overflow-hidden border border-gray-200">
+                          <Image
+                            src={photo.src}
+                            alt={photo.alt}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             </Popup>
           </Marker>
