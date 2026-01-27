@@ -80,7 +80,7 @@ export default function Highlights() {
           <h2 className="text-3xl md:text-4xl font-normal mb-2 text-[#93C572]">
             Alaska Highlights
           </h2>
-          <p className="text-gray-500 text-sm max-w-2xl mx-auto">
+          <p className="text-gray-500 text-sm max-w-2xl">
             Summer 2025 internship in Anchorage — exploring the Last Frontier
           </p>
         </motion.div>

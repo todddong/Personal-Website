@@ -18,7 +18,7 @@ export default function AboutCMU() {
           <h2 className="text-3xl md:text-4xl font-normal mb-2 text-[#93C572]">
             About Carnegie Mellon
           </h2>
-          <p className="text-gray-500 text-sm max-w-2xl mx-auto">
+          <p className="text-gray-500 text-sm max-w-2xl">
             My journey at one of the world&apos;s leading computer science programs
           </p>
         </motion.div>
