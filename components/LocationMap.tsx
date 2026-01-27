@@ -234,21 +234,13 @@ const heatMapData = [
   { lat: 41.4993, lng: -81.6944, radius: 30000, opacity: 0.08, intensity: 1 }, // Cleveland
 ];
 
-// Component to set map view - center on continental US only (no Alaska), zoomed in to show vegetation
+// Component to set map view - center on continental US
 function MapView() {
   const map = useMap();
   
   useEffect(() => {
-    // Set bounds to show only continental US (no Alaska)
-    const bounds = L.latLngBounds(
-      [24.396308, -125.0], // Southwest corner (continental US)
-      [49.384358, -66.93457] // Northeast corner (continental US)
-    );
-    // Fit bounds with no padding and high zoom to show more detail
-    map.fitBounds(bounds, { 
-      padding: [0, 0],
-      maxZoom: 12
-    });
+    // Center on continental US with standard zoom
+    map.setView([39.8283, -98.5795], 5);
   }, [map]);
   
   return null;
@@ -435,7 +427,7 @@ export default function LocationMap() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
-      className="w-full h-[600px] rounded-2xl overflow-hidden border-2 border-gray-300 shadow-md bg-white"
+      className="w-full h-[600px] rounded-2xl overflow-hidden border border-gray-200 shadow-sm bg-white"
     >
       <MapContainer
         center={[39.8283, -98.5795]}

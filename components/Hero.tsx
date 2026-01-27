@@ -69,81 +69,84 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#faf8f4] py-16">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#faf8f4] py-16">
       {/* Grid Background */}
       <div className="absolute inset-0 grid-pattern opacity-20 z-0" />
       
-      {/* Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center px-8 md:px-12">
-        {/* Headshot */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8 }}
-          className="mb-6"
-        >
-          <div className="relative w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-2 border-gray-200 shadow-lg">
-            <Image
-              src="/media/headshot.PNG"
-              alt="Todd Dong"
-              fill
-              className="object-cover scale-150"
-              priority
-              onError={(e) => {
-                const target = e.target as HTMLImageElement;
-                target.style.display = 'none';
-              }}
-            />
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-8 md:px-12">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          {/* Left Side - Content */}
+          <div className="flex flex-col items-start">
+            {/* Headshot */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8 }}
+              className="mb-6"
+            >
+              <div className="relative w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-2 border-gray-200 shadow-lg">
+                <Image
+                  src="/media/headshot.PNG"
+                  alt="Todd Dong"
+                  fill
+                  className="object-cover scale-150"
+                  priority
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = 'none';
+                  }}
+                />
+              </div>
+            </motion.div>
+            
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-4xl md:text-5xl font-bold mb-3 text-gray-900"
+            >
+              <TypingText text="Todd Dong" speed={150} delay={0} />
+            </motion.h1>
+            
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-base md:text-lg text-gray-600 mb-1"
+            >
+              <TypingText text="Computer Science @ Carnegie Mellon" speed={80} delay={1500} />
+            </motion.p>
+            
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-sm md:text-base text-gray-500 font-light"
+            >
+              <TypingText text="Machine Learning Research Assistant • Student Athlete • Incoming Software Engineering Intern at First Citizens Bank" speed={50} delay={4500} />
+            </motion.p>
           </div>
-        </motion.div>
-        
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-4xl md:text-5xl font-bold mb-3 text-gray-900 text-center"
-        >
-          <TypingText text="Todd Dong" speed={150} delay={0} />
-        </motion.h1>
-        
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-base md:text-lg text-gray-600 mb-1 text-center"
-        >
-          <TypingText text="Computer Science @ Carnegie Mellon" speed={80} delay={1500} />
-        </motion.p>
-        
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-sm md:text-base text-gray-500 font-light text-center"
-        >
-          <TypingText text="Machine Learning Research Assistant • Student Athlete • Incoming Software Engineering Intern at First Citizens Bank" speed={50} delay={4500} />
-        </motion.p>
 
-        {/* Circular Video - Small and Centered */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          whileHover={{ scale: 1.5 }}
-          transition={{ duration: 0.8 }}
-          className="mt-8 relative w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-gray-200 shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer"
-        >
-          <video
-            ref={videoRef}
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover"
-            preload="auto"
+          {/* Right Side - Video in Rounded Box */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8 }}
+            className="relative w-full h-[400px] md:h-[500px] rounded-3xl overflow-hidden border-4 border-gray-300 shadow-2xl"
           >
-            <source src="/media/swim-video.mp4" type="video/mp4" />
-          </video>
-        </motion.div>
+            <video
+              ref={videoRef}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover"
+              preload="auto"
+            >
+              <source src="/media/swim-video.mp4" type="video/mp4" />
+            </video>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
