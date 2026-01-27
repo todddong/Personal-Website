@@ -1089,7 +1089,7 @@ export default function LocationMap() {
             });
           }
         }}
-        className="absolute bottom-3 right-3 z-[1000] bg-white hover:bg-gray-50 text-gray-700 px-2 py-1 rounded shadow-md border border-gray-200 text-xs font-medium transition-all hover:shadow-lg"
+        className="absolute bottom-3 left-3 z-[1000] bg-white hover:bg-gray-50 text-gray-700 px-2 py-1 rounded shadow-md border border-gray-200 text-xs font-medium transition-all hover:shadow-lg"
         title="Recenter map"
       >
         Recenter
