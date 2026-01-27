@@ -67,6 +67,21 @@ const createArcPath = (start: [number, number], end: [number, number], numPoints
   return points;
 };
 
+// Calculate distance in miles between two coordinates using Haversine formula
+function calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
+  const R = 3959; // Earth's radius in miles
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const a = 
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return R * c;
+}
+
+const NASHVILLE_COORDS = { lat: 36.1627, lng: -86.7816 };
+
 const locations = [
   {
     id: 1,
@@ -767,38 +782,52 @@ function ZoomBasedMarkers() {
                 {location.photos && location.photos.length > 0 && (
                   <div className="mt-2">
                     <div className="grid grid-cols-2 gap-1.5">
-                      {location.photos.map((photo, idx) => (
-                        <a
-                          key={idx}
-                          href="#highlights"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            const element = document.querySelector('#highlights');
-                            if (element) {
-                              element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                            }
-                          }}
-                          className="relative w-full aspect-square rounded-md overflow-hidden border border-gray-200 shadow-sm hover:border-gray-300 transition-all cursor-pointer"
-                        >
-                          {photo.src.startsWith('/media/') ? (
-                            <CloudImage
-                              src={localPathToSupabasePath(photo.src)}
-                              alt={photo.alt}
-                              fill
-                              className="object-cover"
-                              objectFit="cover"
-                              fallback={photo.src}
-                            />
-                          ) : (
-                            <Image
-                              src={photo.src}
-                              alt={photo.alt}
-                              fill
-                              className="object-cover"
-                            />
-                          )}
-                        </a>
-                      ))}
+                      {location.photos.map((photo, idx) => {
+                        const distance = location.name !== "Nashville, TN" 
+                          ? calculateDistance(location.lat, location.lng, NASHVILLE_COORDS.lat, NASHVILLE_COORDS.lng)
+                          : null;
+                        return (
+                          <a
+                            key={idx}
+                            href="#highlights"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              const element = document.querySelector('#highlights');
+                              if (element) {
+                                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                              }
+                            }}
+                            className="relative w-full aspect-square rounded-md overflow-hidden border border-gray-200 shadow-sm hover:border-gray-300 transition-all cursor-pointer"
+                          >
+                            {photo.src.startsWith('/media/') ? (
+                              <CloudImage
+                                src={localPathToSupabasePath(photo.src)}
+                                alt={photo.alt}
+                                fill
+                                className="object-cover"
+                                objectFit="cover"
+                                fallback={photo.src}
+                              />
+                            ) : (
+                              <Image
+                                src={photo.src}
+                                alt={photo.alt}
+                                fill
+                                className="object-cover"
+                              />
+                            )}
+                            {distance !== null && (
+                              <div className="absolute bottom-1 left-1 right-1">
+                                <div className="bg-black/60 backdrop-blur-sm rounded px-1.5 py-0.5 text-center">
+                                  <span className="text-white text-[10px] font-medium">
+                                    {Math.round(distance)} mi
+                                  </span>
+                                </div>
+                              </div>
+                            )}
+                          </a>
+                        );
+                      })}
                     </div>
                   </div>
                 )}
@@ -852,37 +881,53 @@ function ZoomBasedMarkers() {
                   </div>
                 </div>
               )}
-              {subLoc.type === 'photo' && subLoc.data && (
-                <a
-                  href="#highlights"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const element = document.querySelector('#highlights');
-                    if (element) {
-                      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                  }}
-                  className="relative w-full aspect-square rounded-md overflow-hidden border border-gray-200 shadow-sm hover:border-gray-300 transition-all cursor-pointer block"
-                >
-                  {subLoc.data.src.startsWith('/media/') ? (
-                    <CloudImage
-                      src={localPathToSupabasePath(subLoc.data.src)}
-                      alt={subLoc.data.alt}
-                      fill
-                      className="object-cover"
-                      objectFit="cover"
-                      fallback={subLoc.data.src}
-                    />
-                  ) : (
-                    <Image
-                      src={subLoc.data.src}
-                      alt={subLoc.data.alt}
-                      fill
-                      className="object-cover"
-                    />
-                  )}
-                </a>
-              )}
+              {subLoc.type === 'photo' && subLoc.data && (() => {
+                const parentLocation = locations.find(loc => loc.id === subLoc.parentId);
+                const distance = parentLocation && parentLocation.name !== "Nashville, TN"
+                  ? calculateDistance(subLoc.lat, subLoc.lng, NASHVILLE_COORDS.lat, NASHVILLE_COORDS.lng)
+                  : null;
+                return (
+                  <a
+                    key={`subphoto-${subLoc.name}`}
+                    href="#highlights"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const element = document.querySelector('#highlights');
+                      if (element) {
+                        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      }
+                    }}
+                    className="relative w-full aspect-square rounded-md overflow-hidden border border-gray-200 shadow-sm hover:border-gray-300 transition-all cursor-pointer block"
+                  >
+                    {subLoc.data.src.startsWith('/media/') ? (
+                      <CloudImage
+                        src={localPathToSupabasePath(subLoc.data.src)}
+                        alt={subLoc.data.alt}
+                        fill
+                        className="object-cover"
+                        objectFit="cover"
+                        fallback={subLoc.data.src}
+                      />
+                    ) : (
+                      <Image
+                        src={subLoc.data.src}
+                        alt={subLoc.data.alt}
+                        fill
+                        className="object-cover"
+                      />
+                    )}
+                    {distance !== null && (
+                      <div className="absolute bottom-1 left-1 right-1">
+                        <div className="bg-black/60 backdrop-blur-sm rounded px-1.5 py-0.5 text-center">
+                          <span className="text-white text-[10px] font-medium">
+                            {Math.round(distance)} mi
+                          </span>
+                        </div>
+                      </div>
+                    )}
+                  </a>
+                );
+              })()}
             </div>
           </Popup>
         </Marker>
