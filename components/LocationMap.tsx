@@ -1,11 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, createContext, useContext } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap, Polyline, GeoJSON, Circle } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import { X } from "lucide-react";
+
+// Context for photo click handler
+const PhotoClickContext = createContext<((photoSrc: string) => void) | null>(null);
 
 // Fix for default marker icons in Next.js
 delete (L.Icon.Default.prototype as any)._getIconUrl;
@@ -318,6 +322,7 @@ function StateBoundaries() {
 function ZoomBasedMarkers() {
   const map = useMap();
   const [zoomLevel, setZoomLevel] = useState(map.getZoom());
+  const onPhotoClick = useContext(PhotoClickContext);
 
   useEffect(() => {
     const updateZoom = () => {
@@ -355,12 +360,9 @@ function ZoomBasedMarkers() {
                 e.target.closePopup();
               },
               click: () => {
-                // If location has photos, zoom in on it
-                if (location.photos && location.photos.length > 0) {
-                  map.setView([location.lat, location.lng], 12, {
-                    animate: true,
-                    duration: 0.5
-                  });
+                // If location has photos, open the first photo in lightbox
+                if (location.photos && location.photos.length > 0 && onPhotoClick) {
+                  onPhotoClick(location.photos[0].src);
                 }
               },
             }}
@@ -439,12 +441,9 @@ function ZoomBasedMarkers() {
               e.target.closePopup();
             },
             click: () => {
-              // If sub-location has photos, zoom in on it
-              if (subLoc.type === 'photo' && subLoc.data) {
-                map.setView([subLoc.lat, subLoc.lng], 12, {
-                  animate: true,
-                  duration: 0.5
-                });
+              // If sub-location has photos, open the photo in lightbox
+              if (subLoc.type === 'photo' && subLoc.data && onPhotoClick) {
+                onPhotoClick(subLoc.data.src);
               }
             },
           }}
@@ -502,6 +501,7 @@ function ZoomBasedMarkers() {
 
 export default function LocationMap() {
   const [isClient, setIsClient] = useState(false);
+  const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
 
   useEffect(() => {
     setIsClient(true);
@@ -559,7 +559,9 @@ export default function LocationMap() {
         ))}
         
         {/* Markers - zoom-based */}
-        <ZoomBasedMarkers />
+        <PhotoClickContext.Provider value={setSelectedPhoto}>
+          <ZoomBasedMarkers />
+        </PhotoClickContext.Provider>
       </MapContainer>
       
       <style jsx global>{`
@@ -640,6 +642,41 @@ export default function LocationMap() {
           margin: 0 !important;
         }
       `}</style>
+      
+      {/* Photo Lightbox Modal */}
+      <AnimatePresence>
+        {selectedPhoto && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[9999] bg-black/95 flex items-center justify-center p-4"
+            onClick={() => setSelectedPhoto(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              className="relative max-w-6xl max-h-[90vh] w-full"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setSelectedPhoto(null)}
+                className="absolute top-4 right-4 z-10 text-white hover:text-gray-300 transition-colors bg-black/50 rounded-full p-2 shadow-md"
+              >
+                <X size={24} />
+              </button>
+              <div className="relative w-full h-full aspect-video">
+                <Image
+                  src={selectedPhoto}
+                  alt="Selected photo"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }
