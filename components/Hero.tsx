@@ -77,7 +77,7 @@ export default function Hero() {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Left Side - Content (Centered) */}
           <div className="flex flex-col items-center justify-center">
-            <div className="flex items-center gap-4 mb-6">
+            <div className="flex items-center gap-6">
               {/* CS Logo */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
