@@ -99,7 +99,7 @@ export default function Hero() {
             </motion.div>
             
             {/* X separator - centered between logos */}
-            <div className="flex items-center justify-center my-2">
+            <div className="w-full flex items-center justify-center my-2">
               <div className="text-gray-400 text-2xl font-light">×</div>
             </div>
             
