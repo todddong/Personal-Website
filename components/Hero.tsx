@@ -117,14 +117,6 @@ export default function Hero() {
               <TypingText text="Computer Science @ Carnegie Mellon" speed={80} delay={1500} />
             </motion.p>
             
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-sm md:text-base text-gray-500 font-light"
-            >
-              <TypingText text="Machine Learning Research Assistant • Student Athlete • Incoming Software Engineering Intern at First Citizens Bank" speed={50} delay={4500} />
-            </motion.p>
           </div>
 
           {/* Right Side - Video in Rounded Box */}
@@ -132,7 +124,7 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
-            className="relative w-full h-[400px] md:h-[500px] rounded-3xl overflow-hidden border-4 border-gray-300 shadow-2xl"
+            className="relative w-full aspect-[16/9] rounded-3xl overflow-hidden border-4 border-gray-300 shadow-2xl"
           >
             <video
               ref={videoRef}
@@ -141,6 +133,7 @@ export default function Hero() {
               muted
               playsInline
               className="absolute inset-0 w-full h-full object-cover"
+              style={{ objectPosition: 'center center' }}
               preload="auto"
             >
               <source src="/media/swim-video.mp4" type="video/mp4" />
