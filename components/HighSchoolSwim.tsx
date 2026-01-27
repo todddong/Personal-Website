@@ -17,7 +17,7 @@ const achievements = [
 
 export default function HighSchoolSwim() {
   return (
-    <section id="awards" className="py-24 px-4 md:px-8 relative bg-gradient-to-b from-transparent to-gray-900/30">
+    <section id="awards" className="py-12 px-4 md:px-8 relative bg-white">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -26,22 +26,22 @@ export default function HighSchoolSwim() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-5xl md:text-6xl font-bold mb-4">
+          <h2           className="text-3xl md:text-4xl font-bold mb-2 text-gray-900">
             Awards & Accolades
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          <p className="text-gray-500 text-sm max-w-2xl mx-auto">
             Recognition and achievements across academics, athletics, and leadership
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="grid md:grid-cols-2 gap-8 items-center">
           {/* Photo */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="relative h-[500px] rounded-lg overflow-hidden border border-gray-800 group"
+            className="relative h-[300px] rounded-lg overflow-hidden border border-gray-200 group"
           >
             <Image
               src="/media/highlights/highschool-highlights.jpg"
@@ -74,12 +74,12 @@ export default function HighSchoolSwim() {
             transition={{ duration: 0.8 }}
             className="space-y-6"
           >
-            <div className="flex items-center gap-3 mb-6">
-              <Trophy className="text-blue-400" size={32} />
-              <h3 className="text-2xl font-semibold text-white">Awards & Recognition</h3>
+            <div className="flex items-center gap-2 mb-4">
+              <Trophy className="text-blue-600" size={24} />
+              <h3 className="text-lg font-semibold text-gray-900">Awards & Recognition</h3>
             </div>
             
-            <div className="space-y-3">
+            <div className="space-y-2">
               {achievements.map((achievement, index) => (
                 <motion.div
                   key={index}
@@ -87,10 +87,10 @@ export default function HighSchoolSwim() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: index * 0.1 }}
-                  className="flex items-start gap-3 p-3 bg-gray-900/50 border border-gray-800 rounded-lg hover:border-gray-700 transition-all"
+                  className="flex items-start gap-2 p-2 bg-gray-50 border border-gray-200 rounded hover:border-gray-300 transition-all"
                 >
-                  <Award className="text-blue-400 mt-0.5 flex-shrink-0" size={18} />
-                  <span className="text-gray-300">{achievement}</span>
+                  <Award className="text-blue-600 mt-0.5 flex-shrink-0" size={14} />
+                  <span className="text-gray-700 text-sm">{achievement}</span>
                 </motion.div>
               ))}
             </div>

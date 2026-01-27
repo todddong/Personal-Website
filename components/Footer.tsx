@@ -39,19 +39,19 @@ const social = [
 
 export default function Footer() {
   return (
-    <footer id="contact" className="py-16 px-4 md:px-8 border-t border-gray-800">
+    <footer id="contact" className="py-8 px-4 md:px-8 border-t border-gray-200 bg-white">
       <div className="max-w-7xl mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-4xl md:text-5xl font-bold mb-12 text-center"
+          className="text-2xl md:text-3xl font-bold mb-6 text-center text-gray-900"
         >
           Contact Me
         </motion.h2>
 
-        <div className="grid md:grid-cols-3 gap-8 mb-12">
+        <div className="grid md:grid-cols-3 gap-4 mb-6">
           {contact.map((item, index) => {
             const Icon = item.icon;
             return (
@@ -62,20 +62,20 @@ export default function Footer() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="flex flex-col items-center text-center p-6 bg-gray-900/50 border border-gray-800 rounded-lg hover:border-gray-700 transition-all group"
+                className="flex flex-col items-center text-center p-4 bg-gray-50 border border-gray-200 rounded-lg hover:border-gray-300 transition-all group"
               >
-                <Icon className="text-blue-400 mb-3 group-hover:scale-110 transition-transform" size={24} />
+                <Icon className="text-blue-600 mb-2 group-hover:scale-110 transition-transform" size={20} />
                 <span className="text-xs text-gray-500 uppercase tracking-wide mb-1">
                   {item.label}
                 </span>
-                <span className="text-gray-300 text-sm">{item.value}</span>
+                <span className="text-gray-700 text-sm">{item.value}</span>
               </motion.a>
             );
           })}
         </div>
 
         {/* Social Links */}
-        <div className="flex justify-center gap-6 mb-8">
+        <div className="flex justify-center gap-4 mb-4">
           {social.map((item) => {
             const Icon = item.icon;
             return (
@@ -88,7 +88,7 @@ export default function Footer() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 whileHover={{ scale: 1.1 }}
-                className="text-gray-400 hover:text-blue-400 transition-colors"
+                className="text-gray-600 hover:text-blue-600 transition-colors"
               >
                 <Icon size={24} />
               </motion.a>

@@ -53,7 +53,7 @@ function TypingText({ text, speed = 100, delay = 0 }: { text: string; speed?: nu
     <span>
       {displayedText}
       {hasStarted && isTyping && (
-        <span className="text-white">|</span>
+        <span className="text-gray-900">|</span>
       )}
     </span>
   );
@@ -69,9 +69,9 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative h-screen flex overflow-hidden">
+    <section className="relative min-h-screen flex overflow-hidden bg-white">
       {/* Grid Background - Only on left side */}
-      <div className="absolute left-0 top-0 bottom-0 w-2/3 grid-pattern opacity-30 z-0" />
+      <div className="absolute left-0 top-0 bottom-0 w-2/3 grid-pattern opacity-20 z-0" />
       
       {/* Left Side - Content */}
       <div className="relative z-10 w-2/3 flex flex-col items-center justify-center px-8 md:px-12">
@@ -80,9 +80,9 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8 }}
-          className="mb-8"
+          className="mb-6"
         >
-          <div className="relative w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-gray-700/50 shadow-2xl">
+          <div className="relative w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-2 border-gray-200 shadow-lg">
             <Image
               src="/media/headshot.PNG"
               alt="Todd Dong"
@@ -101,7 +101,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-5xl md:text-7xl font-bold mb-4 gradient-text text-center"
+          className="text-4xl md:text-5xl font-bold mb-3 text-gray-900 text-center"
         >
           <TypingText text="Todd Dong" speed={150} delay={0} />
         </motion.h1>
@@ -110,7 +110,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-lg md:text-xl text-gray-300 mb-2 text-center"
+          className="text-base md:text-lg text-gray-600 mb-1 text-center"
         >
           <TypingText text="Computer Science @ Carnegie Mellon" speed={80} delay={1500} />
         </motion.p>
@@ -119,7 +119,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-base md:text-lg text-gray-400 font-light text-center"
+          className="text-sm md:text-base text-gray-500 font-light text-center"
         >
           <TypingText text="Machine Learning Research Assistant • Student Athlete • Incoming Software Engineering Intern at First Citizens Bank" speed={50} delay={4500} />
         </motion.p>

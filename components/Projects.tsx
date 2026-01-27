@@ -83,12 +83,12 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      className="group relative bg-gray-900/50 border border-gray-800 rounded-lg p-6 hover:border-gray-700 transition-all duration-300"
+      className="group relative bg-white border border-gray-200 rounded-lg p-4 hover:border-gray-300 transition-all duration-300"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="flex items-start justify-between">
-        <h3 className="text-2xl font-bold text-white group-hover:text-blue-400 transition-colors">
+        <h3 className="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
           {project.title}
         </h3>
         <div className="flex gap-2">
@@ -135,7 +135,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
             transition={{ duration: 0.2 }}
             className="overflow-hidden"
           >
-            <p className="text-gray-400 mb-4 text-sm mt-4">{project.description}</p>
+            <p className="text-gray-600 mb-4 text-sm mt-4">{project.description}</p>
 
             {(project as any).previewImages && (project as any).previewImages.length > 0 && (
               <div className="grid grid-cols-2 gap-2 mb-4">
@@ -166,15 +166,15 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
             <div className="space-y-3 mb-4">
               <div>
                 <span className="text-xs text-gray-500 uppercase tracking-wide">Problem</span>
-                <p className="text-gray-300 text-sm mt-1">{project.problem}</p>
+                <p className="text-gray-600 text-sm mt-1">{project.problem}</p>
               </div>
               <div>
                 <span className="text-xs text-gray-500 uppercase tracking-wide">System</span>
-                <p className="text-gray-300 text-sm mt-1">{project.system}</p>
+                <p className="text-gray-600 text-sm mt-1">{project.system}</p>
               </div>
               <div>
                 <span className="text-xs text-gray-500 uppercase tracking-wide">Impact</span>
-                <p className="text-gray-300 text-sm mt-1">{project.impact}</p>
+                <p className="text-gray-600 text-sm mt-1">{project.impact}</p>
               </div>
             </div>
 
@@ -182,7 +182,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
               {project.tech.map((tech) => (
                 <span
                   key={tech}
-                  className="px-3 py-1 bg-gray-800/50 text-gray-300 text-xs rounded-full border border-gray-700"
+                    className="px-3 py-1 bg-gray-100 text-gray-700 text-xs rounded-full border border-gray-200"
                 >
                   {tech}
                 </span>
@@ -197,14 +197,14 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-24 px-4 md:px-8 relative">
+    <section id="projects" className="py-12 px-4 md:px-8 relative bg-white">
       <div className="max-w-7xl mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-5xl md:text-6xl font-bold mb-16 text-center"
+          className="text-3xl md:text-4xl font-bold mb-8 text-center text-gray-900"
         >
           Projects
         </motion.h2>

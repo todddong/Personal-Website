@@ -42,10 +42,10 @@ function HighlightItem({
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.05 }}
-      className="relative group cursor-pointer overflow-hidden rounded-lg border border-gray-800 hover:border-blue-400/50 transition-all shadow-lg hover:shadow-2xl"
+      className="relative group cursor-pointer overflow-hidden rounded border border-gray-200 hover:border-blue-400 transition-all"
       onClick={() => onSelect(highlight.src)}
     >
-      <div className="aspect-[4/3] relative overflow-hidden">
+      <div className="aspect-square relative overflow-hidden">
         <Image
           src={highlight.src}
           alt={highlight.alt}
@@ -53,9 +53,9 @@ function HighlightItem({
           className="object-cover group-hover:scale-125 transition-transform duration-700 ease-out"
           onError={() => setImageError(true)}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         <div className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-          <span className="text-white font-medium text-sm">
+          <span className="text-gray-900 font-medium text-sm">
             {highlight.title}
           </span>
         </div>
@@ -68,24 +68,24 @@ export default function Highlights() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   return (
-    <section id="highlights" className="py-24 px-4 md:px-8 relative">
+    <section id="highlights" className="py-8 px-4 md:px-8 relative bg-white">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-6"
         >
-          <h2 className="text-5xl md:text-6xl font-bold mb-4">
+          <h2 className="text-2xl md:text-3xl font-bold mb-2 text-gray-900">
             Alaska Highlights
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          <p className="text-gray-500 text-sm max-w-2xl mx-auto">
             Summer 2025 internship in Anchorage — exploring the Last Frontier
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
           {alaskaHighlights.map((highlight, index) => (
             <HighlightItem
               key={index}
@@ -113,7 +113,7 @@ export default function Highlights() {
             >
               <button
                 onClick={() => setSelectedImage(null)}
-                className="absolute top-4 right-4 z-10 text-white hover:text-gray-300 transition-colors bg-black/50 rounded-full p-2"
+                className="absolute top-4 right-4 z-10 text-gray-900 hover:text-gray-600 transition-colors bg-white/90 rounded-full p-2 shadow-md"
               >
                 <X size={24} />
               </button>

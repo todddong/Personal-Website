@@ -10,7 +10,7 @@ import dynamic from "next/dynamic";
 const LocationMap = dynamic(() => import("./LocationMap"), {
   ssr: false,
   loading: () => (
-    <div className="w-full h-[500px] bg-gray-900/50 border border-gray-800 rounded-lg flex items-center justify-center">
+    <div className="w-full h-[500px] bg-gray-50 border border-gray-200 rounded-lg flex items-center justify-center">
       <p className="text-gray-400">Loading map...</p>
     </div>
   ),
@@ -75,11 +75,11 @@ function TimelineItem({ item, index }: { item: typeof timeline[0]; index: number
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.2 }}
-      className="relative pl-20"
+      className="relative pl-16"
     >
       {/* Logo - Replace icon with logo */}
       {item.logo && !logoError && (
-        <div className="absolute left-0 top-0 w-16 h-16 bg-white rounded-lg p-1.5 border-2 border-gray-800 flex items-center justify-center z-10">
+        <div className="absolute left-0 top-0 w-12 h-12 bg-white rounded-lg p-1 border-2 border-gray-200 flex items-center justify-center z-10 shadow-sm">
           <Image
             src={item.logo}
             alt={`${item.title} logo`}
@@ -90,24 +90,24 @@ function TimelineItem({ item, index }: { item: typeof timeline[0]; index: number
         </div>
       )}
       {(!item.logo || logoError) && (
-        <div className="absolute left-0 top-0 w-16 h-16 bg-gray-900 border-2 border-gray-800 rounded-full flex items-center justify-center z-10">
-          <Icon className="text-blue-400" size={24} />
+        <div className="absolute left-0 top-0 w-12 h-12 bg-gray-100 border-2 border-gray-200 rounded-full flex items-center justify-center z-10">
+          <Icon className="text-blue-600" size={20} />
         </div>
       )}
 
       {/* Content */}
       <div 
-        className="bg-gray-900/50 border border-gray-800 rounded-lg p-6 hover:border-gray-700 transition-all"
+        className="bg-gray-50 border border-gray-200 rounded-lg p-4 hover:border-gray-300 transition-all"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
         <div className="flex items-start justify-between mb-2">
           <div>
-            <h3 className="text-xl font-semibold text-white mb-1">{item.title}</h3>
-            <p className="text-blue-400 text-sm mb-2">{item.role}</p>
+            <h3 className="text-lg font-semibold text-gray-900 mb-1">{item.title}</h3>
+            <p className="text-blue-600 text-sm mb-2">{item.role}</p>
           </div>
           <div className="flex flex-col items-end ml-4">
-            <span className="text-gray-500 text-sm whitespace-nowrap">
+            <span className="text-gray-500 text-xs whitespace-nowrap">
               {item.year}
             </span>
           </div>
@@ -123,11 +123,11 @@ function TimelineItem({ item, index }: { item: typeof timeline[0]; index: number
               transition={{ duration: 0.2 }}
               className="overflow-hidden"
             >
-              <div className="flex items-center gap-2 text-gray-400 text-sm mb-3">
-                <MapPin size={14} />
+              <div className="flex items-center gap-2 text-gray-500 text-xs mb-2">
+                <MapPin size={12} />
                 <span>{item.location}</span>
               </div>
-              <p className="text-gray-300 text-sm leading-relaxed">{item.description}</p>
+              <p className="text-gray-600 text-sm leading-relaxed">{item.description}</p>
             </motion.div>
           )}
         </AnimatePresence>
@@ -138,20 +138,20 @@ function TimelineItem({ item, index }: { item: typeof timeline[0]; index: number
 
 export default function Experience() {
   return (
-    <section id="experience" className="py-24 px-4 md:px-8 relative bg-gradient-to-b from-transparent to-gray-900/30">
+    <section id="experience" className="py-12 px-4 md:px-8 relative bg-white">
       <div className="max-w-7xl mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-5xl md:text-6xl font-bold mb-16 text-center"
+          className="text-3xl md:text-4xl font-bold mb-8 text-center text-gray-900"
         >
           Experience
         </motion.h2>
 
         {/* Interactive Map */}
-        <div className="mb-16">
+        <div className="mb-8">
           <LocationMap />
         </div>
 
@@ -159,9 +159,9 @@ export default function Experience() {
         <div className="max-w-4xl mx-auto">
           <div className="relative">
             {/* Timeline Line */}
-            <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gray-800" />
+            <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gray-200" />
 
-            <div className="space-y-12">
+            <div className="space-y-6">
               {timeline.map((item, index) => (
                 <TimelineItem key={index} item={item} index={index} />
               ))}

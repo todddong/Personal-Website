@@ -62,7 +62,7 @@ export default function AthleteSystems() {
     <section
       ref={sectionRef}
       id="athlete-systems"
-      className="py-24 px-4 md:px-8 relative bg-gradient-to-b from-transparent to-gray-900/30"
+      className="py-12 px-4 md:px-8 relative bg-white"
     >
       <div className="max-w-7xl mx-auto">
         <motion.h2
@@ -70,19 +70,19 @@ export default function AthleteSystems() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-5xl md:text-6xl font-bold mb-16 text-center"
+          className="text-3xl md:text-4xl font-bold mb-8 text-center text-gray-900"
         >
           About me
         </motion.h2>
 
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="grid md:grid-cols-2 gap-8 items-center">
           {/* Left: Swim Slideshow */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="relative h-[500px] rounded-lg overflow-hidden border border-gray-800 group"
+            className="relative h-[300px] rounded-lg overflow-hidden border border-gray-200 group"
           >
             <AnimatePresence mode="wait">
               <motion.div
@@ -124,14 +124,14 @@ export default function AthleteSystems() {
             {/* Navigation Arrows */}
             <button
               onClick={prevSlide}
-              className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 transition-all opacity-0 group-hover:opacity-100"
+              className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white text-gray-900 rounded-full p-2 transition-all opacity-0 group-hover:opacity-100 shadow-md"
               aria-label="Previous slide"
             >
               <ChevronLeft size={24} />
             </button>
             <button
               onClick={nextSlide}
-              className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 transition-all opacity-0 group-hover:opacity-100"
+              className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white text-gray-900 rounded-full p-2 transition-all opacity-0 group-hover:opacity-100 shadow-md"
               aria-label="Next slide"
             >
               <ChevronRight size={24} />
@@ -145,8 +145,8 @@ export default function AthleteSystems() {
                   onClick={() => setCurrentSlide(index)}
                   className={`h-2 rounded-full transition-all ${
                     index === currentSlide
-                      ? 'w-8 bg-blue-400'
-                      : 'w-2 bg-gray-600 hover:bg-gray-500'
+                      ? 'w-8 bg-blue-600'
+                      : 'w-2 bg-gray-300 hover:bg-gray-400'
                   }`}
                   aria-label={`Go to slide ${index + 1}`}
                 />
@@ -162,15 +162,15 @@ export default function AthleteSystems() {
             transition={{ duration: 0.8 }}
             className="space-y-3"
           >
-            <p className="text-xl text-gray-300 leading-relaxed">
+            <p className="text-lg text-gray-900 font-semibold mb-2">
               Todd Dong Bio
             </p>
             
-            <p className="text-gray-400 leading-relaxed text-sm">
+            <p className="text-gray-600 leading-relaxed text-sm mb-2">
               &quot;I am a CS student at Carnegie Mellon University and a member of the Varsity swim team. Being a student-athlete requires a high level of commitment, discipline, and time management, and I take pride in applying that same dedication to my academic and professional pursuits. I am currently working toward a degree in Computer Science with a concentration in Machine Learning.&quot;
             </p>
 
-            <p className="text-gray-400 text-sm leading-relaxed">
+            <p className="text-gray-500 text-sm leading-relaxed">
               Moved to Nashville. Passion for exploring new places, trying new food, going to the gym, and meeting new people.
             </p>
           </motion.div>

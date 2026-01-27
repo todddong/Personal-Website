@@ -423,7 +423,7 @@ export default function LocationMap() {
 
   if (!isClient) {
     return (
-      <div className="w-full h-[900px] bg-gray-100 border border-gray-300 rounded-lg flex items-center justify-center">
+      <div className="w-full h-[600px] bg-gray-50 border border-gray-200 rounded-lg flex items-center justify-center">
         <p className="text-gray-600">Loading map...</p>
       </div>
     );
@@ -435,7 +435,7 @@ export default function LocationMap() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
-      className="w-full h-[900px] rounded-lg overflow-hidden border border-gray-300 shadow-lg bg-white"
+      className="w-full h-[600px] rounded-lg overflow-hidden border border-gray-200 shadow-sm bg-white"
     >
       <MapContainer
         center={[39.8283, -98.5795]}
