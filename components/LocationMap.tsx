@@ -444,12 +444,14 @@ export default function LocationMap() {
       <MapContainer
         center={[39.8283, -98.5795]}
         zoom={4}
-        minZoom={3}
-        maxZoom={15}
+        minZoom={4}
+        maxZoom={12}
         style={{ height: "100%", width: "100%", zIndex: 0 }}
-        zoomControl={true}
+        zoomControl={false}
         scrollWheelZoom={true}
-        doubleClickZoom={true}
+        doubleClickZoom={false}
+        dragging={true}
+        touchZoom={true}
         className="map-container"
       >
         <MapView />
