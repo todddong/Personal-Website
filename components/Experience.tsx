@@ -80,11 +80,11 @@ function TimelineItem({ item, index }: { item: typeof timeline[0]; index: number
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.2 }}
-      className="relative pl-16"
+      className="relative pl-12 sm:pl-16"
     >
       {/* Logo - Replace icon with logo */}
       {item.logo && !logoError && (
-        <div className="absolute left-0 top-0 w-12 h-12 bg-white rounded-2xl p-1 border-2 border-gray-300 flex items-center justify-center z-10 shadow-md">
+        <div className="absolute left-0 top-0 w-10 h-10 sm:w-12 sm:h-12 bg-white rounded-2xl p-1 border-2 border-gray-300 flex items-center justify-center z-10 shadow-md">
           <Image
             src={item.logo}
             alt={`${item.title} logo`}
@@ -95,7 +95,7 @@ function TimelineItem({ item, index }: { item: typeof timeline[0]; index: number
         </div>
       )}
       {(!item.logo || logoError) && (
-        <div className="absolute left-0 top-0 w-12 h-12 bg-gray-100 border-2 border-gray-300 rounded-full flex items-center justify-center z-10 shadow-md">
+        <div className="absolute left-0 top-0 w-10 h-10 sm:w-12 sm:h-12 bg-gray-100 border-2 border-gray-300 rounded-full flex items-center justify-center z-10 shadow-md">
           <Icon className="text-[#93C572]" size={20} />
         </div>
       )}
@@ -143,7 +143,7 @@ function TimelineItem({ item, index }: { item: typeof timeline[0]; index: number
 
 export default function Experience() {
   return (
-    <section id="experience" className="py-8 px-4 md:px-8 relative bg-[#faf8f4] border-t border-gray-200">
+    <section id="experience" className="py-6 sm:py-8 px-4 sm:px-6 md:px-8 relative bg-[#faf8f4] border-t border-gray-200">
       <div className="max-w-7xl mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -159,7 +159,7 @@ export default function Experience() {
         <div className="max-w-4xl mx-auto">
           <div className="relative">
             {/* Timeline Line */}
-            <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gray-200" />
+            <div className="absolute left-5 sm:left-6 top-0 bottom-0 w-0.5 bg-gray-200" />
 
             <div className="space-y-6">
               {timeline.map((item, index) => (

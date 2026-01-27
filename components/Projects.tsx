@@ -83,7 +83,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      className="group bg-white border-2 border-gray-300 rounded-2xl p-4 hover:border-gray-400 transition-all duration-300 shadow-sm hover:shadow-xl self-start min-h-[120px]"
+      className="group bg-white border-2 border-gray-300 rounded-2xl p-3 sm:p-4 hover:border-gray-400 transition-all duration-300 shadow-sm hover:shadow-xl self-start min-h-[120px]"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -183,7 +183,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-8 px-4 md:px-8 relative bg-[#faf8f4] border-t border-gray-200">
+    <section id="projects" className="py-6 sm:py-8 px-4 sm:px-6 md:px-8 relative bg-[#faf8f4] border-t border-gray-200">
       <div className="max-w-7xl mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}

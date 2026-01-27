@@ -6,7 +6,7 @@ import { GraduationCap, MapPin, Calendar } from "lucide-react";
 
 export default function AboutCMU() {
   return (
-    <section id="about-cmu" className="py-8 px-4 md:px-8 relative bg-[#faf8f4] border-t border-gray-200">
+    <section id="about-cmu" className="py-6 sm:py-8 px-4 sm:px-6 md:px-8 relative bg-[#faf8f4] border-t border-gray-200">
       <div className="max-w-7xl mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}

@@ -71,7 +71,7 @@ export default function Highlights() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   return (
-    <section id="highlights" className="py-6 px-4 md:px-8 relative bg-[#faf8f4] border-t border-gray-200">
+    <section id="highlights" className="py-6 px-4 sm:px-6 md:px-8 relative bg-[#faf8f4] border-t border-gray-200">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

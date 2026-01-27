@@ -62,7 +62,7 @@ export default function AthleteSystems() {
     <section
       ref={sectionRef}
       id="athlete-systems"
-      className="py-8 px-4 md:px-8 relative bg-[#faf8f4] border-t border-gray-200"
+      className="py-6 sm:py-8 px-4 sm:px-6 md:px-8 relative bg-[#faf8f4] border-t border-gray-200"
     >
       <div className="max-w-7xl mx-auto">
         <motion.h2
