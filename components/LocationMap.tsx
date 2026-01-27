@@ -15,21 +15,16 @@ L.Icon.Default.mergeOptions({
   shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png",
 });
 
-// Custom marker icon - small clean pinpoint
+// Custom marker icon - map pin vector
 const createCustomIcon = () => {
   return L.divIcon({
     className: "custom-marker",
-    html: `<div class="marker-dot" style="
-      width: 6px;
-      height: 6px;
-      background-color: #1a1a1a;
-      border-radius: 50%;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-    "></div>`,
-    iconSize: [6, 6],
-    iconAnchor: [3, 3],
+    html: `<svg class="marker-pin" width="24" height="32" viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg" style="cursor: pointer; transition: all 0.2s ease; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
+      <path d="M12 0C7.03 0 3 4.03 3 9c0 5.25 9 20 9 20s9-14.75 9-20c0-4.97-4.03-9-9-9z" fill="#1a1a1a"/>
+      <circle cx="12" cy="9" r="3" fill="#ffffff"/>
+    </svg>`,
+    iconSize: [24, 32],
+    iconAnchor: [12, 32],
   });
 };
 
@@ -508,13 +503,15 @@ export default function LocationMap() {
           background: transparent !important;
           border: none !important;
         }
-        .custom-marker .marker-dot {
+        .custom-marker .marker-pin {
           transition: all 0.2s ease;
         }
-        .custom-marker:hover .marker-dot {
-          transform: scale(2.5);
-          box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-          background-color: #93C572 !important;
+        .custom-marker:hover .marker-pin {
+          transform: scale(1.3);
+          filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+        }
+        .custom-marker:hover .marker-pin path {
+          fill: #93C572;
         }
         .leaflet-control-zoom {
           border: none !important;
