@@ -352,7 +352,7 @@ const locations = [
     visitCount: 1,
     activities: [],
     photos: [
-      { src: "/media/general/lincoln road.jpg", alt: "Lincoln Road, Miami Beach" },
+      { src: "/media/alaska/lincoln road.jpg", alt: "Lincoln Road, Miami Beach" },
     ],
   },
 ];
@@ -438,9 +438,11 @@ function PhotoFunnelOverlayInner({
   const map = useMap();
   const [photoPosition, setPhotoPosition] = useState<{ x: number; y: number } | null>(null);
   const [markerPixelPosition, setMarkerPixelPosition] = useState<{ x: number; y: number } | null>(null);
+  const [imageError, setImageError] = useState(false);
 
   useEffect(() => {
     if (!photo || !markerPosition) return;
+    setImageError(false); // Reset error state when photo changes
 
     const updatePosition = () => {
       // Get marker position in pixels
@@ -604,12 +606,19 @@ function PhotoFunnelOverlayInner({
               <X size={18} />
             </button>
             <div className="relative w-full h-full">
-              <Image
-                src={photo}
-                alt="Selected photo"
-                fill
-                className="object-cover"
-              />
+              {imageError ? (
+                <div className="flex items-center justify-center h-full bg-gray-100 text-gray-500 text-sm p-4 text-center">
+                  Image not found
+                </div>
+              ) : (
+                <Image
+                  src={photo}
+                  alt="Selected photo"
+                  fill
+                  className="object-cover"
+                  onError={() => setImageError(true)}
+                />
+              )}
               {/* Location name label */}
               {markerPosition?.name && (
                 <div className="absolute bottom-4 left-4 right-4 z-10 flex justify-center">
