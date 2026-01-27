@@ -24,7 +24,7 @@ export default function Places() {
           transition={{ duration: 0.6 }}
           className="text-xl md:text-2xl font-normal mb-6 text-left text-[#93C572]"
         >
-          places I have been
+          places
         </motion.h2>
 
         <LocationMap />

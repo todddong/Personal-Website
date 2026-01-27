@@ -18,15 +18,9 @@ export default function AboutCMU() {
           <h2 className="text-xl md:text-2xl font-normal mb-2 text-[#93C572]">
             about carnegie mellon
           </h2>
-          <p className="text-gray-500 text-sm max-w-2xl mb-4">
+          <p className="text-gray-500 text-sm max-w-2xl">
             My journey at one of the world&apos;s leading computer science programs
           </p>
-          <ul className="space-y-1 mb-6">
-            <li className="text-[#93C572] text-sm">#1 CS Ranking</li>
-            <li className="text-[#93C572] text-sm">#2 AI Ranking</li>
-            <li className="text-[#93C572] text-sm">#1 Software Engineering</li>
-            <li className="text-[#93C572] text-sm">#1 Cybersecurity</li>
-          </ul>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-6 items-center">
@@ -84,6 +78,15 @@ export default function AboutCMU() {
                 <MapPin className="text-[#93C572]" size={16} />
                 <span>Pittsburgh, Pennsylvania</span>
               </div>
+              
+              <ul className="space-y-1 ml-6 mt-2">
+                <li className="text-sm">
+                  <span className="text-[#93C572]">#1</span> <span className="text-gray-900">CS Ranking</span>
+                </li>
+                <li className="text-sm text-gray-900">#2 AI Ranking</li>
+                <li className="text-sm text-gray-900">#1 Software Engineering</li>
+                <li className="text-sm text-gray-900">#1 Cybersecurity</li>
+              </ul>
             </div>
 
             <div className="pt-3 border-t border-gray-200">

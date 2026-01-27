@@ -7,6 +7,7 @@ const navItems = [
   { label: "Projects", href: "#projects" },
   { label: "About me", href: "#athlete-systems" },
   { label: "Experience", href: "#experience" },
+  { label: "Places", href: "#places" },
   { label: "About CMU", href: "#about-cmu" },
   { label: "Highlights", href: "#highlights" },
   { label: "Contact", href: "#contact" },

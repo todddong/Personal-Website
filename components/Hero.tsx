@@ -77,68 +77,71 @@ export default function Hero() {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Left Side - Content (Centered) */}
           <div className="flex flex-col items-center justify-center">
-            {/* CS Logo */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8 }}
-              className="mb-4"
-            >
-              <div className="relative w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-2 border-gray-200 shadow-md">
-                <Image
-                  src="/media/alaska/cs logo.png"
-                  alt="CS Logo"
-                  fill
-                  className="object-cover"
-                  priority
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.style.display = 'none';
-                  }}
-                />
+            <div className="flex items-center gap-4 mb-6">
+              {/* CS Logo */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8 }}
+              >
+                <div className="relative w-16 h-16 md:w-20 md:h-20 rounded-lg overflow-hidden border-2 border-gray-200 shadow-md">
+                  <Image
+                    src="/media/alaska/cs logo.png"
+                    alt="CS Logo"
+                    fill
+                    className="object-cover"
+                    priority
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = 'none';
+                    }}
+                  />
+                </div>
+              </motion.div>
+              
+              {/* Headshot and Name */}
+              <div className="flex flex-col items-center">
+                {/* Headshot */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8, delay: 0.1 }}
+                  className="mb-3"
+                >
+                  <div className="relative w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden border-2 border-gray-200 shadow-lg">
+                    <Image
+                      src="/media/headshot.PNG"
+                      alt="Todd Dong"
+                      fill
+                      className="object-cover scale-150"
+                      priority
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.style.display = 'none';
+                      }}
+                    />
+                  </div>
+                </motion.div>
+                
+                <motion.h1
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8 }}
+                  className="text-4xl md:text-5xl font-bold mb-3 text-gray-900 text-center"
+                >
+                  <TypingText text="Todd Dong" speed={150} delay={0} />
+                </motion.h1>
+                
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8 }}
+                  className="text-base md:text-lg text-gray-600 text-center"
+                >
+                  <TypingText text="Computer Science @ Carnegie Mellon" speed={80} delay={1500} />
+                </motion.p>
               </div>
-            </motion.div>
-            
-            {/* Headshot */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.1 }}
-              className="mb-6"
-            >
-              <div className="relative w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden border-2 border-gray-200 shadow-lg">
-                <Image
-                  src="/media/headshot.PNG"
-                  alt="Todd Dong"
-                  fill
-                  className="object-cover scale-150"
-                  priority
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.style.display = 'none';
-                  }}
-                />
-              </div>
-            </motion.div>
-            
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-4xl md:text-5xl font-bold mb-3 text-gray-900 text-center"
-            >
-              <TypingText text="Todd Dong" speed={150} delay={0} />
-            </motion.h1>
-            
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-base md:text-lg text-gray-600 text-center"
-            >
-              <TypingText text="Computer Science @ Carnegie Mellon" speed={80} delay={1500} />
-            </motion.p>
-            
+            </div>
           </div>
 
           {/* Right Side - Video in Rounded Box */}
