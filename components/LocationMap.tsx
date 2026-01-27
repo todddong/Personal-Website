@@ -354,6 +354,15 @@ function ZoomBasedMarkers() {
               mouseout: (e) => {
                 e.target.closePopup();
               },
+              click: () => {
+                // If location has photos, zoom in on it
+                if (location.photos && location.photos.length > 0) {
+                  map.setView([location.lat, location.lng], 12, {
+                    animate: true,
+                    duration: 0.5
+                  });
+                }
+              },
             }}
           >
             <Popup className="custom-popup" maxWidth={220} closeButton={false} autoClose={false} closeOnClick={false}>
@@ -428,6 +437,15 @@ function ZoomBasedMarkers() {
             },
             mouseout: (e) => {
               e.target.closePopup();
+            },
+            click: () => {
+              // If sub-location has photos, zoom in on it
+              if (subLoc.type === 'photo' && subLoc.data) {
+                map.setView([subLoc.lat, subLoc.lng], 12, {
+                  animate: true,
+                  duration: 0.5
+                });
+              }
             },
           }}
         >
