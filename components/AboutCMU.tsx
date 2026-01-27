@@ -120,6 +120,9 @@ export default function AboutCMU() {
                   "Functional Programming",
                   "Computer Systems",
                   "Linear Transformations",
+                  "Theoretical Computer Science",
+                  "Multivariable Calculus",
+                  "Human Centered Software",
                 ].map((course, index) => (
                   <span
                     key={index}
