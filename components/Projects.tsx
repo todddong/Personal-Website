@@ -57,7 +57,7 @@ const projects = [
     github: "https://github.com/todddong/15-112-Term-Project",
   },
   {
-    title: "CMU x Databricks x UN Datathon Winners",
+    title: "CMU x Databricks x UN Datathon Winner",
     description: "First Place Winner — CMU x Databricks x UN Datathon. Data science competition project featuring interactive dashboard, map visualizations, and deep search capabilities for analyzing complex datasets",
     problem: "Large-scale datasets require intuitive visualization and search tools to extract meaningful insights and patterns",
     system: "Interactive web dashboard with map visualizations, deep search functionality, and comprehensive data analysis pipeline built with Jupyter Notebooks and data science tools",
@@ -88,7 +88,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="flex items-start justify-between mb-2">
-        <h3 className="text-lg font-bold text-gray-900 group-hover:text-[#93C572] transition-colors">
+        <h3 className="text-lg font-normal text-gray-900 group-hover:text-[#93C572] transition-colors">
           {project.title}
         </h3>
         <div className="flex gap-2">
@@ -133,7 +133,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.4 }}
             className="overflow-hidden"
           >
             <p className="text-gray-600 mb-4 text-sm mt-4">{project.description}</p>
