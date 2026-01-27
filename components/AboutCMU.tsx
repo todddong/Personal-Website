@@ -112,7 +112,7 @@ export default function AboutCMU() {
 
             <div className="pt-3 border-t border-gray-200">
               <h4 className="text-xs sm:text-sm md:text-base font-semibold text-gray-900 mb-1 sm:mb-2">Relevant Courses</h4>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-1 sm:gap-1.5 md:gap-2">
                 {[
                   "Fundamentals of Programming",
                   "Imperative Computation",
@@ -126,7 +126,7 @@ export default function AboutCMU() {
                 ].map((course, index) => (
                   <span
                     key={index}
-                    className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full border border-gray-200"
+                    className="px-1 sm:px-1.5 md:px-2 py-0.5 sm:py-1 bg-gray-100 text-gray-700 text-[9px] sm:text-[10px] md:text-xs rounded-full border border-gray-200"
                   >
                     {course}
                   </span>
@@ -146,7 +146,7 @@ export default function AboutCMU() {
                 ].map((activity, index) => (
                   <span
                     key={index}
-                    className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full border border-gray-200"
+                    className="px-1 sm:px-1.5 md:px-2 py-0.5 sm:py-1 bg-gray-100 text-gray-700 text-[9px] sm:text-[10px] md:text-xs rounded-full border border-gray-200"
                   >
                     {activity}
                   </span>
