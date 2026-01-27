@@ -70,7 +70,7 @@ export default function AthleteSystems() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-3xl md:text-4xl font-normal mb-8 text-left text-[#93C572]"
+          className="text-2xl md:text-3xl font-normal mb-8 text-left text-[#93C572]"
         >
           About me
         </motion.h2>
