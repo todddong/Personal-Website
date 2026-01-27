@@ -7,7 +7,7 @@ import dynamic from "next/dynamic";
 const LocationMap = dynamic(() => import("./LocationMap"), {
   ssr: false,
   loading: () => (
-    <div className="w-full h-[400px] sm:h-[500px] md:h-[600px] bg-gray-50 border border-gray-200 rounded-lg flex items-center justify-center">
+    <div className="w-full h-[500px] sm:h-[600px] md:h-[700px] bg-gray-50 border border-gray-200 rounded-lg flex items-center justify-center">
       <p className="text-gray-400">Loading map...</p>
     </div>
   ),
