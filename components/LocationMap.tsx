@@ -377,7 +377,7 @@ function PhotoFunnelOverlayInner({
   onClose 
 }: { 
   photo: string | null; 
-  markerPosition: { lat: number; lng: number } | null;
+  markerPosition: { lat: number; lng: number; name?: string } | null;
   onClose: () => void;
 }) {
   const map = useMap();
@@ -430,23 +430,38 @@ function PhotoFunnelOverlayInner({
 
   if (!photo || !photoPosition || !markerPixelPosition) return null;
 
-  // Calculate funnel path (line from photo bottom center to marker)
+  // Calculate funnel path (triangular funnel from photo bottom center to marker)
   const funnelBottomX = photoPosition.x + 140; // Center of photo (280/2)
   const funnelBottomY = photoPosition.y + 350; // Bottom of photo
   const markerX = markerPixelPosition.x;
   const markerY = markerPixelPosition.y;
 
-  // Calculate distance and angle for the line
+  // Calculate distance and angle for the funnel
   const dx = markerX - funnelBottomX;
   const dy = markerY - funnelBottomY;
   const distance = Math.sqrt(dx * dx + dy * dy);
-  const angle = Math.atan2(dy, dx) * (180 / Math.PI);
+  const angle = Math.atan2(dy, dx);
+
+  // Funnel width at the top (photo bottom) - wider
+  const funnelTopWidth = 60;
+  // Funnel width at the bottom (marker) - narrow point
+  const funnelBottomWidth = 4;
+
+  // Calculate perpendicular vector for funnel sides
+  const perpX = -Math.sin(angle) * funnelTopWidth / 2;
+  const perpY = Math.cos(angle) * funnelTopWidth / 2;
+
+  // Points for triangular funnel
+  const topLeftX = funnelBottomX + perpX;
+  const topLeftY = funnelBottomY + perpY;
+  const topRightX = funnelBottomX - perpX;
+  const topRightY = funnelBottomY - perpY;
 
   const mapSize = map.getSize();
 
   return (
     <>
-      {/* Funnel line SVG overlay - covers entire map */}
+      {/* Funnel shape SVG overlay - covers entire map */}
       <div
         className="absolute pointer-events-none"
         style={{
@@ -462,11 +477,11 @@ function PhotoFunnelOverlayInner({
           height={mapSize.y}
           style={{ position: 'absolute', left: 0, top: 0 }}
         >
-          <line
-            x1={funnelBottomX}
-            y1={funnelBottomY}
-            x2={markerX}
-            y2={markerY}
+          {/* Triangular funnel path */}
+          <path
+            d={`M ${topLeftX} ${topLeftY} L ${topRightX} ${topRightY} L ${markerX} ${markerY} Z`}
+            fill="#ef4444"
+            fillOpacity="0.3"
             stroke="#ef4444"
             strokeWidth="2"
             strokeDasharray="4,4"
@@ -502,6 +517,25 @@ function PhotoFunnelOverlayInner({
                 fill
                 className="object-cover"
               />
+              {/* Location name label */}
+              {markerPosition?.name && (
+                <div className="absolute bottom-4 left-4 right-4 z-10 flex justify-center">
+                  <div className="bg-black/50 backdrop-blur-sm rounded-lg px-4 py-2 inline-block shadow-lg">
+                    <p 
+                      className="text-white text-xs"
+                      style={{ 
+                        fontFamily: '"Brush Script MT", "Lucida Handwriting", "Comic Sans MS", cursive',
+                        textShadow: '0 2px 6px rgba(0,0,0,0.8), 0 0 10px rgba(0,0,0,0.5)',
+                        fontStyle: 'italic',
+                        fontWeight: 500,
+                        letterSpacing: '0.5px'
+                      }}
+                    >
+                      {markerPosition.name}
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </motion.div>
@@ -722,7 +756,7 @@ function ZoomBasedMarkers() {
 export default function LocationMap() {
   const [isClient, setIsClient] = useState(false);
   const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
-  const [markerPosition, setMarkerPosition] = useState<{ lat: number; lng: number } | null>(null);
+  const [markerPosition, setMarkerPosition] = useState<{ lat: number; lng: number; name?: string } | null>(null);
   const mapRef = useRef<L.Map | null>(null);
 
   useEffect(() => {
@@ -730,8 +764,37 @@ export default function LocationMap() {
   }, []);
 
   const handlePhotoClick = (photoSrc: string, lat: number, lng: number) => {
+    // Find location name from photo source - check main locations and sub-locations
+    let locationName = "Location";
+    
+    // First check main locations
+    const mainLocation = locations.find(loc => 
+      loc.photos?.some(p => p.src === photoSrc) ||
+      (Math.abs(loc.lat - lat) < 0.01 && Math.abs(loc.lng - lng) < 0.01)
+    );
+    
+    if (mainLocation) {
+      locationName = mainLocation.name;
+    } else {
+      // Check sub-locations array (zoom-based markers)
+      const subLoc = subLocations.find(sl => 
+        sl.type === 'photo' && sl.data?.src === photoSrc
+      );
+      if (subLoc) {
+        locationName = subLoc.name || subLoc.data?.alt || "Location";
+      } else {
+        // Fallback: find by coordinates in subLocations
+        const coordMatch = subLocations.find(sl => 
+          Math.abs(sl.lat - lat) < 0.01 && Math.abs(sl.lng - lng) < 0.01
+        );
+        if (coordMatch) {
+          locationName = coordMatch.name || "Location";
+        }
+      }
+    }
+    
     setSelectedPhoto(photoSrc);
-    setMarkerPosition({ lat, lng });
+    setMarkerPosition({ lat, lng, name: locationName });
   };
 
   if (!isClient) {
