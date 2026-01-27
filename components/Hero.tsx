@@ -70,12 +70,12 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#faf8f4] py-4">
+    <section className="relative min-h-0 sm:min-h-screen flex items-center justify-center overflow-hidden bg-[#faf8f4] py-2 sm:py-4">
       {/* Grid Background */}
       <div className="absolute inset-0 grid-pattern opacity-20 z-0" />
       
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-2 sm:px-4 md:px-8 lg:px-12">
-        <div className="grid grid-cols-3 gap-2 sm:gap-4 md:gap-6 lg:gap-12 items-center justify-items-stretch">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-1 sm:px-4 md:px-8 lg:px-12">
+        <div className="grid grid-cols-3 gap-1 sm:gap-4 md:gap-6 lg:gap-12 items-center justify-items-stretch">
           {/* Left Side - Two Logos */}
           <div className="flex flex-col items-center justify-center">
             {/* CS Logo */}
@@ -102,7 +102,7 @@ export default function Hero() {
             </motion.div>
             
             {/* X separator - centered between logos */}
-            <div className="flex items-center justify-center my-1 sm:my-2">
+            <div className="flex items-center justify-center my-0.5 sm:my-2">
               <div className="text-gray-400 text-sm sm:text-lg md:text-xl lg:text-2xl font-light">×</div>
             </div>
             
@@ -137,7 +137,7 @@ export default function Hero() {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.1 }}
-              className="mb-1 sm:mb-2 md:mb-3"
+              className="mb-0.5 sm:mb-2 md:mb-3"
             >
               <div className="relative w-20 h-20 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 xl:w-56 xl:h-56 rounded-full overflow-hidden border-2 border-gray-200 shadow-lg">
                 <CloudImage
@@ -160,7 +160,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-1 sm:mb-2 md:mb-3 text-gray-900 text-center"
+              className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-0.5 sm:mb-2 md:mb-3 text-gray-900 text-center"
             >
               <TypingText text="Todd Dong" speed={150} delay={0} />
             </motion.h1>
