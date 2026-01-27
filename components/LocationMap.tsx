@@ -197,6 +197,9 @@ const locations = [
         logo: null,
       },
     ],
+    photos: [
+      { src: "/media/alaska/cleveland.jpg", alt: "Cleveland" },
+    ],
   },
   {
     id: 9,
@@ -229,6 +232,28 @@ const locations = [
     activities: [],
     photos: [
       { src: "/media/alaska/alaska-11.jpg", alt: "Port of Anchorage" },
+    ],
+  },
+  {
+    id: 13,
+    name: "Lincoln Road, Miami Beach, FL",
+    lat: 25.7907,
+    lng: -80.1300,
+    visitCount: 1,
+    activities: [],
+    photos: [
+      { src: "/media/alaska/lincoln road.jpg", alt: "Lincoln Road, Miami Beach" },
+    ],
+  },
+  {
+    id: 14,
+    name: "Universal Studios, Orlando, FL",
+    lat: 28.4744,
+    lng: -81.4682,
+    visitCount: 1,
+    activities: [],
+    photos: [
+      { src: "/media/alaska/universal florida.jpg", alt: "Universal Studios, Orlando" },
     ],
   },
 ];
