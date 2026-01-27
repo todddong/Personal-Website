@@ -75,8 +75,8 @@ export default function Hero() {
       
       <div className="relative z-10 w-full max-w-7xl mx-auto px-8 md:px-12">
         <div className="grid md:grid-cols-2 gap-12 items-center">
-          {/* Left Side - Content */}
-          <div className="flex flex-col items-start">
+          {/* Left Side - Content (Centered) */}
+          <div className="flex flex-col items-center justify-center">
             {/* Headshot */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
@@ -103,7 +103,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-4xl md:text-5xl font-bold mb-3 text-gray-900"
+              className="text-4xl md:text-5xl font-bold mb-3 text-gray-900 text-center"
             >
               <TypingText text="Todd Dong" speed={150} delay={0} />
             </motion.h1>
@@ -112,7 +112,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-base md:text-lg text-gray-600 mb-1"
+              className="text-base md:text-lg text-gray-600 text-center"
             >
               <TypingText text="Computer Science @ Carnegie Mellon" speed={80} delay={1500} />
             </motion.p>
@@ -124,7 +124,7 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
-            className="relative w-full aspect-[16/9] rounded-3xl overflow-hidden border-4 border-gray-300 shadow-2xl"
+            className="relative w-full max-w-md mx-auto aspect-[9/16] rounded-3xl overflow-hidden border-4 border-gray-300 shadow-2xl"
           >
             <video
               ref={videoRef}
