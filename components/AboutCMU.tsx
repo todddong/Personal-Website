@@ -79,14 +79,25 @@ export default function AboutCMU() {
                 <span>Pittsburgh, Pennsylvania</span>
               </div>
               
-              <ul className="space-y-1 ml-6 mt-2">
-                <li className="text-sm">
-                  <span className="text-[#93C572]">#1</span> <span className="text-gray-900">CS Ranking</span>
-                </li>
-                <li className="text-sm text-gray-900">#2 AI Ranking</li>
-                <li className="text-sm text-gray-900">#1 Software Engineering</li>
-                <li className="text-sm text-gray-900">#1 Cybersecurity</li>
-              </ul>
+              <div className="flex items-center gap-2 text-gray-600 text-sm">
+                <div className="w-4"></div>
+                <span><span className="text-[#93C572]">#1</span> CS Ranking</span>
+              </div>
+              
+              <div className="flex items-center gap-2 text-gray-600 text-sm">
+                <div className="w-4"></div>
+                <span><span className="text-[#93C572]">#2</span> AI Ranking</span>
+              </div>
+              
+              <div className="flex items-center gap-2 text-gray-600 text-sm">
+                <div className="w-4"></div>
+                <span><span className="text-[#93C572]">#1</span> Software Engineering</span>
+              </div>
+              
+              <div className="flex items-center gap-2 text-gray-600 text-sm">
+                <div className="w-4"></div>
+                <span><span className="text-[#93C572]">#1</span> Cybersecurity</span>
+              </div>
             </div>
 
             <div className="pt-3 border-t border-gray-200">
