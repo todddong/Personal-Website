@@ -42,7 +42,7 @@ function HighlightItem({
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.05 }}
-      className="relative group cursor-pointer overflow-hidden rounded border border-gray-200 hover:border-blue-400 transition-all"
+      className="relative group cursor-pointer overflow-hidden rounded-xl border-2 border-gray-300 hover:border-gray-400 transition-all shadow-sm"
       onClick={() => onSelect(highlight.src)}
     >
       <div className="aspect-square relative overflow-hidden">
@@ -77,7 +77,7 @@ export default function Highlights() {
           transition={{ duration: 0.6 }}
           className="text-center mb-6"
         >
-          <h2 className="text-2xl md:text-3xl font-bold mb-2 text-gray-900">
+          <h2 className="text-2xl md:text-3xl font-bold mb-2 text-[#93C572]">
             Alaska Highlights
           </h2>
           <p className="text-gray-500 text-sm max-w-2xl mx-auto">
@@ -85,7 +85,7 @@ export default function Highlights() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
+        <div className="grid grid-cols-3 gap-2">
           {alaskaHighlights.map((highlight, index) => (
             <HighlightItem
               key={index}

@@ -46,7 +46,7 @@ export default function Footer() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-2xl md:text-3xl font-bold mb-6 text-center text-gray-900"
+          className="text-2xl md:text-3xl font-bold mb-6 text-center text-[#93C572]"
         >
           Contact Me
         </motion.h2>
@@ -62,7 +62,7 @@ export default function Footer() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="flex flex-col items-center text-center p-4 bg-gray-50 border border-gray-200 rounded-lg hover:border-gray-300 transition-all group"
+                className="flex flex-col items-center text-center p-4 bg-gray-50 border-2 border-gray-300 rounded-2xl hover:border-gray-400 transition-all group shadow-sm"
               >
                 <Icon className="text-blue-600 mb-2 group-hover:scale-110 transition-transform" size={20} />
                 <span className="text-xs text-gray-500 uppercase tracking-wide mb-1">

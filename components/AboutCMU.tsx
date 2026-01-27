@@ -15,7 +15,7 @@ export default function AboutCMU() {
           transition={{ duration: 0.6 }}
           className="text-center mb-6"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-2 text-gray-900">
+          <h2 className="text-3xl md:text-4xl font-bold mb-2 text-[#93C572]">
             About Carnegie Mellon
           </h2>
           <p className="text-gray-500 text-sm max-w-2xl mx-auto">
@@ -30,7 +30,7 @@ export default function AboutCMU() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="relative h-[300px] rounded-lg overflow-hidden border border-gray-200 group order-2 md:order-1"
+            className="relative h-[300px] rounded-2xl overflow-hidden border-2 border-gray-300 group order-2 md:order-1 shadow-sm"
           >
             <Image
               src="/media/cmu-about.jpg"
@@ -138,22 +138,22 @@ export default function AboutCMU() {
           transition={{ duration: 0.6 }}
           className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4"
         >
-          <div className="text-center p-4 bg-gray-50 border border-gray-200 rounded-lg hover:border-gray-300 transition-all">
+          <div className="text-center p-4 bg-gray-50 border-2 border-gray-300 rounded-2xl hover:border-gray-400 transition-all shadow-sm">
             <Award className="text-blue-600 mx-auto mb-2" size={24} />
             <div className="text-2xl md:text-3xl font-bold text-blue-600 mb-1">#1</div>
             <div className="text-xs text-gray-500 uppercase tracking-wide">CS Ranking</div>
           </div>
-          <div className="text-center p-4 bg-gray-50 border border-gray-200 rounded-lg hover:border-gray-300 transition-all">
+          <div className="text-center p-4 bg-gray-50 border-2 border-gray-300 rounded-2xl hover:border-gray-400 transition-all shadow-sm">
             <TrendingUp className="text-blue-600 mx-auto mb-2" size={24} />
             <div className="text-2xl md:text-3xl font-bold text-blue-600 mb-1">#2</div>
             <div className="text-xs text-gray-500 uppercase tracking-wide">AI Ranking</div>
           </div>
-          <div className="text-center p-4 bg-gray-50 border border-gray-200 rounded-lg hover:border-gray-300 transition-all">
+          <div className="text-center p-4 bg-gray-50 border-2 border-gray-300 rounded-2xl hover:border-gray-400 transition-all shadow-sm">
             <GraduationCap className="text-blue-600 mx-auto mb-2" size={24} />
             <div className="text-2xl md:text-3xl font-bold text-blue-600 mb-1">#1</div>
             <div className="text-xs text-gray-500 uppercase tracking-wide">Software Engineering</div>
           </div>
-          <div className="text-center p-4 bg-gray-50 border border-gray-200 rounded-lg hover:border-gray-300 transition-all">
+          <div className="text-center p-4 bg-gray-50 border-2 border-gray-300 rounded-2xl hover:border-gray-400 transition-all shadow-sm">
             <Award className="text-blue-600 mx-auto mb-2" size={24} />
             <div className="text-2xl md:text-3xl font-bold text-blue-600 mb-1">#1</div>
             <div className="text-xs text-gray-500 uppercase tracking-wide">Cybersecurity</div>

@@ -244,10 +244,10 @@ function MapView() {
       [24.396308, -125.0], // Southwest corner (continental US)
       [49.384358, -66.93457] // Northeast corner (continental US)
     );
-    // Fit bounds with less padding and higher zoom to show vegetation details
+    // Fit bounds with minimal padding and higher zoom to fill the map section
     map.fitBounds(bounds, { 
-      padding: [20, 20],
-      maxZoom: 8
+      padding: [5, 5],
+      maxZoom: 10
     });
   }, [map]);
   
@@ -435,7 +435,7 @@ export default function LocationMap() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
-      className="w-full h-[600px] rounded-lg overflow-hidden border border-gray-200 shadow-sm bg-white"
+      className="w-full h-[600px] rounded-2xl overflow-hidden border-2 border-gray-300 shadow-md bg-white"
     >
       <MapContainer
         center={[39.8283, -98.5795]}

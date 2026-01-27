@@ -69,12 +69,12 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex overflow-hidden bg-white">
-      {/* Grid Background - Only on left side */}
-      <div className="absolute left-0 top-0 bottom-0 w-2/3 grid-pattern opacity-20 z-0" />
+    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-white py-16">
+      {/* Grid Background */}
+      <div className="absolute inset-0 grid-pattern opacity-20 z-0" />
       
-      {/* Left Side - Content */}
-      <div className="relative z-10 w-2/3 flex flex-col items-center justify-center px-8 md:px-12">
+      {/* Content */}
+      <div className="relative z-10 flex flex-col items-center justify-center px-8 md:px-12">
         {/* Headshot */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
@@ -123,21 +123,27 @@ export default function Hero() {
         >
           <TypingText text="Machine Learning Research Assistant • Student Athlete • Incoming Software Engineering Intern at First Citizens Bank" speed={50} delay={4500} />
         </motion.p>
-      </div>
 
-      {/* Right Side - Video (Smaller) */}
-      <div className="relative w-1/3 z-10 overflow-hidden">
-        <video
-          ref={videoRef}
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-          preload="auto"
+        {/* Circular Video - Small and Centered */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          whileHover={{ scale: 1.5 }}
+          transition={{ duration: 0.8 }}
+          className="mt-8 relative w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-gray-200 shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer"
         >
-          <source src="/media/swim-video.mp4" type="video/mp4" />
-        </video>
+          <video
+            ref={videoRef}
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+            preload="auto"
+          >
+            <source src="/media/swim-video.mp4" type="video/mp4" />
+          </video>
+        </motion.div>
       </div>
     </section>
   );

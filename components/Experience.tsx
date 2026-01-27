@@ -79,7 +79,7 @@ function TimelineItem({ item, index }: { item: typeof timeline[0]; index: number
     >
       {/* Logo - Replace icon with logo */}
       {item.logo && !logoError && (
-        <div className="absolute left-0 top-0 w-12 h-12 bg-white rounded-lg p-1 border-2 border-gray-200 flex items-center justify-center z-10 shadow-sm">
+        <div className="absolute left-0 top-0 w-12 h-12 bg-white rounded-2xl p-1 border-2 border-gray-300 flex items-center justify-center z-10 shadow-md">
           <Image
             src={item.logo}
             alt={`${item.title} logo`}
@@ -90,14 +90,14 @@ function TimelineItem({ item, index }: { item: typeof timeline[0]; index: number
         </div>
       )}
       {(!item.logo || logoError) && (
-        <div className="absolute left-0 top-0 w-12 h-12 bg-gray-100 border-2 border-gray-200 rounded-full flex items-center justify-center z-10">
+        <div className="absolute left-0 top-0 w-12 h-12 bg-gray-100 border-2 border-gray-300 rounded-full flex items-center justify-center z-10 shadow-md">
           <Icon className="text-blue-600" size={20} />
         </div>
       )}
 
       {/* Content */}
       <div 
-        className="bg-gray-50 border border-gray-200 rounded-lg p-4 hover:border-gray-300 transition-all"
+        className="bg-gray-50 border-2 border-gray-300 rounded-2xl p-4 hover:border-gray-400 transition-all shadow-sm"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -145,7 +145,7 @@ export default function Experience() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-3xl md:text-4xl font-bold mb-8 text-center text-gray-900"
+          className="text-3xl md:text-4xl font-bold mb-8 text-center text-[#93C572]"
         >
           Experience
         </motion.h2>

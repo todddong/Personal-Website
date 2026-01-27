@@ -26,7 +26,7 @@ export default function HighSchoolSwim() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2           className="text-3xl md:text-4xl font-bold mb-2 text-gray-900">
+          <h2           className="text-3xl md:text-4xl font-bold mb-2 text-[#93C572]">
             Awards & Accolades
           </h2>
           <p className="text-gray-500 text-sm max-w-2xl mx-auto">
@@ -41,7 +41,7 @@ export default function HighSchoolSwim() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="relative h-[300px] rounded-lg overflow-hidden border border-gray-200 group"
+            className="relative h-[300px] rounded-2xl overflow-hidden border-2 border-gray-300 group shadow-sm"
           >
             <Image
               src="/media/highlights/highschool-highlights.jpg"
@@ -87,7 +87,7 @@ export default function HighSchoolSwim() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: index * 0.1 }}
-                  className="flex items-start gap-2 p-2 bg-gray-50 border border-gray-200 rounded hover:border-gray-300 transition-all"
+                  className="flex items-start gap-2 p-2 bg-gray-50 border-2 border-gray-300 rounded-xl hover:border-gray-400 transition-all shadow-sm"
                 >
                   <Award className="text-blue-600 mt-0.5 flex-shrink-0" size={14} />
                   <span className="text-gray-700 text-sm">{achievement}</span>

@@ -70,7 +70,7 @@ export default function AthleteSystems() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-3xl md:text-4xl font-bold mb-8 text-center text-gray-900"
+          className="text-3xl md:text-4xl font-bold mb-8 text-center text-[#93C572]"
         >
           About me
         </motion.h2>
@@ -82,7 +82,7 @@ export default function AthleteSystems() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="relative h-[300px] rounded-lg overflow-hidden border border-gray-200 group"
+            className="relative h-[300px] rounded-2xl overflow-hidden border-2 border-gray-300 group shadow-sm"
           >
             <AnimatePresence mode="wait">
               <motion.div
@@ -166,12 +166,8 @@ export default function AthleteSystems() {
               Todd Dong Bio
             </p>
             
-            <p className="text-gray-600 leading-relaxed text-sm mb-2">
+            <p className="text-gray-600 leading-relaxed text-sm">
               &quot;I am a CS student at Carnegie Mellon University and a member of the Varsity swim team. Being a student-athlete requires a high level of commitment, discipline, and time management, and I take pride in applying that same dedication to my academic and professional pursuits. I am currently working toward a degree in Computer Science with a concentration in Machine Learning.&quot;
-            </p>
-
-            <p className="text-gray-500 text-sm leading-relaxed">
-              Moved to Nashville. Passion for exploring new places, trying new food, going to the gym, and meeting new people.
             </p>
           </motion.div>
         </div>
