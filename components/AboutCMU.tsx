@@ -6,16 +6,16 @@ import { GraduationCap, MapPin, Calendar, Award, TrendingUp } from "lucide-react
 
 export default function AboutCMU() {
   return (
-    <section id="about-cmu" className="py-12 px-4 md:px-8 relative bg-[#faf8f4]">
+    <section id="about-cmu" className="py-8 px-4 md:px-8 relative bg-[#faf8f4]">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-left mb-6"
+          className="text-left mb-4"
         >
-          <h2 className="text-2xl md:text-3xl font-normal mb-2 text-[#93C572]">
+          <h2 className="text-xl md:text-2xl font-normal mb-2 text-[#93C572]">
             about carnegie mellon
           </h2>
           <p className="text-gray-500 text-sm max-w-2xl">
@@ -23,7 +23,7 @@ export default function AboutCMU() {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8 items-center">
+        <div className="grid md:grid-cols-2 gap-6 items-center">
           {/* Photo */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -136,7 +136,7 @@ export default function AboutCMU() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4"
+          className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-3"
         >
           <div className="text-center p-4 bg-gray-50 border-2 border-gray-300 rounded-2xl hover:border-gray-400 transition-all shadow-sm">
             <Award className="text-[#93C572] mx-auto mb-2" size={24} />

@@ -39,14 +39,14 @@ const social = [
 
 export default function Footer() {
   return (
-    <footer id="contact" className="py-8 px-4 md:px-8 border-t border-gray-200 bg-[#faf8f4]">
+    <footer id="contact" className="py-6 px-4 md:px-8 border-t border-gray-200 bg-[#faf8f4]">
       <div className="max-w-7xl mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-2xl md:text-3xl font-normal mb-6 text-left text-[#93C572]"
+          className="text-xl md:text-2xl font-normal mb-6 text-left text-[#93C572]"
         >
           contact
         </motion.h2>

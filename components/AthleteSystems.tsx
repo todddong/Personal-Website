@@ -62,27 +62,27 @@ export default function AthleteSystems() {
     <section
       ref={sectionRef}
       id="athlete-systems"
-      className="py-12 px-4 md:px-8 relative bg-[#faf8f4]"
+      className="py-8 px-4 md:px-8 relative bg-[#faf8f4]"
     >
       <div className="max-w-7xl mx-auto">
         <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-2xl md:text-3xl font-normal mb-8 text-left text-[#93C572]"
+          transition={{ duration: 0.5 }}
+          className="text-xl md:text-2xl font-normal mb-6 text-left text-[#93C572]"
         >
           about me
         </motion.h2>
 
-        <div className="grid md:grid-cols-2 gap-8 items-center">
+        <div className="grid md:grid-cols-2 gap-6 items-center">
           {/* Left: Swim Slideshow */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="relative h-[300px] rounded-2xl overflow-hidden border-2 border-gray-300 group shadow-sm"
+            className="relative h-[250px] rounded-2xl overflow-hidden border-2 border-gray-300 group shadow-sm"
           >
             <AnimatePresence mode="wait">
               <motion.div
@@ -156,15 +156,20 @@ export default function AthleteSystems() {
 
           {/* Right: About Me Content */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
+            initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="space-y-3"
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="space-y-2"
           >
-            <p className="text-gray-600 leading-relaxed text-sm">
+            <motion.p 
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="text-gray-600 leading-relaxed text-sm">
               &quot;I am a CS student at Carnegie Mellon University and a member of the Varsity swim team. Being a student-athlete requires a high level of commitment, discipline, and time management, and I take pride in applying that same dedication to my academic and professional pursuits. I am currently working toward a degree in Computer Science with a concentration in Machine Learning.&quot;
-            </p>
+            </motion.p>
           </motion.div>
         </div>
       </div>

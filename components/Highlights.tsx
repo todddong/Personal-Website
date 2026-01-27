@@ -68,16 +68,16 @@ export default function Highlights() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   return (
-    <section id="highlights" className="py-8 px-4 md:px-8 relative bg-[#faf8f4]">
+    <section id="highlights" className="py-6 px-4 md:px-8 relative bg-[#faf8f4]">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-left mb-6"
+          className="text-left mb-4"
         >
-          <h2 className="text-2xl md:text-3xl font-normal mb-2 text-[#93C572]">
+          <h2 className="text-xl md:text-2xl font-normal mb-2 text-[#93C572]">
             alaska highlights
           </h2>
           <p className="text-gray-500 text-sm max-w-2xl">
