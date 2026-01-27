@@ -365,7 +365,7 @@ const locations = [
 const cleveland = locations.find(loc => loc.name === "Cleveland, OH");
 const nashville = locations.find(loc => loc.name === "Nashville, TN");
 
-// Create edges: Cleveland → Nashville, then Nashville → all other points
+// Create edges: Cleveland to Nashville, then Nashville to all other points
 const edgePaths: [number, number][][] = [];
 
 if (cleveland && nashville) {
@@ -778,7 +778,7 @@ function ZoomBasedMarkers() {
                               element.scrollIntoView({ behavior: 'smooth', block: 'start' });
                             }
                           }}
-                          className="relative w-full h-20 rounded-md overflow-hidden border border-gray-200 shadow-sm hover:border-gray-300 transition-all cursor-pointer"
+                          className="relative w-full aspect-square rounded-md overflow-hidden border border-gray-200 shadow-sm hover:border-gray-300 transition-all cursor-pointer"
                         >
                           {photo.src.startsWith('/media/') ? (
                             <CloudImage
@@ -862,7 +862,7 @@ function ZoomBasedMarkers() {
                       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }
                   }}
-                  className="relative w-full h-32 rounded-md overflow-hidden border border-gray-200 shadow-sm hover:border-gray-300 transition-all cursor-pointer block"
+                  className="relative w-full aspect-square rounded-md overflow-hidden border border-gray-200 shadow-sm hover:border-gray-300 transition-all cursor-pointer block"
                 >
                   {subLoc.data.src.startsWith('/media/') ? (
                     <CloudImage
@@ -1004,7 +1004,7 @@ export default function LocationMap() {
         {/* State boundaries overlay using GeoJSON */}
         <StateBoundaries />
         
-        {/* Edge paths: Cleveland → Nashville → all other points */}
+        {/* Edge paths: Cleveland to Nashville to all other points */}
         {edgePaths.map((path, idx) => (
           <Polyline
             key={`edge-${idx}`}
