@@ -10,7 +10,7 @@ const allSlides = [
   { src: "/media/swim-2.jpg", alt: "Swim Photo 2" },
   { src: "/media/swim-3.jpg", alt: "Swim Photo 3" },
   { src: "/media/swim-team-podium.jpg", alt: "Swim Team Podium" },
-  { src: "/media/general/photo-1.jpg", alt: "Photo 1" },
+  { src: "/media/general/sushi.jpg", alt: "Sushi" },
   { src: "/media/general/photo-2.jpg", alt: "Photo 2" },
   { src: "/media/general/photo-3.jpg", alt: "Photo 3" },
   { src: "/media/general/photo-4.jpg", alt: "Photo 4" },

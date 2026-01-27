@@ -7,7 +7,7 @@ import { X } from "lucide-react";
 
 // Add your general photos here - they'll automatically appear in the gallery
 const generalPhotos = [
-  { src: "/media/general/photo-1.jpg", alt: "Photo 1" },
+  { src: "/media/general/sushi.jpg", alt: "Sushi" },
   { src: "/media/general/photo-2.jpg", alt: "Photo 2" },
   { src: "/media/general/photo-3.jpg", alt: "Photo 3" },
   { src: "/media/general/photo-4.jpg", alt: "Photo 4" },
