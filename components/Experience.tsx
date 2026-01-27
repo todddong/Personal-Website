@@ -125,7 +125,7 @@ function TimelineItem({ item, index }: { item: typeof timeline[0]; index: number
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: 0.6 }}
               className="overflow-hidden"
             >
               <div className="flex items-center gap-2 text-gray-500 text-xs mb-2">
