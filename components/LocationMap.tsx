@@ -161,6 +161,34 @@ const locations = [
       { src: "/media/general/photo-6.jpg", alt: "Downtown Pittsburgh" },
     ],
   },
+  {
+    id: 7,
+    name: "Nashville, TN",
+    lat: 36.1627,
+    lng: -86.7816,
+    visitCount: 3,
+    activities: [
+      {
+        title: "Hometown",
+        period: "Childhood",
+        logo: null,
+      },
+    ],
+  },
+  {
+    id: 8,
+    name: "Cleveland, OH",
+    lat: 41.4993,
+    lng: -81.6944,
+    visitCount: 1,
+    activities: [
+      {
+        title: "Birthplace",
+        period: "Born",
+        logo: null,
+      },
+    ],
+  },
 ];
 
 // Create arc paths between locations (in order of timeline)
@@ -170,21 +198,38 @@ const arcPaths = [
   createArcPath([locations[0].lat, locations[0].lng], [locations[2].lat, locations[2].lng]), // Pittsburgh to Raleigh
 ];
 
-// Heat map data - create circles for frequently visited locations
+// Heat map data - create circles for frequently visited locations (much smaller)
 const heatMapData = locations.map(loc => ({
   lat: loc.lat,
   lng: loc.lng,
   intensity: loc.visitCount,
-  radius: Math.min(loc.visitCount * 50000, 200000), // Scale radius based on visit count
-  opacity: Math.min(0.1 + (loc.visitCount * 0.05), 0.3), // Darker for more visits
+  radius: Math.min(loc.visitCount * 15000, 60000), // Much smaller radius
+  opacity: Math.min(0.08 + (loc.visitCount * 0.03), 0.2), // Lighter opacity
 }));
 
-// Component to set map view
+// Component to set map view - center on US with Alaska visible in bottom right
 function MapView() {
   const map = useMap();
   
   useEffect(() => {
-    map.setView([39.8283, -98.5795], 4); // Center on US
+    // Set bounds to show continental US centered with Alaska visible in bottom right
+    // This creates a view that shows the continental US well while keeping Alaska visible
+    const bounds = L.latLngBounds(
+      [24.0, -180.0], // Southwest corner (includes Alaska on the left side of the map)
+      [72.0, -50.0] // Northeast corner
+    );
+    // Fit bounds with padding, but adjust to show Alaska in bottom right
+    map.fitBounds(bounds, { 
+      padding: [20, 20],
+      maxZoom: 5
+    });
+    
+    // Adjust pan to better position Alaska in bottom right
+    setTimeout(() => {
+      const currentCenter = map.getCenter();
+      // Slight adjustment to show Alaska better
+      map.setView([currentCenter.lat - 2, currentCenter.lng + 15], map.getZoom(), { animate: false });
+    }, 100);
   }, [map]);
   
   return null;
@@ -244,6 +289,8 @@ export default function LocationMap() {
       <MapContainer
         center={[39.8283, -98.5795]}
         zoom={4}
+        minZoom={3}
+        maxZoom={10}
         style={{ height: "100%", width: "100%", zIndex: 0 }}
         zoomControl={true}
         scrollWheelZoom={true}
@@ -258,7 +305,7 @@ export default function LocationMap() {
         {/* State boundaries overlay using GeoJSON */}
         <StateBoundaries />
         
-        {/* Heat map circles */}
+        {/* Heat map circles - smaller and more subtle */}
         {heatMapData.map((heat, idx) => (
           <Circle
             key={`heat-${idx}`}
@@ -293,34 +340,39 @@ export default function LocationMap() {
             position={[location.lat, location.lng]}
             icon={createCustomIcon()}
           >
-            <Popup className="custom-popup" maxWidth={200}>
-              <div className="p-2">
-                {location.activities.length > 0 && location.activities.map((activity, idx) => (
-                  <div key={idx} className="mb-2 last:mb-0">
-                    <div className="flex items-center gap-2 mb-1">
-                      {activity.logo && (
-                        <div className="relative w-6 h-6 bg-white rounded border border-gray-200 overflow-hidden flex-shrink-0">
-                          <Image
-                            src={activity.logo}
-                            alt={`${activity.title} logo`}
-                            fill
-                            className="object-contain p-0.5"
-                          />
+            <Popup className="custom-popup" maxWidth={220}>
+              <div className="p-3">
+                <h3 className="font-semibold text-gray-900 text-sm mb-2">{location.name}</h3>
+                {location.activities.length > 0 && (
+                  <div className="space-y-2 mb-2">
+                    {location.activities.map((activity, idx) => (
+                      <div key={idx} className="flex items-start gap-2">
+                        {activity.logo && (
+                          <div className="relative w-5 h-5 bg-white rounded border border-gray-200 overflow-hidden flex-shrink-0 mt-0.5">
+                            <Image
+                              src={activity.logo}
+                              alt={`${activity.title} logo`}
+                              fill
+                              className="object-contain p-0.5"
+                            />
+                          </div>
+                        )}
+                        <div className="flex-1 min-w-0">
+                          <h4 className="font-medium text-gray-800 text-xs leading-tight">{activity.title}</h4>
+                          {activity.period && (
+                            <span className="text-xs text-gray-500">{activity.period}</span>
+                          )}
                         </div>
-                      )}
-                      <div className="flex-1 min-w-0">
-                        <h4 className="font-semibold text-gray-800 text-xs leading-tight">{activity.title}</h4>
-                        <span className="text-xs text-gray-500">{activity.period}</span>
                       </div>
-                    </div>
+                    ))}
                   </div>
-                ))}
+                )}
                 {location.photos && location.photos.length > 0 && (
-                  <div className="mt-2 pt-2 border-t border-gray-200">
-                    <p className="text-xs text-gray-500 mb-1">Photos:</p>
-                    <div className="grid grid-cols-2 gap-1">
+                  <div className="mt-3 pt-3 border-t border-gray-200">
+                    <p className="text-xs text-gray-500 mb-2 font-medium">Photos</p>
+                    <div className="grid grid-cols-2 gap-1.5">
                       {location.photos.map((photo, idx) => (
-                        <div key={idx} className="relative w-full h-16 rounded overflow-hidden border border-gray-200">
+                        <div key={idx} className="relative w-full h-20 rounded-md overflow-hidden border border-gray-200 shadow-sm">
                           <Image
                             src={photo.src}
                             alt={photo.alt}
@@ -340,54 +392,77 @@ export default function LocationMap() {
       
       <style jsx global>{`
         .map-container {
-          background-color: #f9fafb;
+          background-color: #fafafa;
         }
         .leaflet-container {
-          background-color: #f9fafb !important;
+          background-color: #fafafa !important;
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
         }
         .leaflet-tile-container img {
-          filter: brightness(1) contrast(1);
+          filter: brightness(1.02) contrast(1.05) saturate(0.95);
         }
         .custom-popup .leaflet-popup-content-wrapper {
           background: white;
-          border-radius: 8px;
-          box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+          border-radius: 12px;
+          box-shadow: 0 8px 24px rgba(0,0,0,0.12);
           padding: 0;
+          border: 1px solid rgba(0,0,0,0.05);
         }
         .custom-popup .leaflet-popup-tip {
           background: white;
+          border: 1px solid rgba(0,0,0,0.05);
         }
         .custom-marker {
           background: transparent !important;
           border: none !important;
         }
         .custom-marker div {
-          transition: transform 0.2s ease;
+          transition: all 0.2s ease;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
         .custom-marker:hover div {
-          transform: scale(1.5);
+          transform: scale(1.6);
+          box-shadow: 0 3px 8px rgba(0,0,0,0.3);
         }
         .leaflet-control-zoom {
-          border: 1px solid rgba(0,0,0,0.1) !important;
-          background: rgba(255,255,255,0.95) !important;
-          border-radius: 6px !important;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+          border: none !important;
+          background: rgba(255,255,255,0.98) !important;
+          border-radius: 8px !important;
+          box-shadow: 0 2px 12px rgba(0,0,0,0.08) !important;
+          overflow: hidden;
         }
         .leaflet-control-zoom a {
-          background-color: rgba(255,255,255,0.95) !important;
-          color: #333 !important;
-          border-color: rgba(0,0,0,0.1) !important;
-          border-radius: 4px !important;
+          background-color: transparent !important;
+          color: #4a5568 !important;
+          border: none !important;
+          border-radius: 0 !important;
+          width: 32px !important;
+          height: 32px !important;
+          line-height: 32px !important;
+          font-size: 18px !important;
+          transition: all 0.2s ease !important;
+        }
+        .leaflet-control-zoom a:first-child {
+          border-bottom: 1px solid rgba(0,0,0,0.05) !important;
         }
         .leaflet-control-zoom a:hover {
-          background-color: rgba(59,130,246,0.1) !important;
+          background-color: rgba(59,130,246,0.08) !important;
           color: #3b82f6 !important;
         }
         .leaflet-popup-close-button {
-          color: #666 !important;
+          color: #9ca3af !important;
+          font-size: 20px !important;
+          width: 24px !important;
+          height: 24px !important;
+          line-height: 24px !important;
+          transition: all 0.2s ease !important;
         }
         .leaflet-popup-close-button:hover {
-          color: #000 !important;
+          color: #374151 !important;
+          background-color: rgba(0,0,0,0.04) !important;
+        }
+        .leaflet-popup-content {
+          margin: 0 !important;
         }
       `}</style>
     </motion.div>
