@@ -454,8 +454,10 @@ function PhotoFunnelOverlayInner({
 
       // Position photo to the right and above the marker, within map bounds
       const mapSize = map.getSize();
-      const photoWidth = 280; // Smaller photo size
-      const photoHeight = 350;
+      // Responsive photo size based on screen width
+      const isMobile = window.innerWidth < 640;
+      const photoWidth = isMobile ? 240 : 280;
+      const photoHeight = isMobile ? 300 : 350;
       const offsetX = 150; // Offset to the right
       const offsetY = -200; // Offset upward
 
@@ -490,9 +492,10 @@ function PhotoFunnelOverlayInner({
 
   if (!photo || !photoPosition || !markerPixelPosition) return null;
 
-  // Calculate line from photo center to marker
-  const photoWidth = 280;
-  const photoHeight = 350;
+  // Calculate line from photo center to marker - responsive sizes
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
+  const photoWidth = isMobile ? 240 : 280;
+  const photoHeight = isMobile ? 300 : 350;
   const photoCenterX = photoPosition.x + photoWidth / 2; // Center X of photo
   const photoCenterY = photoPosition.y + photoHeight / 2; // Center Y of photo
   const markerX = markerPixelPosition.x;
@@ -601,7 +604,7 @@ function PhotoFunnelOverlayInner({
             zIndex: 1001,
           }}
         >
-          <div className="relative w-[280px] h-[350px] bg-white rounded-xl overflow-hidden border-2 border-gray-300 shadow-xl">
+          <div className="relative w-[240px] h-[300px] sm:w-[280px] sm:h-[350px] bg-white rounded-xl overflow-hidden border-2 border-gray-300 shadow-xl">
             <button
               onClick={onClose}
               className="absolute top-2 right-2 z-10 text-gray-700 hover:text-gray-900 transition-colors bg-white/90 rounded-full p-1 shadow-md hover:bg-white"
@@ -901,7 +904,7 @@ export default function LocationMap() {
 
   if (!isClient) {
     return (
-      <div className="w-full h-[600px] bg-gray-50 border border-gray-200 rounded-lg flex items-center justify-center">
+      <div className="w-full h-[400px] sm:h-[500px] md:h-[600px] bg-gray-50 border border-gray-200 rounded-lg flex items-center justify-center">
         <p className="text-gray-600">Loading map...</p>
       </div>
     );
@@ -913,7 +916,7 @@ export default function LocationMap() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
-      className="w-full h-[600px] rounded-2xl overflow-hidden border border-gray-200 shadow-sm bg-white"
+      className="w-full h-[400px] sm:h-[500px] md:h-[600px] rounded-2xl overflow-hidden border border-gray-200 shadow-sm bg-white"
     >
       <MapContainer
         center={[39.8283, -98.5795]}

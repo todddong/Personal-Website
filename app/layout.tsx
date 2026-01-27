@@ -12,6 +12,12 @@ export const metadata: Metadata = {
   description: "Building high-performance systems — in code and in competition.",
 };
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{

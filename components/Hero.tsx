@@ -73,8 +73,8 @@ export default function Hero() {
       {/* Grid Background */}
       <div className="absolute inset-0 grid-pattern opacity-20 z-0" />
       
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-8 md:px-12">
-        <div className="grid md:grid-cols-3 gap-12 items-center justify-items-stretch">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-12 items-center justify-items-stretch">
           {/* Left Side - Two Logos */}
           <div className="flex flex-col items-center justify-center">
             {/* CS Logo */}
@@ -83,7 +83,7 @@ export default function Hero() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8 }}
             >
-              <div className="relative w-60 h-60 md:w-64 md:h-64 rounded-lg overflow-hidden border-2 border-gray-200 shadow-md">
+              <div className="relative w-32 h-32 sm:w-40 sm:h-40 md:w-60 md:h-60 lg:w-64 lg:h-64 rounded-lg overflow-hidden border-2 border-gray-200 shadow-md">
                 <Image
                   src="/media/alaska/cs logo.png"
                   alt="CS Logo"
@@ -109,7 +109,7 @@ export default function Hero() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <div className="relative w-60 h-60 md:w-64 md:h-64 rounded-lg overflow-hidden border-2 border-gray-200 shadow-md">
+              <div className="relative w-32 h-32 sm:w-40 sm:h-40 md:w-60 md:h-60 lg:w-64 lg:h-64 rounded-lg overflow-hidden border-2 border-gray-200 shadow-md">
                 <Image
                   src="/media/alaska/cmu swim logo.webp"
                   alt="CMU Swim Logo"
@@ -134,7 +134,7 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.1 }}
               className="mb-3"
             >
-              <div className="relative w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden border-2 border-gray-200 shadow-lg">
+              <div className="relative w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 rounded-full overflow-hidden border-2 border-gray-200 shadow-lg">
                 <Image
                   src="/media/headshot.PNG"
                   alt="Todd Dong"
@@ -173,7 +173,7 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
-            className="relative w-full max-w-xs ml-auto aspect-[9/16] rounded-3xl overflow-hidden border-4 border-gray-300 shadow-2xl"
+            className="relative w-full max-w-[120px] sm:max-w-[160px] md:max-w-xs ml-auto aspect-[9/16] rounded-3xl overflow-hidden border-4 border-gray-300 shadow-2xl"
           >
             <video
               ref={videoRef}
