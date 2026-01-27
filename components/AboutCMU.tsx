@@ -23,14 +23,14 @@ export default function AboutCMU() {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-6 items-start">
+        <div className="grid md:grid-cols-2 gap-6 items-center">
           {/* Photo */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="relative h-[300px] rounded-2xl overflow-hidden border-2 border-gray-300 group order-2 md:order-1 shadow-sm"
+            className="relative h-[400px] rounded-2xl overflow-hidden border-2 border-gray-300 group order-2 md:order-1 shadow-sm"
           >
             <Image
               src="/media/cmu-about.jpg"
@@ -61,7 +61,7 @@ export default function AboutCMU() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="space-y-6 order-1 md:order-2 -mt-2"
+            className="space-y-6 order-1 md:order-2"
           >
             <div className="flex items-center gap-3">
               <GraduationCap className="text-[#93C572]" size={24} />

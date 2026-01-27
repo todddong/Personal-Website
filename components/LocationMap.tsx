@@ -471,7 +471,7 @@ export default function LocationMap() {
         maxZoom={12}
         style={{ height: "100%", width: "100%", zIndex: 0 }}
         zoomControl={false}
-        scrollWheelZoom={true}
+        scrollWheelZoom={false}
         doubleClickZoom={false}
         dragging={true}
         touchZoom={true}
