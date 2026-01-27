@@ -6,7 +6,9 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import CloudImage from "./CloudImage";
 import { X } from "lucide-react";
+import { localPathToSupabasePath } from "@/lib/imageUtils";
 
 // Context for photo click handler
 const PhotoClickContext = createContext<((photoSrc: string, lat: number, lng: number) => void) | null>(null);
@@ -615,6 +617,16 @@ function PhotoFunnelOverlayInner({
                 <div className="flex items-center justify-center h-full bg-gray-100 text-gray-500 text-sm p-4 text-center">
                   Image not found
                 </div>
+              ) : photo.startsWith('/media/') ? (
+                <CloudImage
+                  src={localPathToSupabasePath(photo)}
+                  alt="Selected photo"
+                  fill
+                  className="object-cover"
+                  objectFit="cover"
+                  fallback={photo}
+                  onError={() => setImageError(true)}
+                />
               ) : (
                 <Image
                   src={photo}
@@ -768,12 +780,23 @@ function ZoomBasedMarkers() {
                           }}
                           className="relative w-full h-20 rounded-md overflow-hidden border border-gray-200 shadow-sm hover:border-gray-300 transition-all cursor-pointer"
                         >
-                          <Image
-                            src={photo.src}
-                            alt={photo.alt}
-                            fill
-                            className="object-cover"
-                          />
+                          {photo.src.startsWith('/media/') ? (
+                            <CloudImage
+                              src={localPathToSupabasePath(photo.src)}
+                              alt={photo.alt}
+                              fill
+                              className="object-cover"
+                              objectFit="cover"
+                              fallback={photo.src}
+                            />
+                          ) : (
+                            <Image
+                              src={photo.src}
+                              alt={photo.alt}
+                              fill
+                              className="object-cover"
+                            />
+                          )}
                         </a>
                       ))}
                     </div>
@@ -841,12 +864,23 @@ function ZoomBasedMarkers() {
                   }}
                   className="relative w-full h-32 rounded-md overflow-hidden border border-gray-200 shadow-sm hover:border-gray-300 transition-all cursor-pointer block"
                 >
-                  <Image
-                    src={subLoc.data.src}
-                    alt={subLoc.data.alt}
-                    fill
-                    className="object-cover"
-                  />
+                  {subLoc.data.src.startsWith('/media/') ? (
+                    <CloudImage
+                      src={localPathToSupabasePath(subLoc.data.src)}
+                      alt={subLoc.data.alt}
+                      fill
+                      className="object-cover"
+                      objectFit="cover"
+                      fallback={subLoc.data.src}
+                    />
+                  ) : (
+                    <Image
+                      src={subLoc.data.src}
+                      alt={subLoc.data.alt}
+                      fill
+                      className="object-cover"
+                    />
+                  )}
                 </a>
               )}
             </div>

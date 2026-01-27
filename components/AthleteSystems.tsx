@@ -2,20 +2,20 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
-import Image from "next/image";
+import CloudImage from "./CloudImage";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const allSlides = [
-  { src: "/media/swim-1.jpg", alt: "Swim Photo 1" },
-  { src: "/media/swim-2.jpg", alt: "Swim Photo 2" },
-  { src: "/media/swim-3.jpg", alt: "Swim Photo 3" },
-  { src: "/media/swim-team-podium.jpg", alt: "Swim Team Podium" },
-  { src: "/media/general/sushi.jpg", alt: "Sushi" },
-  { src: "/media/general/photo-2.jpg", alt: "Photo 2" },
-  { src: "/media/general/photo-3.jpg", alt: "Photo 3" },
-  { src: "/media/general/photo-4.jpg", alt: "Photo 4" },
-  { src: "/media/general/photo-5.jpg", alt: "Photo 5" },
-  { src: "/media/general/photo-6.jpg", alt: "Photo 6" },
+  { src: "swim-1.jpg", alt: "Swim Photo 1" },
+  { src: "swim-2.jpg", alt: "Swim Photo 2" },
+  { src: "swim-3.jpg", alt: "Swim Photo 3" },
+  { src: "swim-team-podium.jpg", alt: "Swim Team Podium" },
+  { src: "general/sushi.jpg", alt: "Sushi" },
+  { src: "general/photo-2.jpg", alt: "Photo 2" },
+  { src: "general/photo-3.jpg", alt: "Photo 3" },
+  { src: "general/photo-4.jpg", alt: "Photo 4" },
+  { src: "general/photo-5.jpg", alt: "Photo 5" },
+  { src: "general/photo-6.jpg", alt: "Photo 6" },
 ];
 
 export default function AthleteSystems() {
@@ -93,15 +93,18 @@ export default function AthleteSystems() {
                 transition={{ duration: 0.5 }}
                 className="absolute inset-0"
               >
-                <Image
+                <CloudImage
                   src={allSlides[currentSlide].src}
                   alt={allSlides[currentSlide].alt}
                   fill
                   className={`object-cover ${
-                    allSlides[currentSlide].src === "/media/swim-2.jpg"
+                    allSlides[currentSlide].src === "swim-2.jpg"
                       ? "object-[center_35%]"
                       : ""
                   }`}
+                  objectFit="cover"
+                  objectPosition={allSlides[currentSlide].src === "swim-2.jpg" ? "center 35%" : undefined}
+                  fallback={`/media/${allSlides[currentSlide].src}`}
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
                     target.style.display = 'none';
@@ -111,7 +114,7 @@ export default function AthleteSystems() {
                         <div class="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-black to-blue-900/20 flex items-center justify-center">
                           <div class="text-center text-gray-500">
                             <p class="text-sm mb-2">Swim Photo</p>
-                            <p class="text-xs">Add swim photos to public/media folder</p>
+                            <p class="text-xs">Image loading from Supabase Storage</p>
                           </div>
                         </div>
                       `;

@@ -7,6 +7,13 @@ const nextConfig = {
   },
   images: {
     domains: ['images.unsplash.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'zrmvlvasfbykrnmfhczh.supabase.co',
+        pathname: '/storage/v1/object/public/**',
+      },
+    ],
   },
 };
 

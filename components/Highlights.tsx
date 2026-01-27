@@ -1,26 +1,27 @@
 "use client";
 
 import { motion } from "framer-motion";
+import CloudImage from "./CloudImage";
 import Image from "next/image";
 import { useState } from "react";
 import { X } from "lucide-react";
 
 // Add your Alaska photos here - they'll automatically appear in the gallery
-// Name them: alaska-1.jpg, alaska-2.jpg, etc. in the public/media/alaska folder
+// Using Supabase Storage paths (relative to 'images' bucket)
 const alaskaHighlights = [
-  { src: "/media/alaska/alaska-1.jpg", alt: "Alaska Highlight 1", title: "Anchorage" },
-  { src: "/media/alaska/alaska-2.jpg", alt: "Alaska Highlight 2", title: "Alaska" },
-  { src: "/media/alaska/alaska-3.jpg", alt: "Alaska Highlight 3", title: "Alaska" },
-  { src: "/media/alaska/alaska-4.jpg", alt: "Alaska Highlight 4", title: "Alaska" },
-  { src: "/media/alaska/alaska-5.jpg", alt: "Alaska Highlight 5", title: "Alaska" },
-  { src: "/media/alaska/alaska-6.jpg", alt: "Alaska Highlight 6", title: "Alaska" },
-  { src: "/media/alaska/alaska-7.jpg", alt: "Alaska Highlight 7", title: "Alaska" },
-  { src: "/media/alaska/alaska-8.jpg", alt: "Alaska Highlight 8", title: "Alaska" },
-  { src: "/media/alaska/alaska-9.jpg", alt: "Alaska Highlight 9", title: "Alaska" },
-  { src: "/media/alaska/alaska-10.jpg", alt: "Alaska Highlight 10", title: "Alaska" },
-  { src: "/media/alaska/alaska-11.jpg", alt: "Alaska Highlight 11", title: "Alaska" },
-  { src: "/media/alaska/alaska-12.jpg", alt: "Alaska Highlight 12", title: "Alaska" },
-  { src: "/media/alaska/alaska-13.jpg", alt: "Alaska Highlight 13", title: "Alaska" },
+  { src: "alaska/alaska-1.jpg", alt: "Alaska Highlight 1", title: "Anchorage" },
+  { src: "alaska/alaska-2.jpg", alt: "Alaska Highlight 2", title: "Alaska" },
+  { src: "alaska/alaska-3.jpg", alt: "Alaska Highlight 3", title: "Alaska" },
+  { src: "alaska/alaska-4.jpg", alt: "Alaska Highlight 4", title: "Alaska" },
+  { src: "alaska/alaska-5.jpg", alt: "Alaska Highlight 5", title: "Alaska" },
+  { src: "alaska/alaska-6.jpg", alt: "Alaska Highlight 6", title: "Alaska" },
+  { src: "alaska/alaska-7.jpg", alt: "Alaska Highlight 7", title: "Alaska" },
+  { src: "alaska/alaska-8.jpg", alt: "Alaska Highlight 8", title: "Alaska" },
+  { src: "alaska/alaska-9.jpg", alt: "Alaska Highlight 9", title: "Alaska" },
+  { src: "alaska/alaska-10.jpg", alt: "Alaska Highlight 10", title: "Alaska" },
+  { src: "alaska/alaska-11.jpg", alt: "Alaska Highlight 11", title: "Alaska" },
+  { src: "alaska/alaska-12.jpg", alt: "Alaska Highlight 12", title: "Alaska" },
+  { src: "alaska/alaska-13.jpg", alt: "Alaska Highlight 13", title: "Alaska" },
 ];
 
 function HighlightItem({ 
@@ -46,11 +47,13 @@ function HighlightItem({
       onClick={() => onSelect(highlight.src)}
     >
       <div className="aspect-square relative overflow-hidden">
-        <Image
+        <CloudImage
           src={highlight.src}
           alt={highlight.alt}
           fill
           className="object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
+          objectFit="cover"
+          fallback={`/media/${highlight.src}`}
           onError={() => setImageError(true)}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -118,12 +121,23 @@ export default function Highlights() {
                 <X size={24} />
               </button>
               <div className="relative w-full h-full aspect-video">
-                <Image
-                  src={selectedImage}
-                  alt="Selected highlight"
-                  fill
-                  className="object-contain"
-                />
+                {selectedImage?.startsWith('/media/') ? (
+                  <Image
+                    src={selectedImage}
+                    alt="Selected highlight"
+                    fill
+                    className="object-contain"
+                  />
+                ) : (
+                  <CloudImage
+                    src={selectedImage || ""}
+                    alt="Selected highlight"
+                    fill
+                    className="object-contain"
+                    objectFit="contain"
+                    fallback={selectedImage ? `/media/${selectedImage}` : undefined}
+                  />
+                )}
               </div>
             </motion.div>
           </motion.div>

@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import CloudImage from "./CloudImage";
 
 function TypingText({ text, speed = 100, delay = 0 }: { text: string; speed?: number; delay?: number }) {
   const [displayedText, setDisplayedText] = useState("");
@@ -84,12 +85,14 @@ export default function Hero() {
               transition={{ duration: 0.8 }}
             >
               <div className="relative w-32 h-32 sm:w-40 sm:h-40 md:w-60 md:h-60 lg:w-64 lg:h-64 rounded-lg overflow-hidden border-2 border-gray-200 shadow-md">
-                <Image
-                  src="/media/alaska/cs logo.png"
+                <CloudImage
+                  src="alaska/cs logo.png"
                   alt="CS Logo"
                   fill
                   className="object-cover"
                   priority
+                  objectFit="cover"
+                  fallback="/media/alaska/cs logo.png"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
                     target.style.display = 'none';
@@ -110,12 +113,14 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.2 }}
             >
               <div className="relative w-32 h-32 sm:w-40 sm:h-40 md:w-60 md:h-60 lg:w-64 lg:h-64 rounded-lg overflow-hidden border-2 border-gray-200 shadow-md">
-                <Image
-                  src="/media/alaska/cmu swim logo.webp"
+                <CloudImage
+                  src="alaska/cmu swim logo.webp"
                   alt="CMU Swim Logo"
                   fill
                   className="object-cover"
                   priority
+                  objectFit="cover"
+                  fallback="/media/alaska/cmu swim logo.webp"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
                     target.style.display = 'none';
@@ -135,12 +140,14 @@ export default function Hero() {
               className="mb-3"
             >
               <div className="relative w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 rounded-full overflow-hidden border-2 border-gray-200 shadow-lg">
-                <Image
-                  src="/media/headshot.PNG"
+                <CloudImage
+                  src="headshot.PNG"
                   alt="Todd Dong"
                   fill
                   className="object-cover scale-150"
                   priority
+                  objectFit="cover"
+                  fallback="/media/headshot.PNG"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
                     target.style.display = 'none';

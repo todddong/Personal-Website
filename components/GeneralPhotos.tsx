@@ -1,21 +1,23 @@
 "use client";
 
 import { motion } from "framer-motion";
+import CloudImage from "./CloudImage";
 import Image from "next/image";
 import { useState } from "react";
 import { X } from "lucide-react";
 
 // Add your general photos here - they'll automatically appear in the gallery
+// Using Supabase Storage paths (relative to 'images' bucket)
 const generalPhotos = [
-  { src: "/media/general/sushi.jpg", alt: "Sushi" },
-  { src: "/media/general/photo-2.jpg", alt: "Photo 2" },
-  { src: "/media/general/photo-3.jpg", alt: "Photo 3" },
-  { src: "/media/general/photo-4.jpg", alt: "Photo 4" },
-  { src: "/media/general/photo-5.jpg", alt: "Photo 5" },
-  { src: "/media/general/photo-6.jpg", alt: "Photo 6" },
-  { src: "/media/general/photo-7.jpg", alt: "Photo 7" },
-  { src: "/media/general/photo-8.jpg", alt: "Photo 8" },
-  { src: "/media/general/photo-9.jpg", alt: "Photo 9" },
+  { src: "general/sushi.jpg", alt: "Sushi" },
+  { src: "general/photo-2.jpg", alt: "Photo 2" },
+  { src: "general/photo-3.jpg", alt: "Photo 3" },
+  { src: "general/photo-4.jpg", alt: "Photo 4" },
+  { src: "general/photo-5.jpg", alt: "Photo 5" },
+  { src: "general/photo-6.jpg", alt: "Photo 6" },
+  { src: "general/photo-7.jpg", alt: "Photo 7" },
+  { src: "general/photo-8.jpg", alt: "Photo 8" },
+  { src: "general/photo-9.jpg", alt: "Photo 9" },
 ];
 
 function PhotoItem({ 
@@ -41,11 +43,13 @@ function PhotoItem({
       onClick={() => onSelect(photo.src)}
     >
       <div className="aspect-[4/3] relative">
-        <Image
+        <CloudImage
           src={photo.src}
           alt={photo.alt}
           fill
           className="object-cover group-hover:scale-110 transition-transform duration-500"
+          objectFit="cover"
+          fallback={`/media/${photo.src}`}
           onError={() => setImageError(true)}
         />
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300" />
@@ -108,12 +112,23 @@ export default function GeneralPhotos() {
                 <X size={24} />
               </button>
               <div className="relative w-full h-full aspect-video">
-                <Image
-                  src={selectedImage}
-                  alt="Selected photo"
-                  fill
-                  className="object-contain"
-                />
+                {selectedImage?.startsWith('/media/') ? (
+                  <Image
+                    src={selectedImage}
+                    alt="Selected photo"
+                    fill
+                    className="object-contain"
+                  />
+                ) : (
+                  <CloudImage
+                    src={selectedImage || ""}
+                    alt="Selected photo"
+                    fill
+                    className="object-contain"
+                    objectFit="contain"
+                    fallback={selectedImage?.startsWith('general/') ? `/media/${selectedImage}` : undefined}
+                  />
+                )}
               </div>
             </motion.div>
           </motion.div>
