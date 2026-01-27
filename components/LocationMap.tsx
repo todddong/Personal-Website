@@ -1022,7 +1022,7 @@ export default function LocationMap() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
-      className="w-full h-[600px] sm:h-[700px] md:h-[800px] rounded-2xl overflow-hidden border border-gray-200 shadow-sm bg-white"
+      className="relative w-full h-[600px] sm:h-[700px] md:h-[800px] rounded-2xl overflow-hidden border border-gray-200 shadow-sm bg-white"
       style={{ touchAction: 'none' }}
     >
       <MapContainer
