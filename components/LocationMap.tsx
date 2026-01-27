@@ -430,46 +430,76 @@ function PhotoFunnelOverlayInner({
 
   if (!photo || !photoPosition || !markerPixelPosition) return null;
 
-  // Calculate funnel path (triangular funnel from photo bottom center to marker)
+  // Calculate line from photo center to marker
   const photoWidth = 280;
   const photoHeight = 350;
-  const funnelBottomX = photoPosition.x + photoWidth / 2; // Center of photo
-  const funnelBottomY = photoPosition.y + photoHeight; // Bottom of photo
+  const photoCenterX = photoPosition.x + photoWidth / 2; // Center X of photo
+  const photoCenterY = photoPosition.y + photoHeight / 2; // Center Y of photo
   const markerX = markerPixelPosition.x;
   const markerY = markerPixelPosition.y;
 
-  // Calculate distance and angle for the funnel
-  const dx = markerX - funnelBottomX;
-  const dy = markerY - funnelBottomY;
+  // Calculate direction vector from photo center to marker
+  const dx = markerX - photoCenterX;
+  const dy = markerY - photoCenterY;
   const distance = Math.sqrt(dx * dx + dy * dy);
-  const angle = Math.atan2(dy, dx);
+  
+  // Normalize direction vector
+  const dirX = dx / distance;
+  const dirY = dy / distance;
 
-  // Funnel width at the top (photo bottom) - wider, but constrained to photo width
-  const funnelTopWidth = Math.min(60, photoWidth * 0.8); // Max 80% of photo width
-  // Funnel width at the bottom (marker) - narrow point
-  const funnelBottomWidth = 4;
-
-  // Calculate perpendicular vector for funnel sides
-  const perpX = -Math.sin(angle) * funnelTopWidth / 2;
-  const perpY = Math.cos(angle) * funnelTopWidth / 2;
-
-  // Points for triangular funnel - ensure they stay within photo bounds
-  let topLeftX = funnelBottomX + perpX;
-  let topLeftY = funnelBottomY + perpY;
-  let topRightX = funnelBottomX - perpX;
-  let topRightY = funnelBottomY - perpY;
-
-  // Constrain funnel points to stay within photo horizontal bounds
+  // Find intersection point where line from center exits the photo
+  // We need to find which edge of the photo the line intersects
   const photoLeft = photoPosition.x;
   const photoRight = photoPosition.x + photoWidth;
-  topLeftX = Math.max(photoLeft + 5, Math.min(photoRight - 5, topLeftX));
-  topRightX = Math.max(photoLeft + 5, Math.min(photoRight - 5, topRightX));
+  const photoTop = photoPosition.y;
+  const photoBottom = photoPosition.y + photoHeight;
+
+  let lineStartX = photoCenterX;
+  let lineStartY = photoCenterY;
+
+  // Calculate intersection with each edge
+  // Top edge
+  if (dirY < 0) {
+    const t = (photoTop - photoCenterY) / dirY;
+    const x = photoCenterX + t * dirX;
+    if (x >= photoLeft && x <= photoRight) {
+      lineStartX = x;
+      lineStartY = photoTop;
+    }
+  }
+  // Bottom edge
+  if (dirY > 0) {
+    const t = (photoBottom - photoCenterY) / dirY;
+    const x = photoCenterX + t * dirX;
+    if (x >= photoLeft && x <= photoRight) {
+      lineStartX = x;
+      lineStartY = photoBottom;
+    }
+  }
+  // Left edge
+  if (dirX < 0) {
+    const t = (photoLeft - photoCenterX) / dirX;
+    const y = photoCenterY + t * dirY;
+    if (y >= photoTop && y <= photoBottom) {
+      lineStartX = photoLeft;
+      lineStartY = y;
+    }
+  }
+  // Right edge
+  if (dirX > 0) {
+    const t = (photoRight - photoCenterX) / dirX;
+    const y = photoCenterY + t * dirY;
+    if (y >= photoTop && y <= photoBottom) {
+      lineStartX = photoRight;
+      lineStartY = y;
+    }
+  }
 
   const mapSize = map.getSize();
 
   return (
     <>
-      {/* Funnel shape SVG overlay - covers entire map */}
+      {/* Solid red line SVG overlay - covers entire map */}
       <div
         className="absolute pointer-events-none"
         style={{
@@ -485,14 +515,14 @@ function PhotoFunnelOverlayInner({
           height={mapSize.y}
           style={{ position: 'absolute', left: 0, top: 0 }}
         >
-          {/* Triangular funnel path */}
-          <path
-            d={`M ${topLeftX} ${topLeftY} L ${topRightX} ${topRightY} L ${markerX} ${markerY} Z`}
-            fill="#ffffff"
-            fillOpacity="0.4"
-            stroke="#ffffff"
-            strokeWidth="2"
-            strokeDasharray="4,4"
+          {/* Solid red line from photo edge to marker */}
+          <line
+            x1={lineStartX}
+            y1={lineStartY}
+            x2={markerX}
+            y2={markerY}
+            stroke="#ef4444"
+            strokeWidth="4"
           />
         </svg>
       </div>
