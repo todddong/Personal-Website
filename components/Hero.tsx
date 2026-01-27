@@ -76,7 +76,7 @@ export default function Hero() {
       <div className="relative z-10 w-full max-w-7xl mx-auto px-8 md:px-12">
         <div className="grid md:grid-cols-3 gap-12 items-center justify-items-stretch">
           {/* Left Side - Two Logos */}
-          <div className="flex flex-col items-end justify-center">
+          <div className="flex flex-col items-center justify-center">
             {/* CS Logo */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
