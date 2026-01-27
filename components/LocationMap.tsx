@@ -387,7 +387,7 @@ const subLocations = [
   { parentId: 1, name: "CMU Varsity Swim Team", lat: 40.4416, lng: -79.9456, type: 'activity' as const, data: locations[0].activities[1] },
   { parentId: 1, name: "CMU HCII", lat: 40.4436, lng: -79.9446, type: 'activity' as const, data: locations[0].activities[2] },
   // Downtown Pittsburgh sub-location
-  { parentId: 6, name: "Downtown Pittsburgh", lat: 40.44, lng: -80.0, type: 'photo' as const, data: locations[5]?.photos?.[0] },
+  { parentId: 6, name: "Downtown Pittsburgh", lat: 40.44, lng: -80.0, type: 'photo' as const, data: locations.find(loc => loc.id === 6)?.photos?.[0] },
 ].filter((subLoc): subLoc is { parentId: number; name: string; lat: number; lng: number; type: 'activity' | 'photo'; data: any } => !!subLoc.data);
 
 // Heat map data - region-based (city-level circles)
@@ -991,12 +991,14 @@ export default function LocationMap() {
         doubleClickZoom={false}
         dragging={true}
         touchZoom={true}
+        worldCopyJump={true}
         className="map-container"
       >
         <MapView />
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          noWrap={false}
         />
         
         {/* State boundaries overlay using GeoJSON */}
