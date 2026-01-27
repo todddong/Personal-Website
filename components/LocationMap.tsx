@@ -244,9 +244,10 @@ function MapView() {
       [24.396308, -125.0], // Southwest corner (continental US)
       [49.384358, -66.93457] // Northeast corner (continental US)
     );
-    // Fit bounds with no padding to fill the entire map section
+    // Fit bounds with no padding and high zoom to show more detail
     map.fitBounds(bounds, { 
-      padding: [0, 0]
+      padding: [0, 0],
+      maxZoom: 12
     });
   }, [map]);
   
