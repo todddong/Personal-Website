@@ -160,38 +160,19 @@ export default function AthleteSystems() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="space-y-6"
+            className="space-y-3"
           >
             <p className="text-xl text-gray-300 leading-relaxed">
               Todd Dong Bio
             </p>
             
-            <p className="text-gray-400 leading-relaxed">
+            <p className="text-gray-400 leading-relaxed text-sm">
               &quot;I am a CS student at Carnegie Mellon University and a member of the Varsity swim team. Being a student-athlete requires a high level of commitment, discipline, and time management, and I take pride in applying that same dedication to my academic and professional pursuits. I am currently working toward a degree in Computer Science with a concentration in Machine Learning.&quot;
             </p>
 
-            <div className="space-y-3 mt-6">
-              <div className="flex items-start gap-3">
-                <span className="text-blue-400 mt-1">•</span>
-                <span className="text-gray-400">Born in Cleveland, moved to Nashville</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="text-blue-400 mt-1">•</span>
-                <span className="text-gray-400">Passion for exploring new places</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="text-blue-400 mt-1">•</span>
-                <span className="text-gray-400">Love trying new food</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="text-blue-400 mt-1">•</span>
-                <span className="text-gray-400">Enjoy going to the gym</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="text-blue-400 mt-1">•</span>
-                <span className="text-gray-400">Love meeting new people</span>
-              </div>
-            </div>
+            <p className="text-gray-400 text-sm leading-relaxed">
+              Born in Cleveland, moved to Nashville. Passion for exploring new places, trying new food, going to the gym, and meeting new people.
+            </p>
           </motion.div>
         </div>
 

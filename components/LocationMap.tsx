@@ -221,7 +221,7 @@ function MapView() {
     // Fit bounds with padding, but adjust to show Alaska in bottom right
     map.fitBounds(bounds, { 
       padding: [20, 20],
-      maxZoom: 5
+      maxZoom: 6
     });
     
     // Adjust pan to better position Alaska in bottom right
@@ -272,7 +272,7 @@ export default function LocationMap() {
 
   if (!isClient) {
     return (
-      <div className="w-full h-[500px] bg-gray-100 border border-gray-300 rounded-lg flex items-center justify-center">
+      <div className="w-full h-[700px] bg-gray-100 border border-gray-300 rounded-lg flex items-center justify-center">
         <p className="text-gray-600">Loading map...</p>
       </div>
     );
@@ -284,16 +284,17 @@ export default function LocationMap() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
-      className="w-full h-[500px] rounded-lg overflow-hidden border border-gray-300 shadow-lg bg-white"
+      className="w-full h-[700px] rounded-lg overflow-hidden border border-gray-300 shadow-lg bg-white"
     >
       <MapContainer
         center={[39.8283, -98.5795]}
         zoom={4}
         minZoom={3}
-        maxZoom={10}
+        maxZoom={15}
         style={{ height: "100%", width: "100%", zIndex: 0 }}
         zoomControl={true}
         scrollWheelZoom={true}
+        doubleClickZoom={true}
         className="map-container"
       >
         <MapView />
