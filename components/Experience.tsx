@@ -77,10 +77,23 @@ function TimelineItem({ item, index }: { item: typeof timeline[0]; index: number
       transition={{ duration: 0.6, delay: index * 0.2 }}
       className="relative pl-20"
     >
-      {/* Icon - Always show original icon */}
-      <div className="absolute left-0 top-0 w-16 h-16 bg-gray-900 border-2 border-gray-800 rounded-full flex items-center justify-center z-10">
-        <Icon className="text-blue-400" size={24} />
-      </div>
+      {/* Logo - Replace icon with logo */}
+      {item.logo && !logoError && (
+        <div className="absolute left-0 top-0 w-16 h-16 bg-white rounded-lg p-1.5 border-2 border-gray-800 flex items-center justify-center z-10">
+          <Image
+            src={item.logo}
+            alt={`${item.title} logo`}
+            fill
+            className="object-contain"
+            onError={() => setLogoError(true)}
+          />
+        </div>
+      )}
+      {(!item.logo || logoError) && (
+        <div className="absolute left-0 top-0 w-16 h-16 bg-gray-900 border-2 border-gray-800 rounded-full flex items-center justify-center z-10">
+          <Icon className="text-blue-400" size={24} />
+        </div>
+      )}
 
       {/* Content */}
       <div 
@@ -94,21 +107,9 @@ function TimelineItem({ item, index }: { item: typeof timeline[0]; index: number
             <p className="text-blue-400 text-sm mb-2">{item.role}</p>
           </div>
           <div className="flex flex-col items-end ml-4">
-            <span className="text-gray-500 text-sm whitespace-nowrap mb-2">
+            <span className="text-gray-500 text-sm whitespace-nowrap">
               {item.year}
             </span>
-            {/* Logo under the date */}
-            {item.logo && !logoError && (
-              <div className="relative w-16 h-16 bg-white rounded-lg p-1.5 border border-gray-700 overflow-hidden">
-                <Image
-                  src={item.logo}
-                  alt={`${item.title} logo`}
-                  fill
-                  className="object-contain"
-                  onError={() => setLogoError(true)}
-                />
-              </div>
-            )}
           </div>
         </div>
         
