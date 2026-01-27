@@ -74,9 +74,9 @@ export default function Hero() {
       <div className="absolute inset-0 grid-pattern opacity-20 z-0" />
       
       <div className="relative z-10 w-full max-w-7xl mx-auto px-8 md:px-12">
-        <div className="grid md:grid-cols-3 gap-12 items-center">
+        <div className="grid md:grid-cols-3 gap-12 items-center justify-items-stretch">
           {/* Left Side - Two Logos */}
-          <div className="flex flex-col items-end justify-center gap-3 mr-auto">
+          <div className="flex flex-col items-end justify-center">
             {/* CS Logo */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
@@ -98,8 +98,10 @@ export default function Hero() {
               </div>
             </motion.div>
             
-            {/* X separator */}
-            <div className="text-gray-400 text-2xl font-light">×</div>
+            {/* X separator - centered between logos */}
+            <div className="flex items-center justify-center my-2">
+              <div className="text-gray-400 text-2xl font-light">×</div>
+            </div>
             
             {/* CMU Swim Logo */}
             <motion.div
@@ -171,7 +173,7 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
-            className="relative w-full max-w-xs ml-auto aspect-[9/16] rounded-3xl overflow-hidden border-4 border-gray-300 shadow-2xl"
+            className="relative w-full max-w-xs aspect-[9/16] rounded-3xl overflow-hidden border-4 border-gray-300 shadow-2xl"
           >
             <video
               ref={videoRef}
