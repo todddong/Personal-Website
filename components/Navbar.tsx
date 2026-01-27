@@ -66,7 +66,7 @@ export default function Navbar() {
             }}
             className="text-sm font-medium text-gray-900 hover:text-gray-600 transition-colors"
           >
-            todddong.com
+            todd dong
           </a>
         </div>
       </div>

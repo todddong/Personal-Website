@@ -83,7 +83,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      className="group bg-white border-2 border-gray-300 rounded-2xl p-4 hover:border-gray-400 transition-all duration-300 shadow-sm hover:shadow-xl"
+      className="group bg-white border-2 border-gray-300 rounded-2xl p-4 hover:border-gray-400 transition-all duration-300 shadow-sm hover:shadow-xl self-start"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -210,7 +210,7 @@ export default function Projects() {
           projects
         </motion.h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
           {projects.map((project, index) => (
             <ProjectCard key={project.title} project={project} index={index} />
           ))}
