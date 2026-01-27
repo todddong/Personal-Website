@@ -97,8 +97,8 @@ const locations = [
   {
     id: 2,
     name: "Anchorage, AK",
-    lat: 61.2181,
-    lng: -149.9003,
+    lat: 61.1894,
+    lng: -149.8264,
     visitCount: 2,
     activities: [
       {
@@ -184,6 +184,17 @@ const locations = [
         period: "Born",
         logo: null,
       },
+    ],
+  },
+  {
+    id: 9,
+    name: "Schenley Park, Pittsburgh, PA",
+    lat: 40.4378,
+    lng: -79.9486,
+    visitCount: 1,
+    activities: [],
+    photos: [
+      { src: "/media/cmu-about.jpg", alt: "Schenley Park Sunset" },
     ],
   },
 ];
