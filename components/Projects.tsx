@@ -7,6 +7,22 @@ import { useState } from "react";
 
 const projects = [
   {
+    title: "CMU x Databricks x UN Datathon Winner",
+    description: "First Place Winner — CMU x Databricks x UN Datathon. Data science competition project featuring interactive dashboard, map visualizations, and deep search capabilities for analyzing complex datasets",
+    problem: "Large-scale datasets require intuitive visualization and search tools to extract meaningful insights and patterns",
+    system: "Interactive web dashboard with map visualizations, deep search functionality, and comprehensive data analysis pipeline built with Jupyter Notebooks and data science tools",
+    impact: "Won first place at the CMU x Databricks x UN Datathon. Developed comprehensive data analysis solution with interactive visualizations, enabling users to explore and understand complex datasets through intuitive interface",
+    tech: ["Python", "Jupyter Notebooks", "Data Science", "Data Visualization", "Interactive Dashboard"],
+    link: "https://youtu.be/_cCfMuyg-Jw",
+    github: "https://github.com/45seconds/datathon-2026",
+    youtube: "https://youtu.be/_cCfMuyg-Jw",
+    image: "/media/general/databricks rewards.jpg",
+    previewImages: [
+      "/media/general/datathon-research.png",
+      "/media/general/datathon-country-view.png",
+    ],
+  },
+  {
     title: "Artificial Neural Network for Number Recognition",
     description: "Built and trained a 3-layer neural network with TensorFlow on 60,000 MNIST image dataset to classify handwritten digits",
     problem: "Handwritten digit recognition requires robust models that work across varied image dimensions and real-world inputs",
@@ -55,22 +71,6 @@ const projects = [
     tech: ["Python", "Algorithms", "Game Development"],
     link: "#",
     github: "https://github.com/todddong/15-112-Term-Project",
-  },
-  {
-    title: "CMU x Databricks x UN Datathon Winner",
-    description: "First Place Winner — CMU x Databricks x UN Datathon. Data science competition project featuring interactive dashboard, map visualizations, and deep search capabilities for analyzing complex datasets",
-    problem: "Large-scale datasets require intuitive visualization and search tools to extract meaningful insights and patterns",
-    system: "Interactive web dashboard with map visualizations, deep search functionality, and comprehensive data analysis pipeline built with Jupyter Notebooks and data science tools",
-    impact: "Won first place at the CMU x Databricks x UN Datathon. Developed comprehensive data analysis solution with interactive visualizations, enabling users to explore and understand complex datasets through intuitive interface",
-    tech: ["Python", "Jupyter Notebooks", "Data Science", "Data Visualization", "Interactive Dashboard"],
-    link: "https://youtu.be/_cCfMuyg-Jw",
-    github: "https://github.com/45seconds/datathon-2026",
-    youtube: "https://youtu.be/_cCfMuyg-Jw",
-    image: "/media/general/databricks rewards.jpg",
-    previewImages: [
-      "/media/general/datathon-research.png",
-      "/media/general/datathon-country-view.png",
-    ],
   },
 ];
 
