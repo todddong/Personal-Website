@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { GraduationCap, Trophy, MapPin, Briefcase, Code } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
@@ -67,6 +67,7 @@ const timeline = [
 function TimelineItem({ item, index }: { item: typeof timeline[0]; index: number }) {
   const Icon = item.icon;
   const [logoError, setLogoError] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <motion.div
@@ -82,7 +83,11 @@ function TimelineItem({ item, index }: { item: typeof timeline[0]; index: number
       </div>
 
       {/* Content */}
-      <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-6 hover:border-gray-700 transition-all">
+      <div 
+        className="bg-gray-900/50 border border-gray-800 rounded-lg p-6 hover:border-gray-700 transition-all"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
         <div className="flex items-start justify-between mb-2">
           <div>
             <h3 className="text-xl font-semibold text-white mb-1">{item.title}</h3>
@@ -107,12 +112,24 @@ function TimelineItem({ item, index }: { item: typeof timeline[0]; index: number
           </div>
         </div>
         
-        <div className="flex items-center gap-2 text-gray-400 text-sm mb-3">
-          <MapPin size={14} />
-          <span>{item.location}</span>
-        </div>
-        
-        <p className="text-gray-300 text-sm leading-relaxed">{item.description}</p>
+        {/* Description - only show on hover */}
+        <AnimatePresence>
+          {isHovered && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2 }}
+              className="overflow-hidden"
+            >
+              <div className="flex items-center gap-2 text-gray-400 text-sm mb-3">
+                <MapPin size={14} />
+                <span>{item.location}</span>
+              </div>
+              <p className="text-gray-300 text-sm leading-relaxed">{item.description}</p>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </motion.div>
   );

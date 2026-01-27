@@ -71,10 +71,10 @@ export default function Hero() {
   return (
     <section className="relative h-screen flex overflow-hidden">
       {/* Grid Background - Only on left side */}
-      <div className="absolute left-0 top-0 bottom-0 w-1/2 grid-pattern opacity-30 z-0" />
+      <div className="absolute left-0 top-0 bottom-0 w-2/3 grid-pattern opacity-30 z-0" />
       
       {/* Left Side - Content */}
-      <div className="relative z-10 w-1/2 flex flex-col items-center justify-center px-8 md:px-12">
+      <div className="relative z-10 w-2/3 flex flex-col items-center justify-center px-8 md:px-12">
         {/* Headshot */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
@@ -125,8 +125,8 @@ export default function Hero() {
         </motion.p>
       </div>
 
-      {/* Right Side - Video */}
-      <div className="relative w-1/2 z-10 overflow-hidden">
+      {/* Right Side - Video (Smaller) */}
+      <div className="relative w-1/3 z-10 overflow-hidden">
         <video
           ref={videoRef}
           autoPlay

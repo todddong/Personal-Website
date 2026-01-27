@@ -171,57 +171,10 @@ export default function AthleteSystems() {
             </p>
 
             <p className="text-gray-400 text-sm leading-relaxed">
-              Born in Cleveland, moved to Nashville. Passion for exploring new places, trying new food, going to the gym, and meeting new people.
+              Moved to Nashville. Passion for exploring new places, trying new food, going to the gym, and meeting new people.
             </p>
           </motion.div>
         </div>
-
-        {/* Photo Preview Gallery */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-16 grid grid-cols-2 md:grid-cols-5 gap-4"
-        >
-          {allSlides.map((slide, index) => (
-            <motion.button
-              key={index}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.5 + index * 0.05 }}
-              onClick={() => setCurrentSlide(index)}
-              className={`relative h-32 rounded-lg overflow-hidden border transition-all group ${
-                index === currentSlide
-                  ? 'border-blue-400 border-2'
-                  : 'border-gray-800 hover:border-gray-700'
-              }`}
-            >
-              <Image
-                src={slide.src}
-                alt={slide.alt}
-                fill
-                className={`object-cover transition-all duration-300 ${
-                  index === currentSlide
-                    ? 'opacity-100'
-                    : 'opacity-70 group-hover:opacity-100 group-hover:scale-110'
-                }`}
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.style.display = 'none';
-                  const parent = target.parentElement;
-                  if (parent && !parent.querySelector('.placeholder')) {
-                    const placeholder = document.createElement('div');
-                    placeholder.className = 'placeholder absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center';
-                    placeholder.innerHTML = `<span class="text-gray-600 text-xs">${index + 1}</span>`;
-                    parent.appendChild(placeholder);
-                  }
-                }}
-              />
-            </motion.button>
-          ))}
-        </motion.div>
       </div>
     </section>
   );
