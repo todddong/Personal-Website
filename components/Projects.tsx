@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ExternalLink, Github, Youtube } from "lucide-react";
+import Image from "next/image";
 
 const projects = [
   {
@@ -56,14 +57,15 @@ const projects = [
   },
   {
     title: "DSC Datathon 2026",
-    description: "Data science competition project featuring interactive dashboard, map visualizations, and deep search capabilities for analyzing complex datasets",
+    description: "🏆 First Place Winner — CMU x Databricks x UN Datathon. Data science competition project featuring interactive dashboard, map visualizations, and deep search capabilities for analyzing complex datasets",
     problem: "Large-scale datasets require intuitive visualization and search tools to extract meaningful insights and patterns",
     system: "Interactive web dashboard with map visualizations, deep search functionality, and comprehensive data analysis pipeline built with Jupyter Notebooks and data science tools",
-    impact: "Developed comprehensive data analysis solution with interactive visualizations, enabling users to explore and understand complex datasets through intuitive interface",
+    impact: "Won first place at the CMU x Databricks x UN Datathon. Developed comprehensive data analysis solution with interactive visualizations, enabling users to explore and understand complex datasets through intuitive interface",
     tech: ["Python", "Jupyter Notebooks", "Data Science", "Data Visualization", "Interactive Dashboard"],
     link: "https://youtu.be/_cCfMuyg-Jw",
     github: "https://github.com/45seconds/datathon-2026",
     youtube: "https://youtu.be/_cCfMuyg-Jw",
+    image: "/media/general/databricks rewards.jpg",
   },
 ];
 
@@ -131,6 +133,17 @@ export default function Projects() {
               </div>
 
               <p className="text-gray-400 mb-4 text-sm">{project.description}</p>
+
+              {(project as any).image && (
+                <div className="relative w-full h-48 mb-4 rounded-lg overflow-hidden border border-gray-800">
+                  <Image
+                    src={(project as any).image}
+                    alt={project.title}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              )}
 
               <div className="space-y-3 mb-4">
                 <div>
