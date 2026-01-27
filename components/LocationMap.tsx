@@ -787,45 +787,44 @@ function ZoomBasedMarkers() {
                           ? calculateDistance(location.lat, location.lng, NASHVILLE_COORDS.lat, NASHVILLE_COORDS.lng)
                           : null;
                         return (
-                          <a
-                            key={idx}
-                            href="#highlights"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              const element = document.querySelector('#highlights');
-                              if (element) {
-                                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                              }
-                            }}
-                            className="relative w-full aspect-square rounded-md overflow-hidden border border-gray-200 shadow-sm hover:border-gray-300 transition-all cursor-pointer"
-                          >
-                            {photo.src.startsWith('/media/') ? (
-                              <CloudImage
-                                src={localPathToSupabasePath(photo.src)}
-                                alt={photo.alt}
-                                fill
-                                className="object-cover"
-                                objectFit="cover"
-                                fallback={photo.src}
-                              />
-                            ) : (
-                              <Image
-                                src={photo.src}
-                                alt={photo.alt}
-                                fill
-                                className="object-cover"
-                              />
-                            )}
+                          <div key={idx} className="flex flex-col">
+                            <a
+                              href="#highlights"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                const element = document.querySelector('#highlights');
+                                if (element) {
+                                  element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                }
+                              }}
+                              className="relative w-full aspect-square rounded-md overflow-hidden border border-gray-200 shadow-sm hover:border-gray-300 transition-all cursor-pointer"
+                            >
+                              {photo.src.startsWith('/media/') ? (
+                                <CloudImage
+                                  src={localPathToSupabasePath(photo.src)}
+                                  alt={photo.alt}
+                                  fill
+                                  className="object-cover"
+                                  objectFit="cover"
+                                  fallback={photo.src}
+                                />
+                              ) : (
+                                <Image
+                                  src={photo.src}
+                                  alt={photo.alt}
+                                  fill
+                                  className="object-cover"
+                                />
+                              )}
+                            </a>
                             {distance !== null && (
-                              <div className="absolute bottom-1 left-1 right-1">
-                                <div className="bg-black/60 backdrop-blur-sm rounded px-1.5 py-0.5 text-center">
-                                  <span className="text-white text-[10px] font-medium">
-                                    {Math.round(distance)} mi
-                                  </span>
-                                </div>
+                              <div className="mt-0.5 text-center">
+                                <span className="text-gray-500 text-[10px] font-normal">
+                                  {Math.round(distance)} mi
+                                </span>
                               </div>
                             )}
-                          </a>
+                          </div>
                         );
                       })}
                     </div>
@@ -887,45 +886,45 @@ function ZoomBasedMarkers() {
                   ? calculateDistance(subLoc.lat, subLoc.lng, NASHVILLE_COORDS.lat, NASHVILLE_COORDS.lng)
                   : null;
                 return (
-                  <a
-                    key={`subphoto-${subLoc.name}`}
-                    href="#highlights"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      const element = document.querySelector('#highlights');
-                      if (element) {
-                        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                      }
-                    }}
-                    className="relative w-full aspect-square rounded-md overflow-hidden border border-gray-200 shadow-sm hover:border-gray-300 transition-all cursor-pointer block"
-                  >
-                    {subLoc.data.src.startsWith('/media/') ? (
-                      <CloudImage
-                        src={localPathToSupabasePath(subLoc.data.src)}
-                        alt={subLoc.data.alt}
-                        fill
-                        className="object-cover"
-                        objectFit="cover"
-                        fallback={subLoc.data.src}
-                      />
-                    ) : (
-                      <Image
-                        src={subLoc.data.src}
-                        alt={subLoc.data.alt}
-                        fill
-                        className="object-cover"
-                      />
-                    )}
+                  <div className="flex flex-col">
+                    <a
+                      key={`subphoto-${subLoc.name}`}
+                      href="#highlights"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        const element = document.querySelector('#highlights');
+                        if (element) {
+                          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                      }}
+                      className="relative w-full aspect-square rounded-md overflow-hidden border border-gray-200 shadow-sm hover:border-gray-300 transition-all cursor-pointer block"
+                    >
+                      {subLoc.data.src.startsWith('/media/') ? (
+                        <CloudImage
+                          src={localPathToSupabasePath(subLoc.data.src)}
+                          alt={subLoc.data.alt}
+                          fill
+                          className="object-cover"
+                          objectFit="cover"
+                          fallback={subLoc.data.src}
+                        />
+                      ) : (
+                        <Image
+                          src={subLoc.data.src}
+                          alt={subLoc.data.alt}
+                          fill
+                          className="object-cover"
+                        />
+                      )}
+                    </a>
                     {distance !== null && (
-                      <div className="absolute bottom-1 left-1 right-1">
-                        <div className="bg-black/60 backdrop-blur-sm rounded px-1.5 py-0.5 text-center">
-                          <span className="text-white text-[10px] font-medium">
-                            {Math.round(distance)} mi
-                          </span>
-                        </div>
+                      <div className="mt-0.5 text-center">
+                        <span className="text-gray-500 text-[10px] font-normal">
+                          {Math.round(distance)} mi
+                        </span>
                       </div>
                     )}
-                  </a>
+                  </div>
                 );
               })()}
             </div>
