@@ -17,7 +17,7 @@ const achievements = [
 
 export default function HighSchoolSwim() {
   return (
-    <section id="awards" className="py-8 px-4 md:px-8 relative bg-[#faf8f4]">
+    <section id="awards" className="py-8 px-4 md:px-8 relative bg-[#faf8f4] border-t border-gray-200">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

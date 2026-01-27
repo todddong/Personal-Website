@@ -6,16 +6,17 @@ import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const allSlides = [
-  { src: "/media/swim-1.jpg", alt: "Swim Photo 1" },
-  { src: "/media/swim-2.jpg", alt: "Swim Photo 2" },
-  { src: "/media/swim-3.jpg", alt: "Swim Photo 3" },
-  { src: "/media/swim-team-podium.jpg", alt: "Swim Team Podium" },
-  { src: "/media/general/photo-1.jpg", alt: "Photo 1" },
-  { src: "/media/general/photo-2.jpg", alt: "Photo 2" },
-  { src: "/media/general/photo-3.jpg", alt: "Photo 3" },
-  { src: "/media/general/photo-4.jpg", alt: "Photo 4" },
-  { src: "/media/general/photo-5.jpg", alt: "Photo 5" },
-  { src: "/media/general/photo-6.jpg", alt: "Photo 6" },
+  { src: "/media/swim-video.mp4", alt: "Swim Video", isVideo: true },
+  { src: "/media/swim-1.jpg", alt: "Swim Photo 1", isVideo: false },
+  { src: "/media/swim-2.jpg", alt: "Swim Photo 2", isVideo: false },
+  { src: "/media/swim-3.jpg", alt: "Swim Photo 3", isVideo: false },
+  { src: "/media/swim-team-podium.jpg", alt: "Swim Team Podium", isVideo: false },
+  { src: "/media/general/photo-1.jpg", alt: "Photo 1", isVideo: false },
+  { src: "/media/general/photo-2.jpg", alt: "Photo 2", isVideo: false },
+  { src: "/media/general/photo-3.jpg", alt: "Photo 3", isVideo: false },
+  { src: "/media/general/photo-4.jpg", alt: "Photo 4", isVideo: false },
+  { src: "/media/general/photo-5.jpg", alt: "Photo 5", isVideo: false },
+  { src: "/media/general/photo-6.jpg", alt: "Photo 6", isVideo: false },
 ];
 
 export default function AthleteSystems() {
@@ -62,7 +63,7 @@ export default function AthleteSystems() {
     <section
       ref={sectionRef}
       id="athlete-systems"
-      className="py-8 px-4 md:px-8 relative bg-[#faf8f4]"
+      className="py-8 px-4 md:px-8 relative bg-[#faf8f4] border-t border-gray-200"
     >
       <div className="max-w-7xl mx-auto">
         <motion.h2
@@ -93,31 +94,44 @@ export default function AthleteSystems() {
                 transition={{ duration: 0.5 }}
                 className="absolute inset-0"
               >
-                <Image
-                  src={allSlides[currentSlide].src}
-                  alt={allSlides[currentSlide].alt}
-                  fill
-                  className={`object-cover ${
-                    allSlides[currentSlide].src === "/media/swim-2.jpg"
-                      ? "object-[center_35%]"
-                      : ""
-                  }`}
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.style.display = 'none';
-                    const parent = target.parentElement;
-                    if (parent) {
-                      parent.innerHTML = `
-                        <div class="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-black to-blue-900/20 flex items-center justify-center">
-                          <div class="text-center text-gray-500">
-                            <p class="text-sm mb-2">Swim Photo</p>
-                            <p class="text-xs">Add swim photos to public/media folder</p>
+                {allSlides[currentSlide].isVideo ? (
+                  <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="absolute inset-0 w-full h-full object-cover"
+                    preload="auto"
+                  >
+                    <source src={allSlides[currentSlide].src} type="video/mp4" />
+                  </video>
+                ) : (
+                  <Image
+                    src={allSlides[currentSlide].src}
+                    alt={allSlides[currentSlide].alt}
+                    fill
+                    className={`object-cover ${
+                      allSlides[currentSlide].src === "/media/swim-2.jpg"
+                        ? "object-[center_35%]"
+                        : ""
+                    }`}
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = 'none';
+                      const parent = target.parentElement;
+                      if (parent) {
+                        parent.innerHTML = `
+                          <div class="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-black to-blue-900/20 flex items-center justify-center">
+                            <div class="text-center text-gray-500">
+                              <p class="text-sm mb-2">Swim Photo</p>
+                              <p class="text-xs">Add swim photos to public/media folder</p>
+                            </div>
                           </div>
-                        </div>
-                      `;
-                    }
-                  }}
-                />
+                        `;
+                      }
+                    }}
+                  />
+                )}
               </motion.div>
             </AnimatePresence>
 
