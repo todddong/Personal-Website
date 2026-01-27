@@ -75,7 +75,7 @@ export default function Highlights() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-6"
+          className="text-left mb-6"
         >
           <h2 className="text-2xl md:text-3xl font-bold mb-2 text-[#93C572]">
             Alaska Highlights

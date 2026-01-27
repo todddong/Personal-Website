@@ -24,9 +24,9 @@ export default function HighSchoolSwim() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="text-left mb-6"
         >
-          <h2           className="text-3xl md:text-4xl font-bold mb-2 text-[#93C572]">
+          <h2           className="text-3xl md:text-4xl font-normal mb-2 text-[#93C572]">
             Awards & Accolades
           </h2>
           <p className="text-gray-500 text-sm max-w-2xl mx-auto">
