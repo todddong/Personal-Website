@@ -103,11 +103,11 @@ async function uploadFile(localPath: string, supabasePath: string): Promise<bool
 }
 
 async function verifyUpload(supabasePath: string): Promise<boolean> {
-  const { data, error } = await supabase.storage
+  const { data } = supabase.storage
     .from(BUCKET_NAME)
     .getPublicUrl(supabasePath);
 
-  if (error || !data?.publicUrl) {
+  if (!data?.publicUrl) {
     return false;
   }
 
