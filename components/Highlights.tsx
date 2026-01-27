@@ -45,7 +45,7 @@ function HighlightItem({
       className="relative group cursor-pointer overflow-hidden rounded-lg border border-gray-300 hover:border-gray-400 transition-all"
       onClick={() => onSelect(highlight.src)}
     >
-      <div className="aspect-[3/2] relative overflow-hidden">
+      <div className="aspect-square relative overflow-hidden">
         <Image
           src={highlight.src}
           alt={highlight.alt}
@@ -53,9 +53,9 @@ function HighlightItem({
           className="object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
           onError={() => setImageError(true)}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        <div className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-          <span className="text-gray-900 font-medium text-sm">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="absolute bottom-0 left-0 right-0 p-2 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+          <span className="text-white font-medium text-xs drop-shadow-lg">
             {highlight.title}
           </span>
         </div>
@@ -85,7 +85,7 @@ export default function Highlights() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-3 md:grid-cols-3 gap-1">
+        <div className="grid grid-cols-4 md:grid-cols-6 gap-1">
           {alaskaHighlights.map((highlight, index) => (
             <HighlightItem
               key={index}
