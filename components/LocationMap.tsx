@@ -19,17 +19,17 @@ const createCustomIcon = (color: string = "#3b82f6") => {
   return L.divIcon({
     className: "custom-marker",
     html: `<div style="
-      width: 20px;
-      height: 20px;
+      width: 12px;
+      height: 12px;
       background-color: ${color};
-      border: 3px solid white;
+      border: 2px solid white;
       border-radius: 50%;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
       cursor: pointer;
       transition: transform 0.2s;
     "></div>`,
-    iconSize: [20, 20],
-    iconAnchor: [10, 10],
+    iconSize: [12, 12],
+    iconAnchor: [6, 6],
   });
 };
 
@@ -113,8 +113,8 @@ export default function LocationMap() {
 
   if (!isClient) {
     return (
-      <div className="w-full h-[500px] bg-gray-900/50 border border-gray-800 rounded-lg flex items-center justify-center">
-        <p className="text-gray-400">Loading map...</p>
+      <div className="w-full h-[500px] bg-gray-100 border border-gray-300 rounded-lg flex items-center justify-center">
+        <p className="text-gray-600">Loading map...</p>
       </div>
     );
   }
@@ -125,7 +125,7 @@ export default function LocationMap() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
-      className="w-full h-[500px] rounded-lg overflow-hidden border border-gray-800 shadow-lg"
+      className="w-full h-[500px] rounded-lg overflow-hidden border border-gray-300 shadow-lg bg-white"
     >
       <MapContainer
         center={[39.8283, -98.5795]}
@@ -138,7 +138,7 @@ export default function LocationMap() {
         <MapView />
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         {locations.map((location) => (
           <Marker
@@ -169,18 +169,18 @@ export default function LocationMap() {
       
       <style jsx global>{`
         .map-container {
-          background-color: #0a0a0a;
+          background-color: #f9fafb;
         }
         .leaflet-container {
-          background-color: #0a0a0a !important;
+          background-color: #f9fafb !important;
         }
         .leaflet-tile-container img {
-          filter: brightness(0.7) contrast(1.2);
+          filter: brightness(1) contrast(1);
         }
         .custom-popup .leaflet-popup-content-wrapper {
           background: white;
           border-radius: 8px;
-          box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+          box-shadow: 0 4px 12px rgba(0,0,0,0.15);
           padding: 0;
         }
         .custom-popup .leaflet-popup-tip {
@@ -194,21 +194,23 @@ export default function LocationMap() {
           transition: transform 0.2s ease;
         }
         .custom-marker:hover div {
-          transform: scale(1.3);
+          transform: scale(1.4);
         }
         .leaflet-control-zoom {
-          border: 1px solid rgba(255,255,255,0.1) !important;
-          background: rgba(17,24,39,0.95) !important;
+          border: 1px solid rgba(0,0,0,0.1) !important;
+          background: rgba(255,255,255,0.95) !important;
           border-radius: 6px !important;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
         }
         .leaflet-control-zoom a {
-          background-color: rgba(17,24,39,0.95) !important;
-          color: white !important;
-          border-color: rgba(255,255,255,0.1) !important;
+          background-color: rgba(255,255,255,0.95) !important;
+          color: #333 !important;
+          border-color: rgba(0,0,0,0.1) !important;
           border-radius: 4px !important;
         }
         .leaflet-control-zoom a:hover {
-          background-color: rgba(59,130,246,0.9) !important;
+          background-color: rgba(59,130,246,0.1) !important;
+          color: #3b82f6 !important;
         }
         .leaflet-popup-close-button {
           color: #666 !important;
