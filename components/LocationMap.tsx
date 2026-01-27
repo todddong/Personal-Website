@@ -275,7 +275,7 @@ const locations = [
     visitCount: 1,
     activities: [],
     photos: [
-      { src: "/media/general/south beach.jpg", alt: "South Beach, Miami" },
+      { src: "/media/alaska/south beach.jpg", alt: "South Beach, Miami" },
     ],
   },
   {
