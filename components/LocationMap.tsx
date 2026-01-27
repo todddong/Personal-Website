@@ -267,6 +267,39 @@ const locations = [
       { src: "/media/swim-team-podium.jpg", alt: "Swim Team Podium at Emory University" },
     ],
   },
+  {
+    id: 16,
+    name: "Bahamas",
+    lat: 25.0343,
+    lng: -77.3963,
+    visitCount: 1,
+    activities: [],
+    photos: [
+      { src: "/media/general/bahamas.jpg", alt: "Bahamas" },
+    ],
+  },
+  {
+    id: 17,
+    name: "South Beach, Miami, FL",
+    lat: 25.7907,
+    lng: -80.1300,
+    visitCount: 1,
+    activities: [],
+    photos: [
+      { src: "/media/general/south beach.jpg", alt: "South Beach, Miami" },
+    ],
+  },
+  {
+    id: 18,
+    name: "Stone Mountain, GA",
+    lat: 33.8082,
+    lng: -84.1444,
+    visitCount: 1,
+    activities: [],
+    photos: [
+      { src: "/media/general/stone mountain.jpg", alt: "Stone Mountain, Georgia" },
+    ],
+  },
 ];
 
 // Find Cleveland and Nashville locations
