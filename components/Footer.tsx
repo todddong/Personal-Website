@@ -44,19 +44,19 @@ const social = [
 
 export default function Footer() {
   return (
-    <footer id="contact" className="py-6 px-4 md:px-8 border-t border-gray-200 bg-[#faf8f4]">
+    <footer id="contact" className="py-4 sm:py-6 px-4 sm:px-6 md:px-8 border-t border-gray-200 bg-[#faf8f4]">
       <div className="max-w-7xl mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-xl md:text-2xl font-normal mb-6 text-left text-[#93C572]"
+          className="text-sm sm:text-base md:text-xl lg:text-2xl font-normal mb-3 sm:mb-4 md:mb-6 text-left text-[#93C572]"
         >
           contact
         </motion.h2>
 
-        <div className="grid md:grid-cols-3 gap-4 mb-6">
+        <div className="grid grid-cols-3 gap-1 sm:gap-2 md:gap-3 lg:gap-4 mb-3 sm:mb-4 md:mb-6">
           {contact.map((item, index) => {
             const Icon = item.icon;
             return (
@@ -67,13 +67,13 @@ export default function Footer() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="flex flex-col items-center text-center p-4 bg-gray-50 border-2 border-gray-300 rounded-2xl hover:border-gray-400 transition-all group shadow-sm"
+                className="flex flex-col items-center text-center p-1.5 sm:p-2 md:p-3 lg:p-4 bg-gray-50 border border-gray-300 sm:border-2 rounded-lg sm:rounded-xl md:rounded-2xl hover:border-gray-400 transition-all group shadow-sm"
               >
-                <Icon className="text-[#93C572] mb-2 group-hover:scale-110 transition-transform" size={20} />
-                <span className="text-xs text-gray-500 uppercase tracking-wide mb-1">
+                <Icon className="text-[#93C572] mb-1 sm:mb-2 group-hover:scale-110 transition-transform w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5" />
+                <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wide mb-0.5 sm:mb-1">
                   {item.label}
                 </span>
-                <span className="text-gray-700 text-sm">{item.value}</span>
+                <span className="text-gray-700 text-xs sm:text-sm">{item.value}</span>
               </motion.a>
             );
           })}

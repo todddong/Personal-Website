@@ -80,15 +80,15 @@ export default function Highlights() {
           transition={{ duration: 0.6 }}
           className="text-left mb-4"
         >
-          <h2 className="text-xl md:text-2xl font-normal mb-2 text-[#93C572]">
+          <h2 className="text-sm sm:text-base md:text-xl lg:text-2xl font-normal mb-1 sm:mb-2 text-[#93C572]">
             alaska highlights
           </h2>
-          <p className="text-gray-500 text-sm max-w-2xl">
+          <p className="text-gray-500 text-xs sm:text-sm max-w-2xl">
             Summer 2025 internship in Anchorage — exploring the Last Frontier
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-4 md:grid-cols-6 gap-1">
+        <div className="grid grid-cols-6 gap-0.5 sm:gap-1">
           {alaskaHighlights.map((highlight, index) => (
             <HighlightItem
               key={index}

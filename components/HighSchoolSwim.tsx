@@ -17,26 +17,26 @@ const achievements = [
 
 export default function HighSchoolSwim() {
   return (
-    <section id="awards" className="py-8 px-4 md:px-8 relative bg-[#faf8f4] border-t border-gray-200">
+    <section id="awards" className="py-6 sm:py-8 px-4 sm:px-6 md:px-8 relative bg-[#faf8f4] border-t border-gray-200">
       <div className="max-w-7xl mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-xl md:text-2xl font-normal mb-6 text-left text-[#93C572]"
+          className="text-sm sm:text-base md:text-xl lg:text-2xl font-normal mb-3 sm:mb-4 md:mb-6 text-left text-[#93C572]"
         >
           awards & accolades
         </motion.h2>
 
-        <div className="grid md:grid-cols-2 gap-6 items-center">
+        <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4 lg:gap-6 items-center">
           {/* Photo */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="relative h-[300px] rounded-2xl overflow-hidden border-2 border-gray-300 group shadow-sm"
+            className="relative h-[150px] sm:h-[200px] md:h-[250px] lg:h-[300px] rounded-lg sm:rounded-xl md:rounded-2xl overflow-hidden border border-gray-300 sm:border-2 group shadow-sm"
           >
             <Image
               src="/media/highlights/highschool-highlights.jpg"
@@ -70,8 +70,8 @@ export default function HighSchoolSwim() {
             className="space-y-6"
           >
             <div className="flex items-center gap-2 mb-4">
-              <Trophy className="text-[#93C572]" size={24} />
-              <h3 className="text-lg font-semibold text-gray-900">Awards & Recognition</h3>
+              <Trophy className="text-[#93C572] w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
+              <h3 className="text-xs sm:text-sm md:text-base lg:text-lg font-semibold text-gray-900">Awards & Recognition</h3>
             </div>
             
             <div className="space-y-2">
@@ -84,8 +84,8 @@ export default function HighSchoolSwim() {
                   transition={{ duration: 0.4, delay: index * 0.1 }}
                   className="flex items-start gap-2 p-2 bg-gray-50 border-2 border-gray-300 rounded-xl hover:border-gray-400 transition-all shadow-sm"
                 >
-                  <Award className="text-[#93C572] mt-0.5 flex-shrink-0" size={14} />
-                  <span className="text-gray-700 text-sm">{achievement}</span>
+                  <Award className="text-[#93C572] mt-0.5 flex-shrink-0 w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                  <span className="text-gray-700 text-xs sm:text-sm">{achievement}</span>
                 </motion.div>
               ))}
             </div>

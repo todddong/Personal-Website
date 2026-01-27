@@ -102,17 +102,17 @@ function TimelineItem({ item, index }: { item: typeof timeline[0]; index: number
 
       {/* Content */}
       <div 
-        className="bg-gray-50 border-2 border-gray-300 rounded-2xl p-4 hover:border-gray-400 transition-all shadow-sm"
+        className="bg-gray-50 border border-gray-300 sm:border-2 rounded-lg sm:rounded-xl md:rounded-2xl p-2 sm:p-3 md:p-4 hover:border-gray-400 transition-all shadow-sm"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
         <div className="flex items-start justify-between mb-2">
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-1">{item.title}</h3>
-            <p className="text-[#93C572] text-sm mb-2">{item.role}</p>
+            <h3 className="text-xs sm:text-sm md:text-base lg:text-lg font-semibold text-gray-900 mb-0.5 sm:mb-1">{item.title}</h3>
+            <p className="text-[#93C572] text-[10px] sm:text-xs md:text-sm mb-1 sm:mb-2">{item.role}</p>
           </div>
           <div className="flex flex-col items-end ml-4">
-            <span className="text-gray-500 text-xs whitespace-nowrap">
+            <span className="text-gray-500 text-[10px] sm:text-xs whitespace-nowrap">
               {item.year}
             </span>
           </div>
@@ -128,11 +128,11 @@ function TimelineItem({ item, index }: { item: typeof timeline[0]; index: number
               transition={{ duration: 0.6 }}
               className="overflow-hidden"
             >
-              <div className="flex items-center gap-2 text-gray-500 text-xs mb-2">
-                <MapPin size={12} />
+              <div className="flex items-center gap-1 sm:gap-2 text-gray-500 text-[10px] sm:text-xs mb-1 sm:mb-2">
+                <MapPin size={10} className="sm:w-3 sm:h-3" />
                 <span>{item.location}</span>
               </div>
-              <p className="text-gray-600 text-sm leading-relaxed">{item.description}</p>
+              <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">{item.description}</p>
             </motion.div>
           )}
         </AnimatePresence>

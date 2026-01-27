@@ -18,14 +18,14 @@ export default function AboutCMU() {
           about carnegie mellon
         </motion.h2>
 
-        <div className="grid md:grid-cols-2 gap-6 items-center">
+        <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4 lg:gap-6 items-center">
           {/* Photo */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="relative h-[400px] rounded-2xl overflow-hidden border-2 border-gray-300 group order-2 md:order-1 shadow-sm"
+            className="relative h-[200px] sm:h-[250px] md:h-[300px] lg:h-[350px] xl:h-[400px] rounded-lg sm:rounded-xl md:rounded-2xl overflow-hidden border border-gray-300 sm:border-2 group order-2 md:order-1 shadow-sm"
           >
             <Image
               src="/media/cmu-about.jpg"
@@ -59,43 +59,43 @@ export default function AboutCMU() {
             className="space-y-6 order-1 md:order-2"
           >
             <div className="flex items-center gap-3">
-              <GraduationCap className="text-[#93C572]" size={24} />
-              <h3 className="text-xl font-semibold text-gray-900">Carnegie Mellon University</h3>
+              <GraduationCap className="text-[#93C572] w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
+              <h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-gray-900">Carnegie Mellon University</h3>
             </div>
 
             <div className="space-y-2 mb-4">
-              <div className="flex items-center gap-2 text-gray-600 text-sm">
+              <div className="flex items-center gap-1 sm:gap-2 text-gray-600 text-xs sm:text-sm">
                 <Calendar className="text-[#93C572]" size={16} />
                 <span>Expected Graduation: May 2027</span>
               </div>
               
-              <div className="flex items-center gap-2 text-gray-600 text-sm">
+              <div className="flex items-center gap-1 sm:gap-2 text-gray-600 text-xs sm:text-sm">
                 <MapPin className="text-[#93C572]" size={16} />
                 <span>Pittsburgh, Pennsylvania</span>
               </div>
               
-              <div className="flex items-center gap-2 text-gray-600 text-sm">
+              <div className="flex items-center gap-1 sm:gap-2 text-gray-600 text-xs sm:text-sm">
                 <div className="w-4 h-4 flex items-center justify-center">
                   <span className="text-[#93C572] text-xs">#1</span>
                 </div>
                 <span>CS Ranking</span>
               </div>
               
-              <div className="flex items-center gap-2 text-gray-600 text-sm">
+              <div className="flex items-center gap-1 sm:gap-2 text-gray-600 text-xs sm:text-sm">
                 <div className="w-4 h-4 flex items-center justify-center">
                   <span className="text-[#93C572] text-xs">#2</span>
                 </div>
                 <span>AI Ranking</span>
               </div>
               
-              <div className="flex items-center gap-2 text-gray-600 text-sm">
+              <div className="flex items-center gap-1 sm:gap-2 text-gray-600 text-xs sm:text-sm">
                 <div className="w-4 h-4 flex items-center justify-center">
                   <span className="text-[#93C572] text-xs">#1</span>
                 </div>
                 <span>Software Engineering</span>
               </div>
               
-              <div className="flex items-center gap-2 text-gray-600 text-sm">
+              <div className="flex items-center gap-1 sm:gap-2 text-gray-600 text-xs sm:text-sm">
                 <div className="w-4 h-4 flex items-center justify-center">
                   <span className="text-[#93C572] text-xs">#1</span>
                 </div>
@@ -104,14 +104,14 @@ export default function AboutCMU() {
             </div>
 
             <div className="pt-3 border-t border-gray-200">
-              <h4 className="text-base font-semibold text-gray-900 mb-2">Degree Program</h4>
-              <p className="text-gray-600 text-sm mb-3">
+              <h4 className="text-xs sm:text-sm md:text-base font-semibold text-gray-900 mb-1 sm:mb-2">Degree Program</h4>
+              <p className="text-gray-600 text-xs sm:text-sm mb-2 sm:mb-3">
                 Bachelor of Science in Computer Science with concentration in Machine Learning
               </p>
             </div>
 
             <div className="pt-3 border-t border-gray-200">
-              <h4 className="text-base font-semibold text-gray-900 mb-2">Relevant Courses</h4>
+              <h4 className="text-xs sm:text-sm md:text-base font-semibold text-gray-900 mb-1 sm:mb-2">Relevant Courses</h4>
               <div className="flex flex-wrap gap-2">
                 {[
                   "Fundamentals of Programming",

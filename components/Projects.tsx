@@ -83,12 +83,12 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      className="group bg-white border-2 border-gray-300 rounded-2xl p-3 sm:p-4 hover:border-gray-400 transition-all duration-300 shadow-sm hover:shadow-xl self-start min-h-[120px]"
+      className="group bg-white border border-gray-300 sm:border-2 rounded-lg sm:rounded-xl md:rounded-2xl p-1.5 sm:p-2 md:p-3 lg:p-4 hover:border-gray-400 transition-all duration-300 shadow-sm hover:shadow-xl self-start min-h-[80px] sm:min-h-[100px] md:min-h-[120px]"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="flex items-start justify-between min-h-[60px]">
-        <h3 className="text-lg font-normal text-gray-900 group-hover:text-[#93C572] transition-colors flex-1">
+        <h3 className="text-xs sm:text-sm md:text-base lg:text-lg font-normal text-gray-900 group-hover:text-[#93C572] transition-colors flex-1">
           {project.title}
         </h3>
         <div className="flex gap-2">
@@ -100,7 +100,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
               className="text-gray-400 hover:text-red-400 transition-colors"
               title="Video Demo"
             >
-              <Youtube size={20} />
+              <Youtube size={14} className="sm:w-4 sm:h-4 md:w-5 md:h-5" />
             </a>
           )}
           {project.link !== "#" && project.link !== (project as any).youtube && (
@@ -110,7 +110,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-[#93C572] transition-colors"
             >
-              <ExternalLink size={20} />
+              <ExternalLink size={14} className="sm:w-4 sm:h-4 md:w-5 md:h-5" />
             </a>
           )}
           {project.github !== "#" && (
@@ -120,7 +120,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-[#93C572] transition-colors"
             >
-              <Github size={20} />
+              <Github size={14} className="sm:w-4 sm:h-4 md:w-5 md:h-5" />
             </a>
           )}
         </div>
@@ -136,7 +136,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
             transition={{ duration: 0.6 }}
             className="overflow-hidden"
           >
-            <p className="text-gray-600 mb-4 text-sm mt-4">{project.description}</p>
+            <p className="text-gray-600 mb-2 sm:mb-3 md:mb-4 text-xs sm:text-sm mt-2 sm:mt-3 md:mt-4">{project.description}</p>
 
             {(project as any).previewImages && (project as any).previewImages.length > 0 && (
               <div className="grid grid-cols-2 gap-2 mb-4">
@@ -168,7 +168,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
               {project.tech.map((tech) => (
                 <span
                   key={tech}
-                    className="px-3 py-1 bg-gray-100 text-gray-700 text-xs rounded-full border border-gray-200"
+                    className="px-1.5 sm:px-2 md:px-3 py-0.5 sm:py-1 bg-gray-100 text-gray-700 text-[10px] sm:text-xs rounded-full border border-gray-200"
                 >
                   {tech}
                 </span>
@@ -195,7 +195,7 @@ export default function Projects() {
           projects
         </motion.h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
+        <div className="grid grid-cols-3 gap-2 sm:gap-3 md:gap-4 lg:gap-6 xl:gap-8 items-start">
           {projects.map((project, index) => (
             <ProjectCard key={project.title} project={project} index={index} />
           ))}

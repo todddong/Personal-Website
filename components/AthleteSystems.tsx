@@ -75,14 +75,14 @@ export default function AthleteSystems() {
           about me
         </motion.h2>
 
-        <div className="grid md:grid-cols-2 gap-6 items-center">
+        <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4 lg:gap-6 items-center">
           {/* Left: Swim Slideshow */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="relative h-[400px] rounded-2xl overflow-hidden border-2 border-gray-300 group shadow-sm"
+            className="relative h-[200px] sm:h-[250px] md:h-[300px] lg:h-[350px] xl:h-[400px] rounded-lg sm:rounded-xl md:rounded-2xl overflow-hidden border border-gray-300 sm:border-2 group shadow-sm"
           >
             <AnimatePresence mode="wait">
               <motion.div
@@ -170,7 +170,7 @@ export default function AthleteSystems() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="text-gray-600 leading-relaxed text-base">
+              className="text-gray-600 leading-relaxed text-xs sm:text-sm md:text-base">
               &quot;I am a CS student at Carnegie Mellon University and a member of the Varsity swim team. Being a student-athlete requires a high level of commitment, discipline, and time management, and I take pride in applying that same dedication to my academic and professional pursuits. I am currently working toward a degree in Computer Science with a concentration in Machine Learning.&quot;
             </motion.p>
           </motion.div>
