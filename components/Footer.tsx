@@ -67,13 +67,13 @@ export default function Footer() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="flex flex-col items-center text-center p-1.5 sm:p-2 md:p-3 lg:p-4 bg-gray-50 border border-gray-300 sm:border-2 rounded-lg sm:rounded-xl md:rounded-2xl hover:border-gray-400 transition-all group shadow-sm"
+                className="flex flex-col items-center text-center p-1.5 sm:p-2 md:p-3 lg:p-4 bg-gray-50 border border-gray-300 sm:border-2 rounded-lg sm:rounded-xl md:rounded-2xl hover:border-gray-400 transition-all group shadow-sm overflow-hidden"
               >
                 <Icon className="text-[#93C572] mb-1 sm:mb-2 group-hover:scale-110 transition-transform w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5" />
                 <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wide mb-0.5 sm:mb-1">
                   {item.label}
                 </span>
-                <span className="text-gray-700 text-xs sm:text-sm">{item.value}</span>
+                <span className="text-gray-700 text-[10px] sm:text-xs md:text-sm break-words">{item.value}</span>
               </motion.a>
             );
           })}

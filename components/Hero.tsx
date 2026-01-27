@@ -70,7 +70,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative min-h-0 sm:min-h-screen flex items-center justify-center overflow-hidden bg-[#faf8f4] py-2 sm:py-4">
+    <section className="relative min-h-0 sm:min-h-screen flex items-center justify-center overflow-hidden bg-[#faf8f4] pt-16 sm:pt-14 py-2 sm:py-4">
       {/* Grid Background */}
       <div className="absolute inset-0 grid-pattern opacity-20 z-0" />
       
