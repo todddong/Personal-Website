@@ -15,21 +15,21 @@ L.Icon.Default.mergeOptions({
   shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png",
 });
 
-// Custom marker icon - small sharp pinpoint
+// Custom marker icon - small clean pinpoint
 const createCustomIcon = () => {
   return L.divIcon({
     className: "custom-marker",
-    html: `<div style="
-      width: 4px;
-      height: 4px;
-      background-color: #ef4444;
+    html: `<div class="marker-dot" style="
+      width: 6px;
+      height: 6px;
+      background-color: #1a1a1a;
       border-radius: 50%;
       cursor: pointer;
-      transition: transform 0.2s;
-      box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.3);
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     "></div>`,
-    iconSize: [4, 4],
-    iconAnchor: [2, 2],
+    iconSize: [6, 6],
+    iconAnchor: [3, 3],
   });
 };
 
@@ -307,8 +307,16 @@ function ZoomBasedMarkers() {
             key={location.id}
             position={[location.lat, location.lng]}
             icon={createCustomIcon()}
+            eventHandlers={{
+              mouseover: (e) => {
+                e.target.openPopup();
+              },
+              mouseout: (e) => {
+                e.target.closePopup();
+              },
+            }}
           >
-            <Popup className="custom-popup" maxWidth={220}>
+            <Popup className="custom-popup" maxWidth={220} closeButton={false} autoClose={false} closeOnClick={false}>
               <div className="p-3">
                 <h3 className="font-semibold text-gray-900 text-sm mb-2">{location.name}</h3>
                 {location.activities.length > 0 && (
@@ -364,8 +372,16 @@ function ZoomBasedMarkers() {
           key={`sub-${idx}`}
           position={[subLoc.lat, subLoc.lng]}
           icon={createCustomIcon()}
+          eventHandlers={{
+            mouseover: (e) => {
+              e.target.openPopup();
+            },
+            mouseout: (e) => {
+              e.target.closePopup();
+            },
+          }}
         >
-          <Popup className="custom-popup" maxWidth={220}>
+          <Popup className="custom-popup" maxWidth={220} closeButton={false} autoClose={false} closeOnClick={false}>
             <div className="p-3">
               <h3 className="font-semibold text-gray-900 text-sm mb-2">{subLoc.name}</h3>
               {subLoc.type === 'activity' && subLoc.data && (
@@ -492,12 +508,13 @@ export default function LocationMap() {
           background: transparent !important;
           border: none !important;
         }
-        .custom-marker div {
+        .custom-marker .marker-dot {
           transition: all 0.2s ease;
         }
-        .custom-marker:hover div {
-          transform: scale(2);
-          box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.5);
+        .custom-marker:hover .marker-dot {
+          transform: scale(2.5);
+          box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+          background-color: #93C572 !important;
         }
         .leaflet-control-zoom {
           border: none !important;
