@@ -1078,22 +1078,24 @@ export default function LocationMap() {
           )}
         </PhotoClickContext.Provider>
       </MapContainer>
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          if (mapRef.current) {
-            mapRef.current.setView([39.8283, -98.5795], 4.5, {
-              animate: true,
-              duration: 0.5,
-            });
-          }
-        }}
-        className="absolute bottom-3 left-3 z-[1000] bg-white hover:bg-gray-50 text-gray-700 px-2 py-1 rounded shadow-md border border-gray-200 text-xs font-medium transition-all hover:shadow-lg"
-        title="Recenter map"
-      >
-        Recenter
-      </button>
+      <div className="absolute bottom-0 left-0 z-[1000] p-2">
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (mapRef.current) {
+              mapRef.current.setView([39.8283, -98.5795], 4.5, {
+                animate: true,
+                duration: 0.5,
+              });
+            }
+          }}
+          className="bg-white hover:bg-gray-50 text-gray-700 px-2 py-1 rounded shadow-md border border-gray-200 text-xs font-medium transition-all hover:shadow-lg"
+          title="Recenter map"
+        >
+          Recenter
+        </button>
+      </div>
       
       <style jsx global>{`
         .map-container {
