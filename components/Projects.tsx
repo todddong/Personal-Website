@@ -66,6 +66,10 @@ const projects = [
     github: "https://github.com/45seconds/datathon-2026",
     youtube: "https://youtu.be/_cCfMuyg-Jw",
     image: "/media/general/databricks rewards.jpg",
+    previewImages: [
+      "/media/general/datathon-research.png",
+      "/media/general/datathon-country-view.png",
+    ],
   },
 ];
 
@@ -134,7 +138,22 @@ export default function Projects() {
 
               <p className="text-gray-400 mb-4 text-sm">{project.description}</p>
 
-              {(project as any).image && (
+              {(project as any).previewImages && (project as any).previewImages.length > 0 && (
+                <div className="grid grid-cols-2 gap-2 mb-4">
+                  {(project as any).previewImages.map((img: string, idx: number) => (
+                    <div key={idx} className="relative w-full h-32 rounded-lg overflow-hidden border border-gray-800 group">
+                      <Image
+                        src={img}
+                        alt={`${project.title} preview ${idx + 1}`}
+                        fill
+                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      />
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {(project as any).image && !(project as any).previewImages && (
                 <div className="relative w-full h-48 mb-4 rounded-lg overflow-hidden border border-gray-800">
                   <Image
                     src={(project as any).image}
