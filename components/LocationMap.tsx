@@ -99,7 +99,7 @@ const locations = [
     name: "Anchorage, AK",
     lat: 61.1894,
     lng: -149.8264,
-    visitCount: 2,
+    visitCount: 1,
     activities: [
       {
         title: "University of Alaska Anchorage AI Lab",
@@ -107,6 +107,14 @@ const locations = [
         logo: "/media/logos/uaa.png",
       },
     ],
+  },
+  {
+    id: 10,
+    name: "Flat Top Mountain, AK",
+    lat: 61.1278,
+    lng: -149.6731,
+    visitCount: 1,
+    activities: [],
     photos: [
       { src: "/media/general/photo-3.jpg", alt: "Flat Top Mountain" },
     ],
