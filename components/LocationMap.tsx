@@ -234,7 +234,7 @@ const heatMapData = [
   { lat: 41.4993, lng: -81.6944, radius: 30000, opacity: 0.08, intensity: 1 }, // Cleveland
 ];
 
-// Component to set map view - center on continental US only (no Alaska)
+// Component to set map view - center on continental US only (no Alaska), zoomed in to show vegetation
 function MapView() {
   const map = useMap();
   
@@ -244,10 +244,10 @@ function MapView() {
       [24.396308, -125.0], // Southwest corner (continental US)
       [49.384358, -66.93457] // Northeast corner (continental US)
     );
-    // Fit bounds with padding, zoomed in more
+    // Fit bounds with less padding and higher zoom to show vegetation details
     map.fitBounds(bounds, { 
-      padding: [50, 50],
-      maxZoom: 6
+      padding: [20, 20],
+      maxZoom: 8
     });
   }, [map]);
   
@@ -456,21 +456,6 @@ export default function LocationMap() {
         
         {/* State boundaries overlay using GeoJSON */}
         <StateBoundaries />
-        
-        {/* Heat map circles - region-based */}
-        {heatMapData.map((heat, idx) => (
-          <Circle
-            key={`heat-${idx}`}
-            center={[heat.lat, heat.lng]}
-            radius={heat.radius}
-            pathOptions={{
-              fillColor: "#ef4444",
-              fillOpacity: heat.opacity,
-              color: "transparent",
-              weight: 0,
-            }}
-          />
-        ))}
         
         {/* Edge paths: Cleveland → Nashville → all other points */}
         {edgePaths.map((path, idx) => (
