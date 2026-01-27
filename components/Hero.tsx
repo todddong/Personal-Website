@@ -69,7 +69,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-white py-16">
+    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#faf8f4] py-16">
       {/* Grid Background */}
       <div className="absolute inset-0 grid-pattern opacity-20 z-0" />
       

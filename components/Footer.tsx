@@ -39,7 +39,7 @@ const social = [
 
 export default function Footer() {
   return (
-    <footer id="contact" className="py-8 px-4 md:px-8 border-t border-gray-200 bg-white">
+    <footer id="contact" className="py-8 px-4 md:px-8 border-t border-gray-200 bg-[#faf8f4]">
       <div className="max-w-7xl mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}

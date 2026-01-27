@@ -198,7 +198,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-12 px-4 md:px-8 relative bg-white">
+    <section id="projects" className="py-12 px-4 md:px-8 relative bg-[#faf8f4]">
       <div className="max-w-7xl mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
