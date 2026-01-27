@@ -80,23 +80,31 @@ export default function AboutCMU() {
               </div>
               
               <div className="flex items-center gap-2 text-gray-600 text-sm">
-                <div className="w-4"></div>
-                <span><span className="text-[#93C572]">#1</span> CS Ranking</span>
+                <div className="w-4 h-4 flex items-center justify-center">
+                  <span className="text-[#93C572] text-xs">#1</span>
+                </div>
+                <span>CS Ranking</span>
               </div>
               
               <div className="flex items-center gap-2 text-gray-600 text-sm">
-                <div className="w-4"></div>
-                <span><span className="text-[#93C572]">#2</span> AI Ranking</span>
+                <div className="w-4 h-4 flex items-center justify-center">
+                  <span className="text-[#93C572] text-xs">#2</span>
+                </div>
+                <span>AI Ranking</span>
               </div>
               
               <div className="flex items-center gap-2 text-gray-600 text-sm">
-                <div className="w-4"></div>
-                <span><span className="text-[#93C572]">#1</span> Software Engineering</span>
+                <div className="w-4 h-4 flex items-center justify-center">
+                  <span className="text-[#93C572] text-xs">#1</span>
+                </div>
+                <span>Software Engineering</span>
               </div>
               
               <div className="flex items-center gap-2 text-gray-600 text-sm">
-                <div className="w-4"></div>
-                <span><span className="text-[#93C572]">#1</span> Cybersecurity</span>
+                <div className="w-4 h-4 flex items-center justify-center">
+                  <span className="text-[#93C572] text-xs">#1</span>
+                </div>
+                <span>Cybersecurity</span>
               </div>
             </div>
 
