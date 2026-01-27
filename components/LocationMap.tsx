@@ -15,20 +15,21 @@ L.Icon.Default.mergeOptions({
   shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png",
 });
 
-// Custom marker icon - small red dot with no outline
+// Custom marker icon - small sharp pinpoint
 const createCustomIcon = () => {
   return L.divIcon({
     className: "custom-marker",
     html: `<div style="
-      width: 8px;
-      height: 8px;
+      width: 4px;
+      height: 4px;
       background-color: #ef4444;
       border-radius: 50%;
       cursor: pointer;
       transition: transform 0.2s;
+      box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.3);
     "></div>`,
-    iconSize: [8, 8],
-    iconAnchor: [4, 4],
+    iconSize: [4, 4],
+    iconAnchor: [2, 2],
   });
 };
 
@@ -191,12 +192,24 @@ const locations = [
   },
 ];
 
-// Create arc paths between locations (in order of timeline)
-const arcPaths = [
-  createArcPath([locations[0].lat, locations[0].lng], [locations[1].lat, locations[1].lng]), // Pittsburgh to Anchorage
-  createArcPath([locations[1].lat, locations[1].lng], [locations[0].lat, locations[0].lng]), // Anchorage back to Pittsburgh
-  createArcPath([locations[0].lat, locations[0].lng], [locations[2].lat, locations[2].lng]), // Pittsburgh to Raleigh
-];
+// Find Cleveland and Nashville locations
+const cleveland = locations.find(loc => loc.name === "Cleveland, OH");
+const nashville = locations.find(loc => loc.name === "Nashville, TN");
+
+// Create edges: Cleveland → Nashville, then Nashville → all other points
+const edgePaths: [number, number][][] = [];
+
+if (cleveland && nashville) {
+  // Edge from Cleveland to Nashville
+  edgePaths.push(createArcPath([cleveland.lat, cleveland.lng], [nashville.lat, nashville.lng]));
+  
+  // Edges from Nashville to all other locations (except Cleveland)
+  locations.forEach(loc => {
+    if (loc.id !== cleveland.id && loc.id !== nashville.id) {
+      edgePaths.push(createArcPath([nashville.lat, nashville.lng], [loc.lat, loc.lng]));
+    }
+  });
+}
 
 // Heat map data - create circles for frequently visited locations (much smaller)
 const heatMapData = locations.map(loc => ({
@@ -272,7 +285,7 @@ export default function LocationMap() {
 
   if (!isClient) {
     return (
-      <div className="w-full h-[700px] bg-gray-100 border border-gray-300 rounded-lg flex items-center justify-center">
+      <div className="w-full h-[900px] bg-gray-100 border border-gray-300 rounded-lg flex items-center justify-center">
         <p className="text-gray-600">Loading map...</p>
       </div>
     );
@@ -284,7 +297,7 @@ export default function LocationMap() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
-      className="w-full h-[700px] rounded-lg overflow-hidden border border-gray-300 shadow-lg bg-white"
+      className="w-full h-[900px] rounded-lg overflow-hidden border border-gray-300 shadow-lg bg-white"
     >
       <MapContainer
         center={[39.8283, -98.5795]}
@@ -321,15 +334,15 @@ export default function LocationMap() {
           />
         ))}
         
-        {/* Arc paths connecting locations */}
-        {arcPaths.map((path, idx) => (
+        {/* Edge paths: Cleveland → Nashville → all other points */}
+        {edgePaths.map((path, idx) => (
           <Polyline
-            key={`arc-${idx}`}
+            key={`edge-${idx}`}
             positions={path}
             pathOptions={{
               color: "#ef4444",
-              weight: 1.5,
-              opacity: 0.6,
+              weight: 1,
+              opacity: 0.5,
             }}
           />
         ))}
@@ -419,11 +432,10 @@ export default function LocationMap() {
         }
         .custom-marker div {
           transition: all 0.2s ease;
-          box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
         .custom-marker:hover div {
-          transform: scale(1.6);
-          box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+          transform: scale(2);
+          box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.5);
         }
         .leaflet-control-zoom {
           border: none !important;
