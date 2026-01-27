@@ -458,13 +458,15 @@ function RecenterButton() {
   };
 
   return (
-    <button
-      onClick={handleRecenter}
-      className="absolute top-4 right-4 z-[1000] bg-white hover:bg-gray-50 text-gray-700 px-3 py-2 rounded-md shadow-md border border-gray-200 text-sm font-medium transition-all hover:shadow-lg"
-      title="Recenter map"
-    >
-      Recenter
-    </button>
+    <div className="leaflet-top leaflet-right" style={{ marginTop: '10px', marginRight: '10px', zIndex: 1000 }}>
+      <button
+        onClick={handleRecenter}
+        className="bg-white hover:bg-gray-50 text-gray-700 px-3 py-2 rounded-md shadow-md border border-gray-200 text-sm font-medium transition-all hover:shadow-lg"
+        title="Recenter map"
+      >
+        Recenter
+      </button>
+    </div>
   );
 }
 
