@@ -239,7 +239,7 @@ function MapView() {
     map.setView([39.8283, -98.5795], 5);
     // Make zoom less sensitive by adjusting wheel zoom delta
     // Higher value = less sensitive (requires more scrolling to zoom)
-    (map as any).options.wheelPxPerZoomLevel = 200;
+    (map as any).options.wheelPxPerZoomLevel = 300;
   }, [map]);
   
   return null;
