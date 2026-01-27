@@ -256,6 +256,17 @@ const locations = [
       { src: "/media/alaska/universal florida.jpg", alt: "Universal Studios, Orlando" },
     ],
   },
+  {
+    id: 15,
+    name: "Emory University, Atlanta, GA",
+    lat: 33.7915,
+    lng: -84.3233,
+    visitCount: 1,
+    activities: [],
+    photos: [
+      { src: "/media/swim-team-podium.jpg", alt: "Swim Team Podium at Emory University" },
+    ],
+  },
 ];
 
 // Find Cleveland and Nashville locations
