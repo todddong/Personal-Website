@@ -319,7 +319,7 @@ const locations = [
     visitCount: 1,
     activities: [],
     photos: [
-      { src: "/media/general/golden gate.jpg", alt: "Golden Gate Bridge" },
+      { src: "/media/alaska/golden gate.jpg", alt: "Golden Gate Bridge" },
     ],
   },
   {
@@ -330,7 +330,7 @@ const locations = [
     visitCount: 1,
     activities: [],
     photos: [
-      { src: "/media/general/santa monica.jpg", alt: "Santa Monica Pier" },
+      { src: "/media/alaska/santa monica.jpg", alt: "Santa Monica Pier" },
     ],
   },
   {
@@ -341,7 +341,7 @@ const locations = [
     visitCount: 1,
     activities: [],
     photos: [
-      { src: "/media/general/shanghai.jpg", alt: "Shanghai, China" },
+      { src: "/media/alaska/shanghai.jpg", alt: "Shanghai, China" },
     ],
   },
   {
