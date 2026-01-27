@@ -42,15 +42,15 @@ function HighlightItem({
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.05 }}
-      className="relative group cursor-pointer overflow-hidden rounded-xl border-2 border-gray-300 hover:border-gray-400 transition-all shadow-sm"
+      className="relative group cursor-pointer overflow-hidden rounded-lg border border-gray-300 hover:border-gray-400 transition-all"
       onClick={() => onSelect(highlight.src)}
     >
-      <div className="aspect-square relative overflow-hidden">
+      <div className="aspect-[4/3] relative overflow-hidden">
         <Image
           src={highlight.src}
           alt={highlight.alt}
           fill
-          className="object-cover group-hover:scale-125 transition-transform duration-700 ease-out"
+          className="object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
           onError={() => setImageError(true)}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -85,7 +85,7 @@ export default function Highlights() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid grid-cols-3 md:grid-cols-3 gap-1">
           {alaskaHighlights.map((highlight, index) => (
             <HighlightItem
               key={index}
