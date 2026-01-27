@@ -183,6 +183,9 @@ const locations = [
         logo: null,
       },
     ],
+    photos: [
+      { src: "/media/alaska/nashville.jpg", alt: "Nashville, TN" },
+    ],
   },
   {
     id: 8,
