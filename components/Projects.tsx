@@ -164,21 +164,6 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
               </div>
             )}
 
-            <div className="space-y-3 mb-4">
-              <div>
-                <span className="text-xs text-gray-500 uppercase tracking-wide">Problem</span>
-                <p className="text-gray-600 text-sm mt-1">{project.problem}</p>
-              </div>
-              <div>
-                <span className="text-xs text-gray-500 uppercase tracking-wide">System</span>
-                <p className="text-gray-600 text-sm mt-1">{project.system}</p>
-              </div>
-              <div>
-                <span className="text-xs text-gray-500 uppercase tracking-wide">Impact</span>
-                <p className="text-gray-600 text-sm mt-1">{project.impact}</p>
-              </div>
-            </div>
-
             <div className="flex flex-wrap gap-2 mt-4">
               {project.tech.map((tech) => (
                 <span
