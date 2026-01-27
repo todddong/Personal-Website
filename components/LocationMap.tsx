@@ -431,8 +431,10 @@ function PhotoFunnelOverlayInner({
   if (!photo || !photoPosition || !markerPixelPosition) return null;
 
   // Calculate funnel path (triangular funnel from photo bottom center to marker)
-  const funnelBottomX = photoPosition.x + 140; // Center of photo (280/2)
-  const funnelBottomY = photoPosition.y + 350; // Bottom of photo
+  const photoWidth = 280;
+  const photoHeight = 350;
+  const funnelBottomX = photoPosition.x + photoWidth / 2; // Center of photo
+  const funnelBottomY = photoPosition.y + photoHeight; // Bottom of photo
   const markerX = markerPixelPosition.x;
   const markerY = markerPixelPosition.y;
 
@@ -442,8 +444,8 @@ function PhotoFunnelOverlayInner({
   const distance = Math.sqrt(dx * dx + dy * dy);
   const angle = Math.atan2(dy, dx);
 
-  // Funnel width at the top (photo bottom) - wider
-  const funnelTopWidth = 60;
+  // Funnel width at the top (photo bottom) - wider, but constrained to photo width
+  const funnelTopWidth = Math.min(60, photoWidth * 0.8); // Max 80% of photo width
   // Funnel width at the bottom (marker) - narrow point
   const funnelBottomWidth = 4;
 
@@ -451,11 +453,17 @@ function PhotoFunnelOverlayInner({
   const perpX = -Math.sin(angle) * funnelTopWidth / 2;
   const perpY = Math.cos(angle) * funnelTopWidth / 2;
 
-  // Points for triangular funnel
-  const topLeftX = funnelBottomX + perpX;
-  const topLeftY = funnelBottomY + perpY;
-  const topRightX = funnelBottomX - perpX;
-  const topRightY = funnelBottomY - perpY;
+  // Points for triangular funnel - ensure they stay within photo bounds
+  let topLeftX = funnelBottomX + perpX;
+  let topLeftY = funnelBottomY + perpY;
+  let topRightX = funnelBottomX - perpX;
+  let topRightY = funnelBottomY - perpY;
+
+  // Constrain funnel points to stay within photo horizontal bounds
+  const photoLeft = photoPosition.x;
+  const photoRight = photoPosition.x + photoWidth;
+  topLeftX = Math.max(photoLeft + 5, Math.min(photoRight - 5, topLeftX));
+  topRightX = Math.max(photoLeft + 5, Math.min(photoRight - 5, topRightX));
 
   const mapSize = map.getSize();
 
@@ -480,9 +488,9 @@ function PhotoFunnelOverlayInner({
           {/* Triangular funnel path */}
           <path
             d={`M ${topLeftX} ${topLeftY} L ${topRightX} ${topRightY} L ${markerX} ${markerY} Z`}
-            fill="#ef4444"
-            fillOpacity="0.3"
-            stroke="#ef4444"
+            fill="#ffffff"
+            fillOpacity="0.4"
+            stroke="#ffffff"
             strokeWidth="2"
             strokeDasharray="4,4"
           />
@@ -522,13 +530,10 @@ function PhotoFunnelOverlayInner({
                 <div className="absolute bottom-4 left-4 right-4 z-10 flex justify-center">
                   <div className="bg-black/50 backdrop-blur-sm rounded-lg px-4 py-2 inline-block shadow-lg">
                     <p 
-                      className="text-white text-xs"
+                      className="text-white text-xs font-medium"
                       style={{ 
-                        fontFamily: '"Brush Script MT", "Lucida Handwriting", "Comic Sans MS", cursive',
                         textShadow: '0 2px 6px rgba(0,0,0,0.8), 0 0 10px rgba(0,0,0,0.5)',
-                        fontStyle: 'italic',
-                        fontWeight: 500,
-                        letterSpacing: '0.5px'
+                        letterSpacing: '0.3px'
                       }}
                     >
                       {markerPosition.name}
