@@ -135,8 +135,8 @@ export default function AboutCMU() {
             </div>
 
             <div className="pt-3 border-t border-gray-200">
-              <h4 className="text-base font-semibold text-gray-900 mb-2">Extracurriculars</h4>
-              <div className="flex flex-wrap gap-2">
+              <h4 className="text-xs sm:text-sm md:text-base font-semibold text-gray-900 mb-1 sm:mb-2">Extracurriculars</h4>
+              <div className="flex flex-wrap gap-1 sm:gap-1.5 md:gap-2">
                 {[
                   "CMU Varsity Swim and Dive",
                   "Volunteer Swim Coach",
