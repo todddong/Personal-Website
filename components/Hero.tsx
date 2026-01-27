@@ -69,12 +69,12 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#faf8f4] py-8">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#faf8f4] py-4">
       {/* Grid Background */}
       <div className="absolute inset-0 grid-pattern opacity-20 z-0" />
       
       <div className="relative z-10 w-full max-w-7xl mx-auto px-8 md:px-12">
-        <div className="grid md:grid-cols-3 gap-12 items-center">
+        <div className="grid md:grid-cols-3 gap-12 items-center justify-items-center">
           {/* Left Side - Two Logos */}
           <div className="flex flex-col items-center justify-center gap-3">
             {/* CS Logo */}
@@ -83,7 +83,7 @@ export default function Hero() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8 }}
             >
-              <div className="relative w-40 h-40 md:w-48 md:h-48 rounded-lg overflow-hidden border-2 border-gray-200 shadow-md">
+              <div className="relative w-60 h-60 md:w-64 md:h-64 rounded-lg overflow-hidden border-2 border-gray-200 shadow-md">
                 <Image
                   src="/media/alaska/cs logo.png"
                   alt="CS Logo"
@@ -107,7 +107,7 @@ export default function Hero() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <div className="relative w-40 h-40 md:w-48 md:h-48 rounded-lg overflow-hidden border-2 border-gray-200 shadow-md">
+              <div className="relative w-60 h-60 md:w-64 md:h-64 rounded-lg overflow-hidden border-2 border-gray-200 shadow-md">
                 <Image
                   src="/media/alaska/cmu swim logo.webp"
                   alt="CMU Swim Logo"
@@ -124,7 +124,7 @@ export default function Hero() {
           </div>
 
           {/* Middle - Headshot and Name */}
-          <div className="flex flex-col items-center justify-center">
+          <div className="flex flex-col items-center justify-center mx-auto">
             {/* Headshot */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
