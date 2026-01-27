@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, createContext, useContext } from "react";
+import { useEffect, useState, createContext, useContext, useRef } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap, Polyline, GeoJSON, Circle } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -9,7 +9,7 @@ import Image from "next/image";
 import { X } from "lucide-react";
 
 // Context for photo click handler
-const PhotoClickContext = createContext<((photoSrc: string) => void) | null>(null);
+const PhotoClickContext = createContext<((photoSrc: string, lat: number, lng: number) => void) | null>(null);
 
 // Fix for default marker icons in Next.js
 delete (L.Icon.Default.prototype as any)._getIconUrl;
@@ -326,6 +326,157 @@ function MapView() {
   return null;
 }
 
+// Component to set map ref for accessing map instance
+function MapRefSetter({ mapRef }: { mapRef: React.MutableRefObject<L.Map | null> }) {
+  const map = useMap();
+  
+  useEffect(() => {
+    mapRef.current = map;
+  }, [map, mapRef]);
+  
+  return null;
+}
+
+// Component for photo funnel overlay - must be inside MapContainer
+function PhotoFunnelOverlayInner({ 
+  photo, 
+  markerPosition, 
+  onClose 
+}: { 
+  photo: string | null; 
+  markerPosition: { lat: number; lng: number } | null;
+  onClose: () => void;
+}) {
+  const map = useMap();
+  const [photoPosition, setPhotoPosition] = useState<{ x: number; y: number } | null>(null);
+  const [markerPixelPosition, setMarkerPixelPosition] = useState<{ x: number; y: number } | null>(null);
+
+  useEffect(() => {
+    if (!photo || !markerPosition) return;
+
+    const updatePosition = () => {
+      // Get marker position in pixels
+      const markerPoint = map.latLngToContainerPoint([markerPosition.lat, markerPosition.lng]);
+      setMarkerPixelPosition({ x: markerPoint.x, y: markerPoint.y });
+
+      // Position photo to the right and above the marker, within map bounds
+      const mapSize = map.getSize();
+      const photoWidth = 280; // Smaller photo size
+      const photoHeight = 350;
+      const offsetX = 150; // Offset to the right
+      const offsetY = -200; // Offset upward
+
+      let photoX = markerPoint.x + offsetX;
+      let photoY = markerPoint.y + offsetY;
+
+      // Keep within map bounds
+      if (photoX + photoWidth > mapSize.x) {
+        photoX = markerPoint.x - offsetX - photoWidth; // Move to left side
+      }
+      if (photoY < 0) {
+        photoY = markerPoint.y + 50; // Move below if too high
+      }
+      if (photoY + photoHeight > mapSize.y) {
+        photoY = mapSize.y - photoHeight - 10; // Keep within bottom
+      }
+
+      setPhotoPosition({ x: photoX, y: photoY });
+    };
+
+    updatePosition();
+    
+    // Update on zoom/pan
+    map.on('moveend', updatePosition);
+    map.on('zoomend', updatePosition);
+
+    return () => {
+      map.off('moveend', updatePosition);
+      map.off('zoomend', updatePosition);
+    };
+  }, [photo, markerPosition, map]);
+
+  if (!photo || !photoPosition || !markerPixelPosition) return null;
+
+  // Calculate funnel path (line from photo bottom center to marker)
+  const funnelBottomX = photoPosition.x + 140; // Center of photo (280/2)
+  const funnelBottomY = photoPosition.y + 350; // Bottom of photo
+  const markerX = markerPixelPosition.x;
+  const markerY = markerPixelPosition.y;
+
+  // Calculate distance and angle for the line
+  const dx = markerX - funnelBottomX;
+  const dy = markerY - funnelBottomY;
+  const distance = Math.sqrt(dx * dx + dy * dy);
+  const angle = Math.atan2(dy, dx) * (180 / Math.PI);
+
+  const mapSize = map.getSize();
+
+  return (
+    <>
+      {/* Funnel line SVG overlay - covers entire map */}
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          left: 0,
+          top: 0,
+          width: `${mapSize.x}px`,
+          height: `${mapSize.y}px`,
+          zIndex: 1000,
+        }}
+      >
+        <svg
+          width={mapSize.x}
+          height={mapSize.y}
+          style={{ position: 'absolute', left: 0, top: 0 }}
+        >
+          <line
+            x1={funnelBottomX}
+            y1={funnelBottomY}
+            x2={markerX}
+            y2={markerY}
+            stroke="#ef4444"
+            strokeWidth="2"
+            strokeDasharray="4,4"
+          />
+        </svg>
+      </div>
+
+      {/* Photo container */}
+      <AnimatePresence>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.8 }}
+          transition={{ duration: 0.2 }}
+          className="absolute pointer-events-auto"
+          style={{
+            left: `${photoPosition.x}px`,
+            top: `${photoPosition.y}px`,
+            zIndex: 1001,
+          }}
+        >
+          <div className="relative w-[280px] h-[350px] bg-white rounded-xl overflow-hidden border-2 border-gray-300 shadow-xl">
+            <button
+              onClick={onClose}
+              className="absolute top-2 right-2 z-10 text-gray-700 hover:text-gray-900 transition-colors bg-white/90 rounded-full p-1 shadow-md hover:bg-white"
+            >
+              <X size={18} />
+            </button>
+            <div className="relative w-full h-full">
+              <Image
+                src={photo}
+                alt="Selected photo"
+                fill
+                className="object-cover"
+              />
+            </div>
+          </div>
+        </motion.div>
+      </AnimatePresence>
+    </>
+  );
+}
+
 // Component for US state boundaries
 function StateBoundaries() {
   const map = useMap();
@@ -398,7 +549,7 @@ function ZoomBasedMarkers() {
               click: () => {
                 // If location has photos, open the first photo in lightbox
                 if (location.photos && location.photos.length > 0 && onPhotoClick) {
-                  onPhotoClick(location.photos[0].src);
+                  onPhotoClick(location.photos[0].src, location.lat, location.lng);
                 }
               },
             }}
@@ -479,7 +630,7 @@ function ZoomBasedMarkers() {
             click: () => {
               // If sub-location has photos, open the photo in lightbox
               if (subLoc.type === 'photo' && subLoc.data && onPhotoClick) {
-                onPhotoClick(subLoc.data.src);
+                onPhotoClick(subLoc.data.src, subLoc.lat, subLoc.lng);
               }
             },
           }}
@@ -538,10 +689,17 @@ function ZoomBasedMarkers() {
 export default function LocationMap() {
   const [isClient, setIsClient] = useState(false);
   const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
+  const [markerPosition, setMarkerPosition] = useState<{ lat: number; lng: number } | null>(null);
+  const mapRef = useRef<L.Map | null>(null);
 
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  const handlePhotoClick = (photoSrc: string, lat: number, lng: number) => {
+    setSelectedPhoto(photoSrc);
+    setMarkerPosition({ lat, lng });
+  };
 
   if (!isClient) {
     return (
@@ -595,8 +753,19 @@ export default function LocationMap() {
         ))}
         
         {/* Markers - zoom-based */}
-        <PhotoClickContext.Provider value={setSelectedPhoto}>
+        <PhotoClickContext.Provider value={handlePhotoClick}>
           <ZoomBasedMarkers />
+          <MapRefSetter mapRef={mapRef} />
+          {selectedPhoto && markerPosition && (
+            <PhotoFunnelOverlayInner
+              photo={selectedPhoto}
+              markerPosition={markerPosition}
+              onClose={() => {
+                setSelectedPhoto(null);
+                setMarkerPosition(null);
+              }}
+            />
+          )}
         </PhotoClickContext.Provider>
       </MapContainer>
       
@@ -678,37 +847,6 @@ export default function LocationMap() {
           margin: 0 !important;
         }
       `}</style>
-      
-      {/* Photo Magnifying Glass Overlay */}
-      <AnimatePresence>
-        {selectedPhoto && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
-            transition={{ duration: 0.2 }}
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[1000] pointer-events-none"
-            onClick={() => setSelectedPhoto(null)}
-          >
-            <div className="relative w-[400px] h-[500px] md:w-[500px] md:h-[600px] bg-white rounded-2xl overflow-hidden border-4 border-gray-300 shadow-2xl pointer-events-auto">
-              <button
-                onClick={() => setSelectedPhoto(null)}
-                className="absolute top-2 right-2 z-10 text-gray-700 hover:text-gray-900 transition-colors bg-white/90 rounded-full p-1.5 shadow-md hover:bg-white"
-              >
-                <X size={20} />
-              </button>
-              <div className="relative w-full h-full">
-                <Image
-                  src={selectedPhoto}
-                  alt="Selected photo"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </motion.div>
   );
 }
