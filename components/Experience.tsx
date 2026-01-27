@@ -4,6 +4,17 @@ import { motion } from "framer-motion";
 import { GraduationCap, Trophy, MapPin, Briefcase, Code } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
+import dynamic from "next/dynamic";
+
+// Dynamically import the map component to avoid SSR issues
+const LocationMap = dynamic(() => import("./LocationMap"), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-[500px] bg-gray-900/50 border border-gray-800 rounded-lg flex items-center justify-center">
+      <p className="text-gray-400">Loading map...</p>
+    </div>
+  ),
+});
 
 const timeline = [
   {
@@ -110,7 +121,7 @@ function TimelineItem({ item, index }: { item: typeof timeline[0]; index: number
 export default function Experience() {
   return (
     <section id="experience" className="py-24 px-4 md:px-8 relative bg-gradient-to-b from-transparent to-gray-900/30">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -121,14 +132,22 @@ export default function Experience() {
           Experience
         </motion.h2>
 
-        <div className="relative">
-          {/* Timeline Line */}
-          <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gray-800" />
+        {/* Interactive Map */}
+        <div className="mb-16">
+          <LocationMap />
+        </div>
 
-          <div className="space-y-12">
-            {timeline.map((item, index) => (
-              <TimelineItem key={index} item={item} index={index} />
-            ))}
+        {/* Timeline */}
+        <div className="max-w-4xl mx-auto">
+          <div className="relative">
+            {/* Timeline Line */}
+            <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gray-800" />
+
+            <div className="space-y-12">
+              {timeline.map((item, index) => (
+                <TimelineItem key={index} item={item} index={index} />
+              ))}
+            </div>
           </div>
         </div>
       </div>
