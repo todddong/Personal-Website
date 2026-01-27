@@ -235,17 +235,6 @@ const locations = [
     ],
   },
   {
-    id: 13,
-    name: "Lincoln Road, Miami Beach, FL",
-    lat: 25.7907,
-    lng: -80.1300,
-    visitCount: 1,
-    activities: [],
-    photos: [
-      { src: "/media/alaska/lincoln road.jpg", alt: "Lincoln Road, Miami Beach" },
-    ],
-  },
-  {
     id: 14,
     name: "Universal Studios, Orlando, FL",
     lat: 28.4744,
@@ -298,6 +287,72 @@ const locations = [
     activities: [],
     photos: [
       { src: "/media/general/stone mountain.jpg", alt: "Stone Mountain, Georgia" },
+    ],
+  },
+  {
+    id: 19,
+    name: "Yosemite National Park, CA",
+    lat: 37.8651,
+    lng: -119.5383,
+    visitCount: 1,
+    activities: [],
+    photos: [
+      { src: "/media/general/yosemite.jpg", alt: "Yosemite National Park" },
+    ],
+  },
+  {
+    id: 20,
+    name: "Lake Tahoe, CA/NV",
+    lat: 39.0968,
+    lng: -120.0324,
+    visitCount: 1,
+    activities: [],
+    photos: [
+      { src: "/media/general/lake tahoe.jpg", alt: "Lake Tahoe" },
+    ],
+  },
+  {
+    id: 21,
+    name: "Golden Gate Bridge, San Francisco, CA",
+    lat: 37.8199,
+    lng: -122.4783,
+    visitCount: 1,
+    activities: [],
+    photos: [
+      { src: "/media/general/golden gate.jpg", alt: "Golden Gate Bridge" },
+    ],
+  },
+  {
+    id: 22,
+    name: "Santa Monica Pier, CA",
+    lat: 34.0089,
+    lng: -118.4973,
+    visitCount: 1,
+    activities: [],
+    photos: [
+      { src: "/media/general/santa monica.jpg", alt: "Santa Monica Pier" },
+    ],
+  },
+  {
+    id: 23,
+    name: "Shanghai, China",
+    lat: 31.2304,
+    lng: 121.4737,
+    visitCount: 1,
+    activities: [],
+    photos: [
+      { src: "/media/general/shanghai.jpg", alt: "Shanghai, China" },
+    ],
+  },
+  {
+    id: 24,
+    name: "Lincoln Road, Miami Beach, FL",
+    lat: 25.7907,
+    lng: -80.1300,
+    visitCount: 1,
+    activities: [],
+    photos: [
+      { src: "/media/general/lincoln road.jpg", alt: "Lincoln Road, Miami Beach" },
     ],
   },
 ];
