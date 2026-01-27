@@ -92,6 +92,8 @@ export default function Hero() {
                   className="object-cover"
                   priority
                   objectFit="cover"
+                  quality={90}
+                  sizes="(max-width: 640px) 80px, (max-width: 1024px) 160px, 256px"
                   fallback="/media/alaska/cs logo.png"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
@@ -120,6 +122,8 @@ export default function Hero() {
                   className="object-cover"
                   priority
                   objectFit="cover"
+                  quality={90}
+                  sizes="(max-width: 640px) 80px, (max-width: 1024px) 160px, 256px"
                   fallback="/media/alaska/cmu swim logo.webp"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
@@ -147,6 +151,8 @@ export default function Hero() {
                   className="object-cover scale-150"
                   priority
                   objectFit="cover"
+                  quality={90}
+                  sizes="(max-width: 640px) 80px, (max-width: 1024px) 160px, 224px"
                   fallback="/media/headshot.PNG"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;

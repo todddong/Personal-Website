@@ -18,6 +18,8 @@ interface CloudImageProps {
   onError?: (e: React.SyntheticEvent<HTMLImageElement, Event>) => void;
   onLoad?: () => void;
   fallback?: string;
+  sizes?: string;
+  quality?: number;
 }
 
 export default function CloudImage({
@@ -34,6 +36,8 @@ export default function CloudImage({
   onError,
   onLoad,
   fallback,
+  sizes,
+  quality = 85,
 }: CloudImageProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
@@ -46,6 +50,20 @@ export default function CloudImage({
     setIsLoading(true);
     setHasError(false);
   }, [supabaseUrl]);
+
+  // Preload critical images
+  useEffect(() => {
+    if (priority && currentSrc) {
+      const link = document.createElement('link');
+      link.rel = 'preload';
+      link.as = 'image';
+      link.href = currentSrc;
+      document.head.appendChild(link);
+      return () => {
+        document.head.removeChild(link);
+      };
+    }
+  }, [priority, currentSrc]);
 
   const handleError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     if (fallback && currentSrc !== fallback) {
@@ -83,16 +101,22 @@ export default function CloudImage({
 
   if (!currentSrc) return null;
 
+  // Auto-generate sizes if not provided and fill is used
+  const imageSizes = sizes || (fill ? "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" : undefined);
+
   const imageProps = {
     src: currentSrc,
     alt,
-    className: `${className} ${isLoading ? "opacity-0" : "opacity-100"} transition-opacity duration-300`,
+    className: `${className} ${isLoading ? "opacity-0" : "opacity-100"} transition-opacity duration-200`,
     onError: handleError,
     onLoad: handleLoad,
     priority,
+    quality,
+    loading: priority ? ("eager" as const) : ("lazy" as const),
     ...(fill
       ? {
           fill: true,
+          sizes: imageSizes,
           style: {
             objectFit,
             objectPosition: objectPosition || "center",
@@ -101,6 +125,7 @@ export default function CloudImage({
       : {
           width: width || 800,
           height: height || 600,
+          sizes: imageSizes,
           style: {
             objectFit,
             objectPosition: objectPosition || "center",
