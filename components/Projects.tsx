@@ -83,58 +83,60 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      whileHover={{ scale: 1.1, zIndex: 10 }}
-      className="group relative bg-white border-2 border-gray-300 rounded-2xl p-4 hover:border-gray-400 transition-all duration-300 shadow-sm hover:shadow-xl"
+      className="group relative"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="flex items-start justify-between">
-        <h3 className="text-lg font-bold text-gray-900 group-hover:text-[#93C572] transition-colors">
-          {project.title}
-        </h3>
-        <div className="flex gap-2">
-          {(project as any).youtube && (
-            <a
-              href={(project as any).youtube}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-400 hover:text-red-400 transition-colors"
-              title="Video Demo"
-            >
-              <Youtube size={20} />
-            </a>
-          )}
-          {project.link !== "#" && project.link !== (project as any).youtube && (
-            <a
-              href={project.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-400 hover:text-[#93C572] transition-colors"
-            >
-              <ExternalLink size={20} />
-            </a>
-          )}
-          {project.github !== "#" && (
-            <a
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-400 hover:text-[#93C572] transition-colors"
-            >
-              <Github size={20} />
-            </a>
-          )}
+      <div className="bg-white border-2 border-gray-300 rounded-2xl p-4 hover:border-gray-400 transition-all duration-300 shadow-sm hover:shadow-xl">
+        <div className="flex items-start justify-between">
+          <h3 className="text-lg font-bold text-gray-900 group-hover:text-[#93C572] transition-colors">
+            {project.title}
+          </h3>
+          <div className="flex gap-2">
+            {(project as any).youtube && (
+              <a
+                href={(project as any).youtube}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-red-400 transition-colors"
+                title="Video Demo"
+              >
+                <Youtube size={20} />
+              </a>
+            )}
+            {project.link !== "#" && project.link !== (project as any).youtube && (
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-[#93C572] transition-colors"
+              >
+                <ExternalLink size={20} />
+              </a>
+            )}
+            {project.github !== "#" && (
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-[#93C572] transition-colors"
+              >
+                <Github size={20} />
+              </a>
+            )}
+          </div>
         </div>
       </div>
 
+      {/* Expanded content on hover - overlays below */}
       <AnimatePresence>
         {isHovered && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="overflow-hidden"
+            className="absolute left-0 right-0 top-full mt-2 z-20 bg-white border-2 border-gray-400 rounded-2xl p-4 shadow-2xl"
           >
             <p className="text-gray-600 mb-4 text-sm mt-4">{project.description}</p>
 

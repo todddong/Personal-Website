@@ -45,7 +45,7 @@ function HighlightItem({
       className="relative group cursor-pointer overflow-hidden rounded-lg border border-gray-300 hover:border-gray-400 transition-all"
       onClick={() => onSelect(highlight.src)}
     >
-      <div className="aspect-[4/3] relative overflow-hidden">
+      <div className="aspect-[3/2] relative overflow-hidden">
         <Image
           src={highlight.src}
           alt={highlight.alt}
