@@ -340,18 +340,28 @@ function ZoomBasedMarkers() {
                   </div>
                 )}
                 {location.photos && location.photos.length > 0 && (
-                  <div className="mt-3 pt-3 border-t border-gray-200">
-                    <p className="text-xs text-gray-500 mb-2 font-medium">Photos</p>
+                  <div className="mt-2">
                     <div className="grid grid-cols-2 gap-1.5">
                       {location.photos.map((photo, idx) => (
-                        <div key={idx} className="relative w-full h-20 rounded-md overflow-hidden border border-gray-200 shadow-sm">
+                        <a
+                          key={idx}
+                          href="#highlights"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            const element = document.querySelector('#highlights');
+                            if (element) {
+                              element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            }
+                          }}
+                          className="relative w-full h-20 rounded-md overflow-hidden border border-gray-200 shadow-sm hover:border-gray-300 transition-all cursor-pointer"
+                        >
                           <Image
                             src={photo.src}
                             alt={photo.alt}
                             fill
                             className="object-cover"
                           />
-                        </div>
+                        </a>
                       ))}
                     </div>
                   </div>
@@ -401,14 +411,24 @@ function ZoomBasedMarkers() {
                 </div>
               )}
               {subLoc.type === 'photo' && subLoc.data && (
-                <div className="relative w-full h-32 rounded-md overflow-hidden border border-gray-200 shadow-sm">
+                <a
+                  href="#highlights"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const element = document.querySelector('#highlights');
+                    if (element) {
+                      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                  }}
+                  className="relative w-full h-32 rounded-md overflow-hidden border border-gray-200 shadow-sm hover:border-gray-300 transition-all cursor-pointer block"
+                >
                   <Image
                     src={subLoc.data.src}
                     alt={subLoc.data.alt}
                     fill
                     className="object-cover"
                   />
-                </div>
+                </a>
               )}
             </div>
           </Popup>

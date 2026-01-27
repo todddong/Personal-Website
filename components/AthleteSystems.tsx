@@ -82,7 +82,7 @@ export default function AthleteSystems() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="relative h-[250px] rounded-2xl overflow-hidden border-2 border-gray-300 group shadow-sm"
+            className="relative h-[400px] rounded-2xl overflow-hidden border-2 border-gray-300 group shadow-sm"
           >
             <AnimatePresence mode="wait">
               <motion.div
