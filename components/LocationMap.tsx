@@ -668,37 +668,33 @@ export default function LocationMap() {
         }
       `}</style>
       
-      {/* Photo Lightbox Modal */}
+      {/* Photo Magnifying Glass Overlay */}
       <AnimatePresence>
         {selectedPhoto && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[9999] bg-black/95 flex items-center justify-center p-4"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            transition={{ duration: 0.2 }}
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[1000] pointer-events-none"
             onClick={() => setSelectedPhoto(null)}
           >
-            <motion.div
-              initial={{ scale: 0.9 }}
-              animate={{ scale: 1 }}
-              className="relative max-w-6xl max-h-[90vh] w-full"
-              onClick={(e) => e.stopPropagation()}
-            >
+            <div className="relative w-[400px] h-[500px] md:w-[500px] md:h-[600px] bg-white rounded-2xl overflow-hidden border-4 border-gray-300 shadow-2xl pointer-events-auto">
               <button
                 onClick={() => setSelectedPhoto(null)}
-                className="absolute top-4 right-4 z-10 text-white hover:text-gray-300 transition-colors bg-black/50 rounded-full p-2 shadow-md"
+                className="absolute top-2 right-2 z-10 text-gray-700 hover:text-gray-900 transition-colors bg-white/90 rounded-full p-1.5 shadow-md hover:bg-white"
               >
-                <X size={24} />
+                <X size={20} />
               </button>
-              <div className="relative w-full h-full aspect-video">
+              <div className="relative w-full h-full">
                 <Image
                   src={selectedPhoto}
                   alt="Selected photo"
                   fill
-                  className="object-contain"
+                  className="object-cover"
                 />
               </div>
-            </motion.div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
