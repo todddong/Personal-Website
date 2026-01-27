@@ -350,7 +350,7 @@ function MapView() {
   
   useEffect(() => {
     // Center on continental US with standard zoom
-    map.setView([39.8283, -98.5795], 5);
+    map.setView([39.8283, -98.5795], 4);
     // Make zoom less sensitive by adjusting wheel zoom delta
     // Higher value = less sensitive (requires more scrolling to zoom)
     (map as any).options.wheelPxPerZoomLevel = 300;
@@ -815,8 +815,8 @@ export default function LocationMap() {
     >
       <MapContainer
         center={[39.8283, -98.5795]}
-        zoom={5}
-        minZoom={5}
+        zoom={4}
+        minZoom={4}
         maxZoom={15}
         style={{ height: "100%", width: "100%", zIndex: 0 }}
         zoomControl={false}
