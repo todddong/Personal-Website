@@ -896,10 +896,37 @@ export default function LocationMap() {
   const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
   const [markerPosition, setMarkerPosition] = useState<{ lat: number; lng: number; name?: string } | null>(null);
   const mapRef = useRef<L.Map | null>(null);
+  const mapContainerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  useEffect(() => {
+    if (!mapContainerRef.current) return;
+
+    const container = mapContainerRef.current;
+
+    const preventPageZoom = (e: WheelEvent) => {
+      if (container.contains(e.target as Node)) {
+        e.stopPropagation();
+      }
+    };
+
+    const preventTouchZoom = (e: TouchEvent) => {
+      if (container.contains(e.target as Node) && e.touches.length > 1) {
+        e.preventDefault();
+      }
+    };
+
+    document.addEventListener('wheel', preventPageZoom, { passive: false });
+    document.addEventListener('touchmove', preventTouchZoom, { passive: false });
+
+    return () => {
+      document.removeEventListener('wheel', preventPageZoom);
+      document.removeEventListener('touchmove', preventTouchZoom);
+    };
+  }, [isClient]);
 
   const handlePhotoClick = (photoSrc: string, lat: number, lng: number) => {
     // Find location name from photo source - check main locations and sub-locations
@@ -937,7 +964,7 @@ export default function LocationMap() {
 
   if (!isClient) {
     return (
-      <div className="w-full h-[500px] sm:h-[600px] md:h-[700px] bg-gray-50 border border-gray-200 rounded-lg flex items-center justify-center">
+      <div className="w-full h-[600px] sm:h-[700px] md:h-[800px] bg-gray-50 border border-gray-200 rounded-lg flex items-center justify-center">
         <p className="text-gray-600">Loading map...</p>
       </div>
     );
@@ -945,11 +972,13 @@ export default function LocationMap() {
 
   return (
     <motion.div
+      ref={mapContainerRef}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
-      className="w-full h-[500px] sm:h-[600px] md:h-[700px] rounded-2xl overflow-hidden border border-gray-200 shadow-sm bg-white"
+      className="w-full h-[600px] sm:h-[700px] md:h-[800px] rounded-2xl overflow-hidden border border-gray-200 shadow-sm bg-white"
+      style={{ touchAction: 'none' }}
     >
       <MapContainer
         center={[39.8283, -98.5795]}
@@ -1006,10 +1035,15 @@ export default function LocationMap() {
       <style jsx global>{`
         .map-container {
           background-color: #fafafa;
+          touch-action: none;
         }
         .leaflet-container {
           background-color: #fafafa !important;
           font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+          touch-action: none !important;
+        }
+        .leaflet-container * {
+          touch-action: none !important;
         }
         .leaflet-tile-container img {
           filter: brightness(1.02) contrast(1.05) saturate(0.95);
