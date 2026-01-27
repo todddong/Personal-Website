@@ -211,38 +211,44 @@ if (cleveland && nashville) {
   });
 }
 
-// Heat map data - create circles for frequently visited locations (much smaller)
-const heatMapData = locations.map(loc => ({
-  lat: loc.lat,
-  lng: loc.lng,
-  intensity: loc.visitCount,
-  radius: Math.min(loc.visitCount * 15000, 60000), // Much smaller radius
-  opacity: Math.min(0.08 + (loc.visitCount * 0.03), 0.2), // Lighter opacity
-}));
+// Create sub-locations for places with multiple items (for zoomed-in view)
+const subLocations = [
+  // CMU sub-locations
+  { parentId: 1, name: "Carnegie Mellon University", lat: 40.4426, lng: -79.9456, type: 'activity' as const, data: locations[0].activities[0] },
+  { parentId: 1, name: "CMU Varsity Swim Team", lat: 40.4416, lng: -79.9456, type: 'activity' as const, data: locations[0].activities[1] },
+  { parentId: 1, name: "CMU HCII", lat: 40.4436, lng: -79.9446, type: 'activity' as const, data: locations[0].activities[2] },
+  // Downtown Pittsburgh sub-location
+  { parentId: 6, name: "Downtown Pittsburgh", lat: 40.44, lng: -80.0, type: 'photo' as const, data: locations[5]?.photos?.[0] },
+].filter((subLoc): subLoc is { parentId: number; name: string; lat: number; lng: number; type: 'activity' | 'photo'; data: any } => !!subLoc.data);
 
-// Component to set map view - center on US with Alaska visible in bottom right
+// Heat map data - region-based (city-level circles)
+const heatMapData = [
+  // Pittsburgh region (combines CMU and Downtown)
+  { lat: 40.4406, lng: -79.9959, radius: 80000, opacity: 0.15, intensity: 11 },
+  // Nashville region
+  { lat: 36.1627, lng: -86.7816, radius: 50000, opacity: 0.12, intensity: 3 },
+  // Other single locations
+  { lat: 35.7796, lng: -78.6382, radius: 30000, opacity: 0.08, intensity: 1 }, // Raleigh
+  { lat: 35.1, lng: -84.5, radius: 30000, opacity: 0.08, intensity: 1 }, // Ocoee River
+  { lat: 34.2, lng: -83.9, radius: 30000, opacity: 0.08, intensity: 1 }, // Lake Lanier
+  { lat: 41.4993, lng: -81.6944, radius: 30000, opacity: 0.08, intensity: 1 }, // Cleveland
+];
+
+// Component to set map view - center on continental US only (no Alaska)
 function MapView() {
   const map = useMap();
   
   useEffect(() => {
-    // Set bounds to show continental US centered with Alaska visible in bottom right
-    // This creates a view that shows the continental US well while keeping Alaska visible
+    // Set bounds to show only continental US (no Alaska)
     const bounds = L.latLngBounds(
-      [24.0, -180.0], // Southwest corner (includes Alaska on the left side of the map)
-      [72.0, -50.0] // Northeast corner
+      [24.396308, -125.0], // Southwest corner (continental US)
+      [49.384358, -66.93457] // Northeast corner (continental US)
     );
-    // Fit bounds with padding, but adjust to show Alaska in bottom right
+    // Fit bounds with padding, zoomed in more
     map.fitBounds(bounds, { 
-      padding: [20, 20],
+      padding: [50, 50],
       maxZoom: 6
     });
-    
-    // Adjust pan to better position Alaska in bottom right
-    setTimeout(() => {
-      const currentCenter = map.getCenter();
-      // Slight adjustment to show Alaska better
-      map.setView([currentCenter.lat - 2, currentCenter.lng + 15], map.getZoom(), { animate: false });
-    }, 100);
   }, [map]);
   
   return null;
@@ -276,79 +282,35 @@ function StateBoundaries() {
   );
 }
 
-export default function LocationMap() {
-  const [isClient, setIsClient] = useState(false);
+// Component to track zoom level and show sub-locations
+function ZoomBasedMarkers() {
+  const map = useMap();
+  const [zoomLevel, setZoomLevel] = useState(map.getZoom());
 
   useEffect(() => {
-    setIsClient(true);
-  }, []);
+    const updateZoom = () => {
+      setZoomLevel(map.getZoom());
+    };
+    
+    map.on('zoomend', updateZoom);
+    updateZoom();
+    
+    return () => {
+      map.off('zoomend', updateZoom);
+    };
+  }, [map]);
 
-  if (!isClient) {
-    return (
-      <div className="w-full h-[900px] bg-gray-100 border border-gray-300 rounded-lg flex items-center justify-center">
-        <p className="text-gray-600">Loading map...</p>
-      </div>
-    );
-  }
+  const showSubLocations = zoomLevel >= 8; // Show sub-locations when zoomed in to city level
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6 }}
-      className="w-full h-[900px] rounded-lg overflow-hidden border border-gray-300 shadow-lg bg-white"
-    >
-      <MapContainer
-        center={[39.8283, -98.5795]}
-        zoom={4}
-        minZoom={3}
-        maxZoom={15}
-        style={{ height: "100%", width: "100%", zIndex: 0 }}
-        zoomControl={true}
-        scrollWheelZoom={true}
-        doubleClickZoom={true}
-        className="map-container"
-      >
-        <MapView />
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        
-        {/* State boundaries overlay using GeoJSON */}
-        <StateBoundaries />
-        
-        {/* Heat map circles - smaller and more subtle */}
-        {heatMapData.map((heat, idx) => (
-          <Circle
-            key={`heat-${idx}`}
-            center={[heat.lat, heat.lng]}
-            radius={heat.radius}
-            pathOptions={{
-              fillColor: "#ef4444",
-              fillOpacity: heat.opacity,
-              color: "transparent",
-              weight: 0,
-            }}
-          />
-        ))}
-        
-        {/* Edge paths: Cleveland → Nashville → all other points */}
-        {edgePaths.map((path, idx) => (
-          <Polyline
-            key={`edge-${idx}`}
-            positions={path}
-            pathOptions={{
-              color: "#ef4444",
-              weight: 1,
-              opacity: 0.5,
-            }}
-          />
-        ))}
-        
-        {/* Markers */}
-        {locations.map((location) => (
+    <>
+      {/* Main location markers - hide parent locations when showing sub-locations */}
+      {locations.map((location) => {
+        // Hide Pittsburgh and Downtown Pittsburgh when zoomed in (will show sub-locations instead)
+        if (showSubLocations && (location.id === 1 || location.id === 6)) {
+          return null;
+        }
+        return (
           <Marker
             key={location.id}
             position={[location.lat, location.lng]}
@@ -401,7 +363,130 @@ export default function LocationMap() {
               </div>
             </Popup>
           </Marker>
+        );
+      })}
+      
+      {/* Sub-location markers - only show when zoomed in */}
+      {showSubLocations && subLocations.map((subLoc, idx) => (
+        <Marker
+          key={`sub-${idx}`}
+          position={[subLoc.lat, subLoc.lng]}
+          icon={createCustomIcon()}
+        >
+          <Popup className="custom-popup" maxWidth={220}>
+            <div className="p-3">
+              <h3 className="font-semibold text-gray-900 text-sm mb-2">{subLoc.name}</h3>
+              {subLoc.type === 'activity' && subLoc.data && (
+                <div className="flex items-start gap-2">
+                  {subLoc.data.logo && (
+                    <div className="relative w-5 h-5 bg-white rounded border border-gray-200 overflow-hidden flex-shrink-0 mt-0.5">
+                      <Image
+                        src={subLoc.data.logo}
+                        alt={`${subLoc.data.title} logo`}
+                        fill
+                        className="object-contain p-0.5"
+                      />
+                    </div>
+                  )}
+                  <div className="flex-1 min-w-0">
+                    <h4 className="font-medium text-gray-800 text-xs leading-tight">{subLoc.data.title}</h4>
+                    {subLoc.data.period && (
+                      <span className="text-xs text-gray-500">{subLoc.data.period}</span>
+                    )}
+                  </div>
+                </div>
+              )}
+              {subLoc.type === 'photo' && subLoc.data && (
+                <div className="relative w-full h-32 rounded-md overflow-hidden border border-gray-200 shadow-sm">
+                  <Image
+                    src={subLoc.data.src}
+                    alt={subLoc.data.alt}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              )}
+            </div>
+          </Popup>
+        </Marker>
+      ))}
+    </>
+  );
+}
+
+export default function LocationMap() {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) {
+    return (
+      <div className="w-full h-[900px] bg-gray-100 border border-gray-300 rounded-lg flex items-center justify-center">
+        <p className="text-gray-600">Loading map...</p>
+      </div>
+    );
+  }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
+      className="w-full h-[900px] rounded-lg overflow-hidden border border-gray-300 shadow-lg bg-white"
+    >
+      <MapContainer
+        center={[39.8283, -98.5795]}
+        zoom={4}
+        minZoom={3}
+        maxZoom={15}
+        style={{ height: "100%", width: "100%", zIndex: 0 }}
+        zoomControl={true}
+        scrollWheelZoom={true}
+        doubleClickZoom={true}
+        className="map-container"
+      >
+        <MapView />
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        
+        {/* State boundaries overlay using GeoJSON */}
+        <StateBoundaries />
+        
+        {/* Heat map circles - region-based */}
+        {heatMapData.map((heat, idx) => (
+          <Circle
+            key={`heat-${idx}`}
+            center={[heat.lat, heat.lng]}
+            radius={heat.radius}
+            pathOptions={{
+              fillColor: "#ef4444",
+              fillOpacity: heat.opacity,
+              color: "transparent",
+              weight: 0,
+            }}
+          />
         ))}
+        
+        {/* Edge paths: Cleveland → Nashville → all other points */}
+        {edgePaths.map((path, idx) => (
+          <Polyline
+            key={`edge-${idx}`}
+            positions={path}
+            pathOptions={{
+              color: "#ef4444",
+              weight: 1,
+              opacity: 0.5,
+            }}
+          />
+        ))}
+        
+        {/* Markers - zoom-based */}
+        <ZoomBasedMarkers />
       </MapContainer>
       
       <style jsx global>{`
