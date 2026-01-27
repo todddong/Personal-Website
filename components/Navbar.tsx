@@ -54,7 +54,7 @@ export default function Navbar() {
                 key={item.label}
                 href={item.href}
                 onClick={(e) => handleClick(e, item.href)}
-                className="text-sm text-gray-600 hover:text-blue-600 transition-colors"
+                className="text-sm text-gray-600 hover:text-[#93C572] transition-colors"
               >
                 {item.label}
               </a>
@@ -67,7 +67,7 @@ export default function Navbar() {
               e.preventDefault();
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
-            className="text-lg font-bold text-gray-900 hover:text-blue-600 transition-colors ml-auto"
+            className="text-lg font-bold text-gray-900 hover:text-[#93C572] transition-colors ml-auto"
           >
             Todd Dong
           </motion.a>

@@ -64,18 +64,18 @@ export default function AboutCMU() {
             className="space-y-6 order-1 md:order-2"
           >
             <div className="flex items-center gap-3 mb-4">
-              <GraduationCap className="text-blue-600" size={24} />
+              <GraduationCap className="text-[#93C572]" size={24} />
               <h3 className="text-xl font-semibold text-gray-900">Carnegie Mellon University</h3>
             </div>
 
             <div className="space-y-2 mb-4">
               <div className="flex items-center gap-2 text-gray-600 text-sm">
-                <Calendar className="text-blue-600" size={16} />
+                <Calendar className="text-[#93C572]" size={16} />
                 <span>Expected Graduation: May 2027</span>
               </div>
               
               <div className="flex items-center gap-2 text-gray-600 text-sm">
-                <MapPin className="text-blue-600" size={16} />
+                <MapPin className="text-[#93C572]" size={16} />
                 <span>Pittsburgh, Pennsylvania</span>
               </div>
             </div>
@@ -139,23 +139,23 @@ export default function AboutCMU() {
           className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4"
         >
           <div className="text-center p-4 bg-gray-50 border-2 border-gray-300 rounded-2xl hover:border-gray-400 transition-all shadow-sm">
-            <Award className="text-blue-600 mx-auto mb-2" size={24} />
-            <div className="text-2xl md:text-3xl font-bold text-blue-600 mb-1">#1</div>
+            <Award className="text-[#93C572] mx-auto mb-2" size={24} />
+            <div className="text-2xl md:text-3xl font-bold text-[#93C572] mb-1">#1</div>
             <div className="text-xs text-gray-500 uppercase tracking-wide">CS Ranking</div>
           </div>
           <div className="text-center p-4 bg-gray-50 border-2 border-gray-300 rounded-2xl hover:border-gray-400 transition-all shadow-sm">
-            <TrendingUp className="text-blue-600 mx-auto mb-2" size={24} />
-            <div className="text-2xl md:text-3xl font-bold text-blue-600 mb-1">#2</div>
+            <TrendingUp className="text-[#93C572] mx-auto mb-2" size={24} />
+            <div className="text-2xl md:text-3xl font-bold text-[#93C572] mb-1">#2</div>
             <div className="text-xs text-gray-500 uppercase tracking-wide">AI Ranking</div>
           </div>
           <div className="text-center p-4 bg-gray-50 border-2 border-gray-300 rounded-2xl hover:border-gray-400 transition-all shadow-sm">
-            <GraduationCap className="text-blue-600 mx-auto mb-2" size={24} />
-            <div className="text-2xl md:text-3xl font-bold text-blue-600 mb-1">#1</div>
+            <GraduationCap className="text-[#93C572] mx-auto mb-2" size={24} />
+            <div className="text-2xl md:text-3xl font-bold text-[#93C572] mb-1">#1</div>
             <div className="text-xs text-gray-500 uppercase tracking-wide">Software Engineering</div>
           </div>
           <div className="text-center p-4 bg-gray-50 border-2 border-gray-300 rounded-2xl hover:border-gray-400 transition-all shadow-sm">
-            <Award className="text-blue-600 mx-auto mb-2" size={24} />
-            <div className="text-2xl md:text-3xl font-bold text-blue-600 mb-1">#1</div>
+            <Award className="text-[#93C572] mx-auto mb-2" size={24} />
+            <div className="text-2xl md:text-3xl font-bold text-[#93C572] mb-1">#1</div>
             <div className="text-xs text-gray-500 uppercase tracking-wide">Cybersecurity</div>
           </div>
         </motion.div>

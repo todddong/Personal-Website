@@ -89,7 +89,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="flex items-start justify-between">
-        <h3 className="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
+        <h3 className="text-lg font-bold text-gray-900 group-hover:text-[#93C572] transition-colors">
           {project.title}
         </h3>
         <div className="flex gap-2">
@@ -109,7 +109,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
               href={project.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-blue-400 transition-colors"
+              className="text-gray-400 hover:text-[#93C572] transition-colors"
             >
               <ExternalLink size={20} />
             </a>
@@ -119,7 +119,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
               href={project.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-blue-400 transition-colors"
+              className="text-gray-400 hover:text-[#93C572] transition-colors"
             >
               <Github size={20} />
             </a>

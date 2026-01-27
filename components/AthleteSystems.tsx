@@ -145,7 +145,7 @@ export default function AthleteSystems() {
                   onClick={() => setCurrentSlide(index)}
                   className={`h-2 rounded-full transition-all ${
                     index === currentSlide
-                      ? 'w-8 bg-blue-600'
+                      ? 'w-8 bg-[#93C572]'
                       : 'w-2 bg-gray-300 hover:bg-gray-400'
                   }`}
                   aria-label={`Go to slide ${index + 1}`}

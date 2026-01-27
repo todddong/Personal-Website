@@ -75,7 +75,7 @@ export default function HighSchoolSwim() {
             className="space-y-6"
           >
             <div className="flex items-center gap-2 mb-4">
-              <Trophy className="text-blue-600" size={24} />
+              <Trophy className="text-[#93C572]" size={24} />
               <h3 className="text-lg font-semibold text-gray-900">Awards & Recognition</h3>
             </div>
             
@@ -89,7 +89,7 @@ export default function HighSchoolSwim() {
                   transition={{ duration: 0.4, delay: index * 0.1 }}
                   className="flex items-start gap-2 p-2 bg-gray-50 border-2 border-gray-300 rounded-xl hover:border-gray-400 transition-all shadow-sm"
                 >
-                  <Award className="text-blue-600 mt-0.5 flex-shrink-0" size={14} />
+                  <Award className="text-[#93C572] mt-0.5 flex-shrink-0" size={14} />
                   <span className="text-gray-700 text-sm">{achievement}</span>
                 </motion.div>
               ))}

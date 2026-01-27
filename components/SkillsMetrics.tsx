@@ -56,7 +56,7 @@ export default function SkillsMetrics() {
                 className="bg-gray-900/50 border border-gray-800 rounded-lg p-6 hover:border-gray-700 transition-all duration-300"
               >
                 <div className="flex items-center gap-3 mb-4">
-                  <Icon className="text-blue-400" size={24} />
+                  <Icon className="text-[#93C572]" size={24} />
                   <h3 className="text-xl font-semibold text-white">{skill.category}</h3>
                 </div>
                 <div className="flex flex-wrap gap-2">
@@ -92,7 +92,7 @@ export default function SkillsMetrics() {
                 transition={{ duration: 0.4, delay: index * 0.1 }}
                 className="bg-gray-900/50 border border-gray-800 rounded-lg p-6 hover:border-gray-700 transition-all duration-300 text-center"
               >
-                <div className="text-4xl md:text-5xl font-bold text-blue-400 mb-2">
+                <div className="text-4xl md:text-5xl font-bold text-[#93C572] mb-2">
                   {metric.value}
                   {metric.suffix && <span className="text-2xl">{metric.suffix}</span>}
                 </div>

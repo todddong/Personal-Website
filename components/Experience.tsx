@@ -91,7 +91,7 @@ function TimelineItem({ item, index }: { item: typeof timeline[0]; index: number
       )}
       {(!item.logo || logoError) && (
         <div className="absolute left-0 top-0 w-12 h-12 bg-gray-100 border-2 border-gray-300 rounded-full flex items-center justify-center z-10 shadow-md">
-          <Icon className="text-blue-600" size={20} />
+          <Icon className="text-[#93C572]" size={20} />
         </div>
       )}
 
@@ -104,7 +104,7 @@ function TimelineItem({ item, index }: { item: typeof timeline[0]; index: number
         <div className="flex items-start justify-between mb-2">
           <div>
             <h3 className="text-lg font-semibold text-gray-900 mb-1">{item.title}</h3>
-            <p className="text-blue-600 text-sm mb-2">{item.role}</p>
+            <p className="text-[#93C572] text-sm mb-2">{item.role}</p>
           </div>
           <div className="flex flex-col items-end ml-4">
             <span className="text-gray-500 text-xs whitespace-nowrap">

@@ -64,7 +64,7 @@ export default function Footer() {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className="flex flex-col items-center text-center p-4 bg-gray-50 border-2 border-gray-300 rounded-2xl hover:border-gray-400 transition-all group shadow-sm"
               >
-                <Icon className="text-blue-600 mb-2 group-hover:scale-110 transition-transform" size={20} />
+                <Icon className="text-[#93C572] mb-2 group-hover:scale-110 transition-transform" size={20} />
                 <span className="text-xs text-gray-500 uppercase tracking-wide mb-1">
                   {item.label}
                 </span>
@@ -88,7 +88,7 @@ export default function Footer() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 whileHover={{ scale: 1.1 }}
-                className="text-gray-600 hover:text-blue-600 transition-colors"
+                className="text-gray-600 hover:text-[#93C572] transition-colors"
               >
                 <Icon size={24} />
               </motion.a>
