@@ -72,7 +72,7 @@ export default function AthleteSystems() {
           transition={{ duration: 0.6 }}
           className="text-2xl md:text-3xl font-normal mb-8 text-left text-[#93C572]"
         >
-          About me
+          about me
         </motion.h2>
 
         <div className="grid md:grid-cols-2 gap-8 items-center">

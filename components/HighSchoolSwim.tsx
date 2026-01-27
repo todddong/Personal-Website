@@ -26,8 +26,8 @@ export default function HighSchoolSwim() {
           transition={{ duration: 0.6 }}
           className="text-left mb-6"
         >
-          <h2           className="text-3xl md:text-4xl font-normal mb-2 text-[#93C572]">
-            Awards & Accolades
+          <h2 className="text-2xl md:text-3xl font-normal mb-2 text-[#93C572]">
+            awards & accolades
           </h2>
           <p className="text-gray-500 text-sm max-w-2xl">
             Recognition and achievements across academics, athletics, and leadership

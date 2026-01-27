@@ -48,7 +48,7 @@ export default function Footer() {
           transition={{ duration: 0.6 }}
           className="text-2xl md:text-3xl font-normal mb-6 text-left text-[#93C572]"
         >
-          Contact Me
+          contact
         </motion.h2>
 
         <div className="grid md:grid-cols-3 gap-4 mb-6">

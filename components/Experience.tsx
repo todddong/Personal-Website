@@ -147,7 +147,7 @@ export default function Experience() {
           transition={{ duration: 0.6 }}
           className="text-2xl md:text-3xl font-normal mb-8 text-left text-[#93C572]"
         >
-          Experience
+          experience
         </motion.h2>
 
         {/* Interactive Map */}
