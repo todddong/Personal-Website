@@ -74,8 +74,8 @@ export default function Hero() {
       {/* Grid Background */}
       <div className="absolute inset-0 grid-pattern opacity-20 z-0" />
       
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-12 items-center justify-items-stretch">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-2 sm:px-4 md:px-8 lg:px-12">
+        <div className="grid grid-cols-3 gap-2 sm:gap-4 md:gap-6 lg:gap-12 items-center justify-items-stretch">
           {/* Left Side - Two Logos */}
           <div className="flex flex-col items-center justify-center">
             {/* CS Logo */}
@@ -84,7 +84,7 @@ export default function Hero() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8 }}
             >
-              <div className="relative w-32 h-32 sm:w-40 sm:h-40 md:w-60 md:h-60 lg:w-64 lg:h-64 rounded-lg overflow-hidden border-2 border-gray-200 shadow-md">
+              <div className="relative w-20 h-20 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-60 lg:h-60 xl:w-64 xl:h-64 rounded-lg overflow-hidden border-2 border-gray-200 shadow-md">
                 <CloudImage
                   src="alaska/cs logo.png"
                   alt="CS Logo"
@@ -102,8 +102,8 @@ export default function Hero() {
             </motion.div>
             
             {/* X separator - centered between logos */}
-            <div className="flex items-center justify-center my-2">
-              <div className="text-gray-400 text-2xl font-light">×</div>
+            <div className="flex items-center justify-center my-1 sm:my-2">
+              <div className="text-gray-400 text-sm sm:text-lg md:text-xl lg:text-2xl font-light">×</div>
             </div>
             
             {/* CMU Swim Logo */}
@@ -112,7 +112,7 @@ export default function Hero() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <div className="relative w-32 h-32 sm:w-40 sm:h-40 md:w-60 md:h-60 lg:w-64 lg:h-64 rounded-lg overflow-hidden border-2 border-gray-200 shadow-md">
+              <div className="relative w-20 h-20 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-60 lg:h-60 xl:w-64 xl:h-64 rounded-lg overflow-hidden border-2 border-gray-200 shadow-md">
                 <CloudImage
                   src="alaska/cmu swim logo.webp"
                   alt="CMU Swim Logo"
@@ -137,9 +137,9 @@ export default function Hero() {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.1 }}
-              className="mb-3"
+              className="mb-1 sm:mb-2 md:mb-3"
             >
-              <div className="relative w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 rounded-full overflow-hidden border-2 border-gray-200 shadow-lg">
+              <div className="relative w-20 h-20 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 xl:w-56 xl:h-56 rounded-full overflow-hidden border-2 border-gray-200 shadow-lg">
                 <CloudImage
                   src="headshot.PNG"
                   alt="Todd Dong"
@@ -160,7 +160,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-4xl md:text-5xl font-bold mb-3 text-gray-900 text-center"
+              className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-1 sm:mb-2 md:mb-3 text-gray-900 text-center"
             >
               <TypingText text="Todd Dong" speed={150} delay={0} />
             </motion.h1>
@@ -169,7 +169,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-base md:text-lg text-gray-600 text-center"
+              className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-600 text-center"
             >
               <TypingText text="Computer Science @ Carnegie Mellon" speed={80} delay={1500} />
             </motion.p>
@@ -180,7 +180,7 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
-            className="relative w-full max-w-[120px] sm:max-w-[160px] md:max-w-xs ml-auto aspect-[9/16] rounded-3xl overflow-hidden border-4 border-gray-300 shadow-2xl"
+            className="relative w-full max-w-[60px] sm:max-w-[80px] md:max-w-[120px] lg:max-w-[160px] xl:max-w-xs ml-auto aspect-[9/16] rounded-lg sm:rounded-xl md:rounded-2xl lg:rounded-3xl overflow-hidden border-2 sm:border-3 md:border-4 border-gray-300 shadow-lg sm:shadow-xl md:shadow-2xl"
           >
             <video
               ref={videoRef}
