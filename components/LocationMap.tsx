@@ -314,7 +314,7 @@ function ZoomBasedMarkers() {
           >
             <Popup className="custom-popup" maxWidth={220} closeButton={false} autoClose={false} closeOnClick={false}>
               <div className="p-3">
-                <h3 className="font-semibold text-gray-900 text-sm mb-2">{location.name}</h3>
+                <h3 className="font-semibold text-gray-900 text-xs mb-2">{location.name}</h3>
                 {location.activities.length > 0 && (
                   <div className="space-y-2 mb-2">
                     {location.activities.map((activity, idx) => (
@@ -389,7 +389,7 @@ function ZoomBasedMarkers() {
         >
           <Popup className="custom-popup" maxWidth={220} closeButton={false} autoClose={false} closeOnClick={false}>
             <div className="p-3">
-              <h3 className="font-semibold text-gray-900 text-sm mb-2">{subLoc.name}</h3>
+              <h3 className="font-semibold text-gray-900 text-xs mb-2">{subLoc.name}</h3>
               {subLoc.type === 'activity' && subLoc.data && (
                 <div className="flex items-start gap-2">
                   {subLoc.data.logo && (

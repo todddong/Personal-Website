@@ -4,35 +4,31 @@ import { motion, AnimatePresence } from "framer-motion";
 import { GraduationCap, Trophy, MapPin, Briefcase, Code } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
-import dynamic from "next/dynamic";
 
-// Dynamically import the map component to avoid SSR issues
-const LocationMap = dynamic(() => import("./LocationMap"), {
-  ssr: false,
-  loading: () => (
-    <div className="w-full h-[500px] bg-gray-50 border border-gray-200 rounded-lg flex items-center justify-center">
-      <p className="text-gray-400">Loading map...</p>
-    </div>
-  ),
-});
+// Helper function to parse year for sorting (most recent first)
+const parseYear = (yearStr: string): number => {
+  // Extract the first year from strings like "2024 - Present", "Jun 2025 - Aug 2025", "2026"
+  const match = yearStr.match(/\d{4}/);
+  return match ? parseInt(match[0]) : 0;
+};
 
 const timeline = [
   {
-    year: "2024 - Present",
-    title: "Carnegie Mellon University",
-    role: "Bachelor of Science in Computer Science, ML Concentration",
-    location: "Pittsburgh, PA",
-    description: "Expected May 2027. Extracurriculars: CMU Varsity Swim and Dive, Volunteer swim lessons coach, Asian Student Association, ScottyLabs, HackCMU.",
-    icon: GraduationCap,
-    logo: "/media/logos/cmu.jpg",
+    year: "2026",
+    title: "First Citizens Bank",
+    role: "Incoming Software Engineering Intern",
+    location: "Raleigh, NC",
+    description: "Upcoming software engineering internship at First Citizens Bank.",
+    icon: Briefcase,
+    logo: "/media/logos/first-citizens.jpg",
   },
   {
-    year: "2024 - Present",
-    title: "CMU Varsity Swim Team",
-    role: "Division III Athlete",
+    year: "Aug 2025 - Present",
+    title: "Carnegie Mellon Human Computer Interaction Institute",
+    role: "Machine Learning Research Assistant",
     location: "Pittsburgh, PA",
-    description: "Competing at the Division III varsity level. Achievements: CMU Top 10 all time (7th, 100 free), School Record Holder (400 free relay), USA Swimming Scholastic All American (4x), CMU Conference Team.",
-    icon: Trophy,
+    description: "Replicated, extended, and optimized ML pipelines for AI Collaborative Learning, improving reliability and scalability. Cleaned up, optimized, and documented over 50% of previous existing codebase increasing runtime efficiency by 18%. Recreated and hand documented 1,000+ test results to ensure cross-run consistency and improve model benchmarking.",
+    icon: Code,
     logo: "/media/logos/cmu.jpg",
   },
   {
@@ -45,24 +41,33 @@ const timeline = [
     logo: "/media/logos/uaa.png",
   },
   {
-    year: "Aug 2025 - Present",
-    title: "Carnegie Mellon Human Computer Interaction Institute",
-    role: "Machine Learning Research Assistant",
+    year: "2024 - Present",
+    title: "CMU Varsity Swim Team",
+    role: "Division III Athlete",
     location: "Pittsburgh, PA",
-    description: "Replicated, extended, and optimized ML pipelines for AI Collaborative Learning, improving reliability and scalability. Cleaned up, optimized, and documented over 50% of previous existing codebase increasing runtime efficiency by 18%. Recreated and hand documented 1,000+ test results to ensure cross-run consistency and improve model benchmarking.",
-    icon: Code,
+    description: "Competing at the Division III varsity level. Achievements: CMU Top 10 all time (7th, 100 free), School Record Holder (400 free relay), USA Swimming Scholastic All American (4x), CMU Conference Team.",
+    icon: Trophy,
     logo: "/media/logos/cmu.jpg",
   },
   {
-    year: "2026",
-    title: "First Citizens Bank",
-    role: "Incoming Software Engineering Intern",
-    location: "Raleigh, NC",
-    description: "Upcoming software engineering internship at First Citizens Bank.",
-    icon: Briefcase,
-    logo: "/media/logos/first-citizens.jpg",
+    year: "2024 - Present",
+    title: "Carnegie Mellon University",
+    role: "Bachelor of Science in Computer Science, ML Concentration",
+    location: "Pittsburgh, PA",
+    description: "Expected May 2027. Extracurriculars: CMU Varsity Swim and Dive, Volunteer swim lessons coach, Asian Student Association, ScottyLabs, HackCMU.",
+    icon: GraduationCap,
+    logo: "/media/logos/cmu.jpg",
   },
-];
+].sort((a, b) => {
+  // Sort by year (most recent first)
+  const yearA = parseYear(a.year);
+  const yearB = parseYear(b.year);
+  if (yearB !== yearA) return yearB - yearA;
+  // If same year, prioritize "Present" items
+  if (a.year.includes("Present") && !b.year.includes("Present")) return -1;
+  if (!a.year.includes("Present") && b.year.includes("Present")) return 1;
+  return 0;
+});
 
 function TimelineItem({ item, index }: { item: typeof timeline[0]; index: number }) {
   const Icon = item.icon;
@@ -149,11 +154,6 @@ export default function Experience() {
         >
           experience
         </motion.h2>
-
-        {/* Interactive Map */}
-        <div className="mb-6">
-          <LocationMap />
-        </div>
 
         {/* Timeline */}
         <div className="max-w-4xl mx-auto">

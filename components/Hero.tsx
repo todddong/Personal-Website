@@ -69,7 +69,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#faf8f4] py-16">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#faf8f4] py-8">
       {/* Grid Background */}
       <div className="absolute inset-0 grid-pattern opacity-20 z-0" />
       
@@ -84,7 +84,7 @@ export default function Hero() {
               transition={{ duration: 0.8 }}
               className="mb-6"
             >
-              <div className="relative w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-2 border-gray-200 shadow-lg">
+              <div className="relative w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-2 border-gray-200 shadow-lg">
                 <Image
                   src="/media/headshot.PNG"
                   alt="Todd Dong"

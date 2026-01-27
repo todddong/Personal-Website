@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import Projects from "@/components/Projects";
 import AthleteSystems from "@/components/AthleteSystems";
 import Experience from "@/components/Experience";
+import Places from "@/components/Places";
 import AboutCMU from "@/components/AboutCMU";
 import Highlights from "@/components/Highlights";
 import HighSchoolSwim from "@/components/HighSchoolSwim";
@@ -15,6 +16,7 @@ export default function Home() {
       <Hero />
       <AthleteSystems />
       <Experience />
+      <Places />
       <Projects />
       <AboutCMU />
       <HighSchoolSwim />

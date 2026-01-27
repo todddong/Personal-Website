@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { GraduationCap, MapPin, Calendar, Award, TrendingUp } from "lucide-react";
+import { GraduationCap, MapPin, Calendar } from "lucide-react";
 
 export default function AboutCMU() {
   return (
@@ -127,38 +127,21 @@ export default function AboutCMU() {
                 ))}
               </div>
             </div>
+
+            <div className="pt-3 border-t border-gray-200">
+              <div className="flex items-center gap-2 text-gray-600 text-sm mb-2">
+                <MapPin className="text-[#93C572]" size={16} />
+                <span className="font-medium">Pittsburgh, Pennsylvania</span>
+              </div>
+              <ul className="space-y-1 ml-6">
+                <li className="text-[#93C572] text-sm">#1 CS Ranking</li>
+                <li className="text-[#93C572] text-sm">#2 AI Ranking</li>
+                <li className="text-[#93C572] text-sm">#1 Software Engineering</li>
+                <li className="text-[#93C572] text-sm">#1 Cybersecurity</li>
+              </ul>
+            </div>
           </motion.div>
         </div>
-
-        {/* Statistics Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-3"
-        >
-          <div className="text-center p-4 bg-gray-50 border-2 border-gray-300 rounded-2xl hover:border-gray-400 transition-all shadow-sm">
-            <Award className="text-[#93C572] mx-auto mb-2" size={24} />
-            <div className="text-2xl md:text-3xl font-bold text-[#93C572] mb-1">#1</div>
-            <div className="text-xs text-gray-500 uppercase tracking-wide">CS Ranking</div>
-          </div>
-          <div className="text-center p-4 bg-gray-50 border-2 border-gray-300 rounded-2xl hover:border-gray-400 transition-all shadow-sm">
-            <TrendingUp className="text-[#93C572] mx-auto mb-2" size={24} />
-            <div className="text-2xl md:text-3xl font-bold text-[#93C572] mb-1">#2</div>
-            <div className="text-xs text-gray-500 uppercase tracking-wide">AI Ranking</div>
-          </div>
-          <div className="text-center p-4 bg-gray-50 border-2 border-gray-300 rounded-2xl hover:border-gray-400 transition-all shadow-sm">
-            <GraduationCap className="text-[#93C572] mx-auto mb-2" size={24} />
-            <div className="text-2xl md:text-3xl font-bold text-[#93C572] mb-1">#1</div>
-            <div className="text-xs text-gray-500 uppercase tracking-wide">Software Engineering</div>
-          </div>
-          <div className="text-center p-4 bg-gray-50 border-2 border-gray-300 rounded-2xl hover:border-gray-400 transition-all shadow-sm">
-            <Award className="text-[#93C572] mx-auto mb-2" size={24} />
-            <div className="text-2xl md:text-3xl font-bold text-[#93C572] mb-1">#1</div>
-            <div className="text-xs text-gray-500 uppercase tracking-wide">Cybersecurity</div>
-          </div>
-        </motion.div>
       </div>
     </section>
   );

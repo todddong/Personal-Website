@@ -133,7 +133,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.4 }}
+            transition={{ duration: 0.6 }}
             className="overflow-hidden"
           >
             <p className="text-gray-600 mb-4 text-sm mt-4">{project.description}</p>

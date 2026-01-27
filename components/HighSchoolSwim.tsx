@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Trophy, Award } from "lucide-react";
 
 const achievements = [
-  "🏆 First Place — CMU x Databricks x UN Datathon 2026",
+  "First Place — CMU x Databricks x UN Datathon 2026",
   "CMU Top 10 all time (7th, 100 free)",
   "School Record Holder (400 free relay)",
   "USA Swimming Scholastic All American (4x)",
