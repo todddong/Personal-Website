@@ -444,6 +444,30 @@ function MapRefSetter({ mapRef }: { mapRef: React.MutableRefObject<L.Map | null>
   return null;
 }
 
+// Component to recenter the map
+function RecenterButton() {
+  const map = useMap();
+  const ORIGINAL_CENTER: [number, number] = [39.8283, -98.5795];
+  const ORIGINAL_ZOOM = 4.5;
+
+  const handleRecenter = () => {
+    map.setView(ORIGINAL_CENTER, ORIGINAL_ZOOM, {
+      animate: true,
+      duration: 0.5,
+    });
+  };
+
+  return (
+    <button
+      onClick={handleRecenter}
+      className="absolute top-4 right-4 z-[1000] bg-white hover:bg-gray-50 text-gray-700 px-3 py-2 rounded-md shadow-md border border-gray-200 text-sm font-medium transition-all hover:shadow-lg"
+      title="Recenter map"
+    >
+      Recenter
+    </button>
+  );
+}
+
 // Component for photo funnel overlay - must be inside MapContainer
 function PhotoFunnelOverlayInner({ 
   photo, 
@@ -1065,6 +1089,7 @@ export default function LocationMap() {
         <PhotoClickContext.Provider value={handlePhotoClick}>
           <ZoomBasedMarkers />
           <MapRefSetter mapRef={mapRef} />
+          <RecenterButton />
           {selectedPhoto && markerPosition && (
             <PhotoFunnelOverlayInner
               photo={selectedPhoto}
