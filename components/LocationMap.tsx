@@ -487,7 +487,7 @@ export default function LocationMap() {
         center={[39.8283, -98.5795]}
         zoom={5}
         minZoom={5}
-        maxZoom={12}
+        maxZoom={15}
         style={{ height: "100%", width: "100%", zIndex: 0 }}
         zoomControl={false}
         scrollWheelZoom={true}
