@@ -167,7 +167,7 @@ export default function AthleteSystems() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="text-gray-600 leading-relaxed text-sm">
+              className="text-gray-600 leading-relaxed text-base">
               &quot;I am a CS student at Carnegie Mellon University and a member of the Varsity swim team. Being a student-athlete requires a high level of commitment, discipline, and time management, and I take pride in applying that same dedication to my academic and professional pursuits. I am currently working toward a degree in Computer Science with a concentration in Machine Learning.&quot;
             </motion.p>
           </motion.div>

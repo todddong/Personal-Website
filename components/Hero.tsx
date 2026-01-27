@@ -77,14 +77,36 @@ export default function Hero() {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Left Side - Content (Centered) */}
           <div className="flex flex-col items-center justify-center">
-            {/* Headshot */}
+            {/* CS Logo */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8 }}
+              className="mb-4"
+            >
+              <div className="relative w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-2 border-gray-200 shadow-md">
+                <Image
+                  src="/media/alaska/cs logo.png"
+                  alt="CS Logo"
+                  fill
+                  className="object-cover"
+                  priority
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = 'none';
+                  }}
+                />
+              </div>
+            </motion.div>
+            
+            {/* Headshot */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.1 }}
               className="mb-6"
             >
-              <div className="relative w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-2 border-gray-200 shadow-lg">
+              <div className="relative w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden border-2 border-gray-200 shadow-lg">
                 <Image
                   src="/media/headshot.PNG"
                   alt="Todd Dong"

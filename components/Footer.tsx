@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, Phone, Github, Linkedin } from "lucide-react";
+import { Mail, Phone, Github, Linkedin, Youtube } from "lucide-react";
 
 const contact = [
   {
@@ -34,6 +34,11 @@ const social = [
     name: "LinkedIn",
     href: "https://www.linkedin.com/in/todd-dong-795732324",
     icon: Linkedin,
+  },
+  {
+    name: "YouTube",
+    href: "https://www.youtube.com/@ToddDongCMU",
+    icon: Youtube,
   },
 ];
 
