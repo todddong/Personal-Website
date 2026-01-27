@@ -906,7 +906,7 @@ export default function LocationMap() {
       <MapContainer
         center={[39.8283, -98.5795]}
         zoom={4.5}
-        minZoom={4}
+        minZoom={4.5}
         maxZoom={15}
         style={{ height: "100%", width: "100%", zIndex: 0 }}
         zoomControl={false}
