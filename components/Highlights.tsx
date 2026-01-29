@@ -43,7 +43,7 @@ function HighlightItem({
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.05 }}
-      className="relative group cursor-pointer overflow-hidden rounded-lg border border-gray-300 hover:border-gray-400 transition-all"
+      className="relative group cursor-pointer overflow-hidden rounded-lg border border-gray-300 hover:border-gray-400 transition-all duration-300 hover:scale-[1.04]"
       onClick={() => onSelect(highlight.src)}
     >
       <div className="aspect-square relative overflow-hidden">
@@ -51,7 +51,7 @@ function HighlightItem({
           src={highlight.src}
           alt={highlight.alt}
           fill
-          className="object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
+          className="object-cover group-hover:scale-125 transition-transform duration-300 ease-out"
           objectFit="cover"
           fallback={`/media/${highlight.src}`}
           onError={() => setImageError(true)}
