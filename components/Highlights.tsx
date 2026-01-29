@@ -12,7 +12,6 @@ const alaskaHighlights = [
   { src: "alaska/alaska-1.jpg", alt: "Alaska Highlight 1", title: "Anchorage" },
   { src: "alaska/alaska-2.jpg", alt: "Alaska Highlight 2", title: "Alaska" },
   { src: "alaska/alaska-3.jpg", alt: "Alaska Highlight 3", title: "Alaska" },
-  { src: "alaska/alaska-4.jpg", alt: "Alaska Highlight 4", title: "Alaska" },
   { src: "alaska/alaksa-5.jpg", alt: "Alaska Highlight 5", title: "Alaska" },
   { src: "alaska/alaska-6.jpg", alt: "Alaska Highlight 6", title: "Alaska" },
   { src: "alaska/alaska-7.jpg", alt: "Alaska Highlight 7", title: "Alaska" },
