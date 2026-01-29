@@ -460,9 +460,18 @@ function PhotoFunnelOverlayInner({
   const [markerPixelPosition, setMarkerPixelPosition] = useState<{ x: number; y: number } | null>(null);
   const [imageError, setImageError] = useState(false);
 
+  // When extended photo is open, disable map wheel zoom so zooming affects the whole page
   useEffect(() => {
     if (!photo || !markerPosition) return;
-    setImageError(false); // Reset error state when photo changes
+    map.scrollWheelZoom.disable();
+    return () => {
+      map.scrollWheelZoom.enable();
+    };
+  }, [photo, markerPosition, map]);
+
+  useEffect(() => {
+    if (!photo || !markerPosition) return;
+    setImageError(false);
 
     const updatePosition = () => {
       // Get marker position in pixels
@@ -630,31 +639,31 @@ function PhotoFunnelOverlayInner({
             </button>
             <div className="relative w-full h-full">
               {imageError ? (
-                <div className="flex items-center justify-center h-full bg-gray-100 text-gray-500 text-sm p-4 text-center">
-                  Image not found
-                </div>
-              ) : photo.startsWith('/media/') ? (
-                <CloudImage
-                  src={localPathToSupabasePath(photo)}
-                  alt="Selected photo"
-                  fill
-                  className="object-cover"
-                  objectFit="cover"
-                  fallback={photo}
-                  onError={() => setImageError(true)}
-                />
-              ) : (
-                <Image
-                  src={photo}
-                  alt="Selected photo"
-                  fill
-                  className="object-cover"
-                  onError={() => setImageError(true)}
-                />
-              )}
+                  <div className="flex items-center justify-center h-full bg-gray-100 text-gray-500 text-sm p-4 text-center">
+                    Image not found
+                  </div>
+                ) : photo.startsWith('/media/') ? (
+                  <CloudImage
+                    src={localPathToSupabasePath(photo)}
+                    alt="Selected photo"
+                    fill
+                    className="object-cover"
+                    objectFit="cover"
+                    fallback={photo}
+                    onError={() => setImageError(true)}
+                  />
+                ) : (
+                  <Image
+                    src={photo}
+                    alt="Selected photo"
+                    fill
+                    className="object-cover"
+                    onError={() => setImageError(true)}
+                  />
+                )}
               {/* Location name label */}
               {markerPosition?.name && (
-                <div className="absolute bottom-4 left-4 right-4 z-10 flex justify-center">
+                <div className="absolute bottom-4 left-4 right-4 z-10 flex justify-center pointer-events-none">
                   <div className="bg-black/50 backdrop-blur-sm rounded-lg px-4 py-2 inline-block shadow-lg">
                     <p 
                       className="text-white text-xs font-medium"
@@ -947,32 +956,6 @@ export default function LocationMap() {
     setIsClient(true);
   }, []);
 
-  useEffect(() => {
-    if (!mapContainerRef.current) return;
-
-    const container = mapContainerRef.current;
-
-    const preventPageZoom = (e: WheelEvent) => {
-      if (container.contains(e.target as Node)) {
-        e.stopPropagation();
-      }
-    };
-
-    const preventTouchZoom = (e: TouchEvent) => {
-      if (container.contains(e.target as Node) && e.touches.length > 1) {
-        e.preventDefault();
-      }
-    };
-
-    document.addEventListener('wheel', preventPageZoom, { passive: false });
-    document.addEventListener('touchmove', preventTouchZoom, { passive: false });
-
-    return () => {
-      document.removeEventListener('wheel', preventPageZoom);
-      document.removeEventListener('touchmove', preventTouchZoom);
-    };
-  }, [isClient]);
-
   const handlePhotoClick = (photoSrc: string, lat: number, lng: number) => {
     // Find location name from photo source - check main locations and sub-locations
     let locationName = "Location";
@@ -1015,6 +998,8 @@ export default function LocationMap() {
     );
   }
 
+  const isExtendedViewOpen = Boolean(selectedPhoto && markerPosition);
+
   return (
     <motion.div
       ref={mapContainerRef}
@@ -1022,8 +1007,8 @@ export default function LocationMap() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
-      className="relative w-full h-[600px] sm:h-[700px] md:h-[800px] rounded-2xl overflow-hidden border border-gray-200 shadow-sm bg-white"
-      style={{ touchAction: 'none' }}
+      className={`relative w-full h-[600px] sm:h-[700px] md:h-[800px] rounded-2xl overflow-hidden border border-gray-200 shadow-sm bg-white${isExtendedViewOpen ? ' map-extended-view-open' : ''}`}
+      style={{ touchAction: isExtendedViewOpen ? 'auto' : 'none' }}
     >
       <MapContainer
         center={[39.8283, -98.5795]}
@@ -1101,6 +1086,13 @@ export default function LocationMap() {
         .map-container {
           background-color: #fafafa;
           touch-action: none;
+        }
+        .map-extended-view-open .map-container,
+        .map-extended-view-open .leaflet-container {
+          touch-action: auto !important;
+        }
+        .map-extended-view-open .leaflet-container * {
+          touch-action: auto !important;
         }
         .leaflet-container {
           background-color: #fafafa !important;
