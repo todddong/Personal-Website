@@ -17,15 +17,20 @@ export default function Places() {
   return (
     <section id="places" className="py-6 sm:py-8 px-4 sm:px-6 md:px-8 relative bg-[#faf8f4] border-t border-gray-200">
       <div className="max-w-7xl mx-auto">
-        <motion.h2
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-xl md:text-2xl font-normal mb-6 text-left text-[#93C572]"
+          className="mb-6 text-left"
         >
-          places
-        </motion.h2>
+          <h2 className="text-xl md:text-2xl font-normal text-[#93C572]">
+            places
+          </h2>
+          <p className="text-sm md:text-base text-gray-500 mt-1">
+            click on the red markers :)
+          </p>
+        </motion.div>
 
         <LocationMap />
       </div>

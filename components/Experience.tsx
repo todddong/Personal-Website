@@ -47,7 +47,7 @@ const timeline = [
     location: "Pittsburgh, PA",
     description: "Competing at the Division III varsity level. Achievements: CMU Top 10 all time (7th, 100 free), School Record Holder (400 free relay), USA Swimming Scholastic All American (4x), CMU Conference Team.",
     icon: Trophy,
-    logo: "/media/logos/cmu.jpg",
+    logo: "/media/alaska/cmu swim logo.webp",
   },
   {
     year: "2024 - Present",
@@ -56,7 +56,7 @@ const timeline = [
     location: "Pittsburgh, PA",
     description: "Expected May 2027. Extracurriculars: CMU Varsity Swim and Dive, Volunteer swim lessons coach, Asian Student Association, ScottyLabs, HackCMU.",
     icon: GraduationCap,
-    logo: "/media/logos/cmu.jpg",
+    logo: "/media/alaska/cs logo.png",
   },
 ].sort((a, b) => {
   // Sort by year (most recent first)
@@ -84,14 +84,16 @@ function TimelineItem({ item, index }: { item: typeof timeline[0]; index: number
     >
       {/* Logo - Replace icon with logo */}
       {item.logo && !logoError && (
-        <div className="absolute left-0 top-0 w-10 h-10 sm:w-12 sm:h-12 bg-white rounded-2xl p-1 border-2 border-gray-300 flex items-center justify-center z-10 shadow-md">
-          <Image
-            src={item.logo}
-            alt={`${item.title} logo`}
-            fill
-            className="object-contain"
-            onError={() => setLogoError(true)}
-          />
+        <div className="absolute left-0 top-0 w-10 h-10 sm:w-12 sm:h-12 bg-white rounded-2xl p-1 border-2 border-gray-300 flex items-center justify-center z-10 shadow-md overflow-hidden">
+          <div className="relative w-full h-full rounded-xl overflow-hidden">
+            <Image
+              src={item.logo}
+              alt={`${item.title} logo`}
+              fill
+              className="object-contain rounded-xl"
+              onError={() => setLogoError(true)}
+            />
+          </div>
         </div>
       )}
       {(!item.logo || logoError) && (

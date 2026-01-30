@@ -62,11 +62,28 @@ function TypingText({ text, speed = 100, delay = 0 }: { text: string; speed?: nu
 
 export default function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [currentTime, setCurrentTime] = useState("");
 
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.playbackRate = 1.0; // Normal playback speed
-    }
+    const video = videoRef.current;
+    if (!video) return;
+    video.playbackRate = 1.0;
+    const play = () => video.play().catch(() => {});
+    play();
+    video.addEventListener("loadeddata", play);
+    return () => video.removeEventListener("loadeddata", play);
+  }, []);
+
+  useEffect(() => {
+    const formatTime = () => {
+      const now = new Date();
+      const hours = now.getHours();
+      const minutes = now.getMinutes();
+      setCurrentTime(`${hours > 12 ? hours - 12 : hours || 12}:${minutes.toString().padStart(2, "0")}`);
+    };
+    formatTime();
+    const interval = setInterval(formatTime, 1000);
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -75,62 +92,8 @@ export default function Hero() {
       <div className="absolute inset-0 grid-pattern opacity-20 z-0" />
       
       <div className="relative z-10 w-full max-w-7xl mx-auto px-1 sm:px-4 md:px-8 lg:px-12">
-        <div className="grid grid-cols-3 gap-1 sm:gap-4 md:gap-6 lg:gap-12 items-center justify-items-stretch">
-          {/* Left Side - Two Logos */}
-          <div className="flex flex-col items-center justify-center">
-            {/* CS Logo */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8 }}
-            >
-              <div className="relative w-20 h-20 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-60 lg:h-60 xl:w-64 xl:h-64 rounded-lg overflow-hidden border-2 border-gray-200 shadow-md">
-                <CloudImage
-                  src="alaska/cs logo.png"
-                  alt="CS Logo"
-                  fill
-                  className="object-cover"
-                  priority
-                  objectFit="cover"
-                  fallback="/media/alaska/cs logo.png"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.style.display = 'none';
-                  }}
-                />
-              </div>
-            </motion.div>
-            
-            {/* X separator - centered between logos */}
-            <div className="flex items-center justify-center my-0.5 sm:my-2">
-              <div className="text-gray-400 text-sm sm:text-lg md:text-xl lg:text-2xl font-light">×</div>
-            </div>
-            
-            {/* CMU Swim Logo */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              <div className="relative w-20 h-20 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-60 lg:h-60 xl:w-64 xl:h-64 rounded-lg overflow-hidden border-2 border-gray-200 shadow-md">
-                <CloudImage
-                  src="alaska/cmu swim logo.webp"
-                  alt="CMU Swim Logo"
-                  fill
-                  className="object-cover"
-                  priority
-                  objectFit="cover"
-                  fallback="/media/alaska/cmu swim logo.webp"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.style.display = 'none';
-                  }}
-                />
-              </div>
-            </motion.div>
-          </div>
-
-          {/* Middle - Headshot and Name */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 sm:gap-4 md:gap-6 lg:gap-12 items-center justify-items-center">
+          {/* Left - Headshot and Name */}
           <div className="flex flex-col items-center justify-center">
             {/* Headshot */}
             <motion.div
@@ -147,6 +110,7 @@ export default function Hero() {
                   className="object-cover scale-150"
                   priority
                   objectFit="cover"
+                  objectPosition="55% center"
                   fallback="/media/headshot.PNG"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
@@ -175,25 +139,67 @@ export default function Hero() {
             </motion.p>
           </div>
 
-          {/* Right Side - Video in Rounded Box */}
+          {/* Right Side - Video in iPhone X–style frame (notch) */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
-            className="relative w-full max-w-[60px] sm:max-w-[80px] md:max-w-[120px] lg:max-w-[160px] xl:max-w-xs ml-auto aspect-[9/16] rounded-lg sm:rounded-xl md:rounded-2xl lg:rounded-3xl overflow-hidden border-2 sm:border-3 md:border-4 border-gray-300 shadow-lg sm:shadow-xl md:shadow-2xl"
+            className="relative w-full max-w-[100px] sm:max-w-[140px] md:max-w-[200px] lg:max-w-[260px] xl:max-w-[320px] ml-auto aspect-[9/16] rounded-[2rem] sm:rounded-[2.5rem] md:rounded-[3rem] bg-black p-1.5 sm:p-2 md:p-2.5 shadow-[0_0_0_2px_rgba(0,0,0,0.1),0_25px_50px_-12px_rgba(0,0,0,0.25)]"
           >
-            <video
-              ref={videoRef}
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="absolute inset-0 w-full h-full object-cover"
-              style={{ objectPosition: 'center center' }}
-              preload="auto"
-            >
-              <source src="/media/swim-video.mp4" type="video/mp4" />
-            </video>
+            {/* Screen area - corners match phone shape (outer radius minus bezel) */}
+            <div className="absolute inset-1.5 sm:inset-2 md:inset-2.5 rounded-[1.625rem] sm:rounded-[2rem] md:rounded-[2.375rem] overflow-hidden bg-black">
+              <video
+                ref={videoRef}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="absolute inset-0 w-full h-full min-w-0 min-h-0 object-cover object-center brightness-110 contrast-105"
+                style={{ width: "100%", height: "100%" }}
+                preload="auto"
+                poster="/media/swim-1.jpg"
+              >
+                <source src="/media/swim-video.mp4" type="video/mp4" />
+              </video>
+              {/* iPhone X notch - center top (camera/speaker) */}
+              <div
+                className="absolute top-0 left-1/2 -translate-x-1/2 w-[36%] min-w-[28px] h-3.5 sm:h-4 md:h-5 bg-black rounded-b-xl sm:rounded-b-2xl z-20"
+                aria-hidden
+              />
+              {/* Status bar - time left, cellular + WiFi right (height matches time) */}
+              <div className="absolute top-1 sm:top-1.5 md:top-2 left-2 sm:left-2.5 md:left-3 right-2 sm:right-2.5 md:right-3 z-10 flex items-center justify-between pointer-events-none">
+                <span className="text-white text-[10px] sm:text-xs md:text-sm font-semibold tabular-nums ml-2 sm:ml-2.5 md:ml-3">
+                  {currentTime}
+                </span>
+                <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+                  <img
+                    src="/icons/cellular-bars.png"
+                    alt=""
+                    className="h-[10px] sm:h-3 md:h-3.5 w-auto shrink-0 object-contain object-center"
+                    style={{ mixBlendMode: "lighten", maxWidth: "14px" }}
+                    aria-hidden
+                  />
+                  <img
+                    src="/icons/wifi-icon.png"
+                    alt=""
+                    className="h-[20px] sm:h-6 md:h-7 w-[20px] sm:w-6 md:w-7 shrink-0 object-contain"
+                    style={{ filter: "brightness(0) invert(1)" }}
+                    aria-hidden
+                  />
+                  {/* Inline battery from public/icons/status-battery.svg so it renders white */}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 12"
+                    className="h-[14px] sm:h-4 md:h-5 w-[16px] sm:w-5 md:w-6 shrink-0"
+                    aria-hidden
+                  >
+                    <rect x="1" y="2.5" width="14" height="7" rx="1.8" ry="1.8" fill="none" stroke="white" strokeWidth="0.6" />
+                    <rect x="15" y="3.5" width="2" height="5" rx="0.9" ry="0.9" fill="none" stroke="white" strokeWidth="0.6" />
+                    <rect x="2.2" y="3.5" width="11.6" height="5" rx="1.4" ry="1.4" fill="white" />
+                  </svg>
+                </div>
+              </div>
+            </div>
           </motion.div>
         </div>
       </div>
