@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { RotateCw } from "lucide-react";
+import { RotateCcw } from "lucide-react";
 import CloudImage from "./CloudImage";
 import { usePortraitMobile } from "@/hooks/usePortraitMobile";
 
@@ -92,7 +92,20 @@ export default function Hero() {
   const phoneScreenContent = (
     <div className={`absolute overflow-hidden bg-black ${isPortraitMobile ? "inset-0.5 sm:inset-1 rounded-[1.25rem] sm:rounded-[1.5rem]" : "inset-1.5 sm:inset-2 md:inset-2.5 rounded-[1.625rem] sm:rounded-[2rem] md:rounded-[2.375rem]"}`}>
       {isPortraitMobile ? (
-        <div className="absolute inset-0 bg-white rounded-[1.125rem] sm:rounded-[1.25rem]" aria-hidden />
+        <>
+          <div className="absolute inset-0 bg-white rounded-[1.125rem] sm:rounded-[1.25rem]" aria-hidden />
+          {/* Rotating arrow in center of screen (counter-clockwise) */}
+          <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
+            <motion.div
+              animate={{ rotate: -360 }}
+              transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+              className="text-gray-500"
+              aria-hidden
+            >
+              <RotateCcw className="w-10 h-10 sm:w-12 sm:h-12" />
+            </motion.div>
+          </div>
+        </>
       ) : (
         <video
           ref={videoRef}
@@ -208,15 +221,6 @@ export default function Hero() {
           {isPortraitMobile ? (
             <div className="flex flex-col items-center gap-2 sm:gap-3 w-full min-w-0 justify-self-center">
               <div className="relative shrink-0 w-full max-w-[70px] min-[400px]:max-w-[90px] sm:max-w-[140px] md:max-w-[200px] min-w-0 aspect-[9/16]">
-                {/* Single looping arrow centered on top of the phone */}
-                <motion.div
-                  animate={{ rotate: -360 }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                  className="absolute left-1/2 -translate-x-1/2 -top-2 sm:-top-2.5 z-10 text-gray-600 flex justify-center"
-                  aria-hidden
-                >
-                  <RotateCw className="w-8 h-8 sm:w-10 sm:h-10" />
-                </motion.div>
                 <motion.div
                   animate={{ rotate: [0, -90, 0] }}
                   transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
