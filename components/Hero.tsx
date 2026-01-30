@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { RotateCcw, RotateCw } from "lucide-react";
 import CloudImage from "./CloudImage";
 import { usePortraitMobile } from "@/hooks/usePortraitMobile";
 
@@ -91,56 +91,64 @@ export default function Hero() {
 
   const phoneScreenContent = (
     <div className="absolute inset-1.5 sm:inset-2 md:inset-2.5 rounded-[1.625rem] sm:rounded-[2rem] md:rounded-[2.375rem] overflow-hidden bg-black">
-      <video
-        ref={videoRef}
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute inset-0 w-full h-full min-w-0 min-h-0 object-cover object-center brightness-110 contrast-105"
-        style={{ width: "100%", height: "100%" }}
-        preload="auto"
-      >
-        <source src="/media/swim-video.mp4" type="video/mp4" />
-      </video>
-      <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[36%] min-w-[28px] h-3.5 sm:h-4 md:h-5 bg-black rounded-b-xl sm:rounded-b-2xl z-20"
-        aria-hidden
-      />
-      <div className="absolute top-1 sm:top-1.5 md:top-2 left-1 sm:left-1.5 md:left-2 right-1 sm:right-1.5 md:right-2 z-10 flex flex-row items-center pointer-events-none">
-        <div className="flex-1 flex justify-start min-w-0">
-          <span className="text-white text-[10px] sm:text-xs md:text-sm font-semibold tabular-nums leading-none ml-3">
-            {currentTime}
-          </span>
-        </div>
-        <div className="w-[36%] min-w-[28px] max-w-[80px] shrink-0" aria-hidden />
-        <div className="flex-1 flex flex-row items-center justify-end gap-1 sm:gap-1.5 pl-1 min-w-0 pr-0.5">
-          <img
-            src="/icons/cellular-bars.png"
-            alt=""
-            className="h-[12px] sm:h-3.5 md:h-4 w-auto shrink-0 object-contain"
-            style={{ mixBlendMode: "lighten", maxWidth: "14px" }}
+      {isPortraitMobile ? (
+        <div className="absolute inset-0 bg-white rounded-[1.5rem] sm:rounded-[1.75rem] md:rounded-[2rem]" aria-hidden />
+      ) : (
+        <video
+          ref={videoRef}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full min-w-0 min-h-0 object-cover object-center brightness-110 contrast-105"
+          style={{ width: "100%", height: "100%" }}
+          preload="auto"
+        >
+          <source src="/media/swim-video.mp4" type="video/mp4" />
+        </video>
+      )}
+      {!isPortraitMobile && (
+        <>
+          <div
+            className="absolute top-0 left-1/2 -translate-x-1/2 w-[36%] min-w-[28px] h-3.5 sm:h-4 md:h-5 bg-black rounded-b-xl sm:rounded-b-2xl z-20"
             aria-hidden
           />
-          <img
-            src="/icons/wifi-icon.png"
-            alt=""
-            className="h-[18px] sm:h-5 md:h-6 w-[18px] sm:w-5 md:w-6 shrink-0 object-contain aspect-square"
-            style={{ filter: "brightness(0) invert(1)" }}
-            aria-hidden
-          />
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 12"
-            className="h-[14px] sm:h-4 md:h-5 w-[18px] sm:w-5 md:w-6 shrink-0"
-            aria-hidden
-          >
-            <rect x="1" y="2.5" width="14" height="7" rx="1.8" ry="1.8" fill="white" />
-            <rect x="15" y="3.5" width="2" height="5" rx="0.9" ry="0.9" fill="white" />
-            <rect x="2.2" y="3.5" width="11.6" height="5" rx="1.4" ry="1.4" fill="white" />
-          </svg>
-        </div>
-      </div>
+          <div className="absolute top-1 sm:top-1.5 md:top-2 left-1 sm:left-1.5 md:left-2 right-1 sm:right-1.5 md:right-2 z-10 flex flex-row items-center pointer-events-none">
+            <div className="flex-1 flex justify-start min-w-0">
+              <span className="text-white text-[10px] sm:text-xs md:text-sm font-semibold tabular-nums leading-none ml-3">
+                {currentTime}
+              </span>
+            </div>
+            <div className="w-[36%] min-w-[28px] max-w-[80px] shrink-0" aria-hidden />
+            <div className="flex-1 flex flex-row items-center justify-end gap-1 sm:gap-1.5 pl-1 min-w-0 pr-0.5">
+              <img
+                src="/icons/cellular-bars.png"
+                alt=""
+                className="h-[12px] sm:h-3.5 md:h-4 w-auto shrink-0 object-contain"
+                style={{ mixBlendMode: "lighten", maxWidth: "14px" }}
+                aria-hidden
+              />
+              <img
+                src="/icons/wifi-icon.png"
+                alt=""
+                className="h-[18px] sm:h-5 md:h-6 w-[18px] sm:w-5 md:w-6 shrink-0 object-contain aspect-square"
+                style={{ filter: "brightness(0) invert(1)" }}
+                aria-hidden
+              />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 12"
+                className="h-[14px] sm:h-4 md:h-5 w-[18px] sm:w-5 md:w-6 shrink-0"
+                aria-hidden
+              >
+                <rect x="1" y="2.5" width="14" height="7" rx="1.8" ry="1.8" fill="white" />
+                <rect x="15" y="3.5" width="2" height="5" rx="0.9" ry="0.9" fill="white" />
+                <rect x="2.2" y="3.5" width="11.6" height="5" rx="1.4" ry="1.4" fill="white" />
+              </svg>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 
@@ -202,16 +210,16 @@ export default function Hero() {
             <div className="flex flex-col items-center gap-2 sm:gap-3 w-full min-w-0 justify-self-center">
               <div className="flex flex-row items-center justify-center gap-2 sm:gap-4">
                 <motion.div
-                  animate={{ x: [-8, 8, -8] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                  className="shrink-0 text-gray-600"
+                  animate={{ opacity: [0.6, 1, 0.6] }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                  className="shrink-0 text-gray-600 -rotate-90"
                   aria-hidden
                 >
-                  <ChevronLeft className="w-8 h-8 sm:w-10 sm:h-10" />
+                  <RotateCcw className="w-10 h-10 sm:w-12 sm:h-12" />
                 </motion.div>
                 <motion.div
-                  animate={{ rotate: [0, -14, 14, 0] }}
-                  transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+                  animate={{ rotate: [0, -90, 0] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                   className="shrink-0 w-full max-w-[70px] min-[400px]:max-w-[90px] sm:max-w-[140px] md:max-w-[200px] min-w-0 aspect-[9/16]"
                 >
                   <motion.div
@@ -224,12 +232,12 @@ export default function Hero() {
                   </motion.div>
                 </motion.div>
                 <motion.div
-                  animate={{ x: [8, -8, 8] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                  className="shrink-0 text-gray-600"
+                  animate={{ opacity: [0.6, 1, 0.6] }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                  className="shrink-0 text-gray-600 rotate-90"
                   aria-hidden
                 >
-                  <ChevronRight className="w-8 h-8 sm:w-10 sm:h-10" />
+                  <RotateCw className="w-10 h-10 sm:w-12 sm:h-12" />
                 </motion.div>
               </div>
               <p className="text-gray-600 text-center text-xs sm:text-sm font-medium px-2">
