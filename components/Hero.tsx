@@ -91,18 +91,18 @@ export default function Hero() {
       {/* Grid Background */}
       <div className="absolute inset-0 grid-pattern opacity-20 z-0" />
       
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-1 sm:px-4 md:px-8 lg:px-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 sm:gap-4 md:gap-6 lg:gap-12 items-center justify-items-center">
-          {/* Left - Headshot and Name */}
-          <div className="flex flex-col items-center justify-center">
-            {/* Headshot */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-2 sm:px-4 md:px-8 lg:px-12">
+        <div className="grid grid-cols-2 gap-2 sm:gap-4 md:gap-6 lg:gap-12 items-center justify-items-center min-w-0">
+          {/* Left - Headshot and Name (always left column on mobile + desktop) */}
+          <div className="flex flex-col items-center justify-center min-w-0 w-full">
+            {/* Headshot - proportions preserved (1:1 circle) */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.1 }}
-              className="mb-0.5 sm:mb-2 md:mb-3"
+              className="mb-0.5 sm:mb-2 md:mb-3 shrink-0"
             >
-              <div className="relative w-20 h-20 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 xl:w-56 xl:h-56 rounded-full overflow-hidden border-2 border-gray-200 shadow-lg">
+              <div className="relative w-14 h-14 min-[380px]:w-16 min-[380px]:h-16 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 xl:w-56 xl:h-56 rounded-full overflow-hidden border-2 border-gray-200 shadow-lg aspect-square">
                 <CloudImage
                   src="headshot.PNG"
                   alt="Todd Dong"
@@ -124,7 +124,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-0.5 sm:mb-2 md:mb-3 text-gray-900 text-center"
+              className="text-sm sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-0.5 sm:mb-2 md:mb-3 text-gray-900 text-center min-w-0 break-words"
             >
               <TypingText text="Todd Dong" speed={150} delay={0} />
             </motion.h1>
@@ -133,18 +133,18 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-600 text-center"
+              className="text-[10px] sm:text-sm md:text-base lg:text-lg text-gray-600 text-center min-w-0 break-words line-clamp-2"
             >
               <TypingText text="Computer Science @ Carnegie Mellon" speed={80} delay={1500} />
             </motion.p>
           </div>
 
-          {/* Right Side - Video in iPhone X–style frame (notch) */}
+          {/* Right - Phone (always right column; proportions preserved 9:16) */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
-            className="relative w-full max-w-[100px] sm:max-w-[140px] md:max-w-[200px] lg:max-w-[260px] xl:max-w-[320px] ml-auto aspect-[9/16] rounded-[2rem] sm:rounded-[2.5rem] md:rounded-[3rem] bg-black p-1.5 sm:p-2 md:p-2.5 shadow-[0_0_0_2px_rgba(0,0,0,0.1),0_25px_50px_-12px_rgba(0,0,0,0.25)]"
+            className="relative w-full max-w-[70px] min-[400px]:max-w-[90px] sm:max-w-[140px] md:max-w-[200px] lg:max-w-[260px] xl:max-w-[320px] min-w-0 aspect-[9/16] rounded-[1.5rem] sm:rounded-[2.5rem] md:rounded-[3rem] bg-black p-1 sm:p-2 md:p-2.5 shadow-[0_0_0_2px_rgba(0,0,0,0.1),0_25px_50px_-12px_rgba(0,0,0,0.25)] justify-self-center"
           >
             {/* Screen area - corners match phone shape (outer radius minus bezel) */}
             <div className="absolute inset-1.5 sm:inset-2 md:inset-2.5 rounded-[1.625rem] sm:rounded-[2rem] md:rounded-[2.375rem] overflow-hidden bg-black">

@@ -1,0 +1,7 @@
+<!-- iOS/SF Symbols-style wifi; replace with SF Symbol "wifi" export for exact Apple icon -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" aria-hidden="true">
+  <circle cx="8" cy="10" r="1.1" fill="currentColor"/>
+  <path d="M4.2 7.2a7 7 0 0 1 7.6 0" opacity=".95"/>
+  <path d="M6 5.4a4.5 4.5 0 0 1 4 0" opacity=".7"/>
+  <path d="M7.2 3.8a2.5 2.5 0 0 1 1.6 0" opacity=".5"/>
+</svg>
