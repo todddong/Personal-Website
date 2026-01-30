@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { RotateCw } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import CloudImage from "./CloudImage";
 import { usePortraitMobile } from "@/hooks/usePortraitMobile";
 
@@ -89,6 +89,61 @@ export default function Hero() {
     return () => clearInterval(interval);
   }, []);
 
+  const phoneScreenContent = (
+    <div className="absolute inset-1.5 sm:inset-2 md:inset-2.5 rounded-[1.625rem] sm:rounded-[2rem] md:rounded-[2.375rem] overflow-hidden bg-black">
+      <video
+        ref={videoRef}
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full min-w-0 min-h-0 object-cover object-center brightness-110 contrast-105"
+        style={{ width: "100%", height: "100%" }}
+        preload="auto"
+      >
+        <source src="/media/swim-video.mp4" type="video/mp4" />
+      </video>
+      <div
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[36%] min-w-[28px] h-3.5 sm:h-4 md:h-5 bg-black rounded-b-xl sm:rounded-b-2xl z-20"
+        aria-hidden
+      />
+      <div className="absolute top-1 sm:top-1.5 md:top-2 left-1 sm:left-1.5 md:left-2 right-1 sm:right-1.5 md:right-2 z-10 flex flex-row items-center pointer-events-none">
+        <div className="flex-1 flex justify-start min-w-0">
+          <span className="text-white text-[10px] sm:text-xs md:text-sm font-semibold tabular-nums leading-none ml-3">
+            {currentTime}
+          </span>
+        </div>
+        <div className="w-[36%] min-w-[28px] max-w-[80px] shrink-0" aria-hidden />
+        <div className="flex-1 flex flex-row items-center justify-end gap-1 sm:gap-1.5 pl-1 min-w-0 pr-0.5">
+          <img
+            src="/icons/cellular-bars.png"
+            alt=""
+            className="h-[12px] sm:h-3.5 md:h-4 w-auto shrink-0 object-contain"
+            style={{ mixBlendMode: "lighten", maxWidth: "14px" }}
+            aria-hidden
+          />
+          <img
+            src="/icons/wifi-icon.png"
+            alt=""
+            className="h-[18px] sm:h-5 md:h-6 w-[18px] sm:w-5 md:w-6 shrink-0 object-contain aspect-square"
+            style={{ filter: "brightness(0) invert(1)" }}
+            aria-hidden
+          />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 12"
+            className="h-[14px] sm:h-4 md:h-5 w-[18px] sm:w-5 md:w-6 shrink-0"
+            aria-hidden
+          >
+            <rect x="1" y="2.5" width="14" height="7" rx="1.8" ry="1.8" fill="white" />
+            <rect x="15" y="3.5" width="2" height="5" rx="0.9" ry="0.9" fill="white" />
+            <rect x="2.2" y="3.5" width="11.6" height="5" rx="1.4" ry="1.4" fill="white" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <section className="relative min-h-0 sm:min-h-screen flex items-center justify-center overflow-hidden bg-[#faf8f4] pt-16 sm:pt-14 py-2 sm:py-4">
       {/* Grid Background */}
@@ -142,78 +197,55 @@ export default function Hero() {
             </motion.p>
           </div>
 
-          {/* Right - Phone (always right column; proportions preserved 9:16) */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-            className="relative w-full max-w-[70px] min-[400px]:max-w-[90px] sm:max-w-[140px] md:max-w-[200px] lg:max-w-[260px] xl:max-w-[320px] min-w-0 aspect-[9/16] rounded-[1.5rem] sm:rounded-[2.5rem] md:rounded-[3rem] bg-black p-1 sm:p-2 md:p-2.5 shadow-[0_0_0_2px_rgba(0,0,0,0.1),0_25px_50px_-12px_rgba(0,0,0,0.25)] justify-self-center"
-          >
-            {/* Screen area - corners match phone shape (outer radius minus bezel) */}
-            <div className="absolute inset-1.5 sm:inset-2 md:inset-2.5 rounded-[1.625rem] sm:rounded-[2rem] md:rounded-[2.375rem] overflow-hidden bg-black">
-              <video
-                ref={videoRef}
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="absolute inset-0 w-full h-full min-w-0 min-h-0 object-cover object-center brightness-110 contrast-105"
-                style={{ width: "100%", height: "100%" }}
-                preload="auto"
-              >
-                <source src="/media/swim-video.mp4" type="video/mp4" />
-              </video>
-              {/* iPhone X notch - center top (camera/speaker) */}
-              <div
-                className="absolute top-0 left-1/2 -translate-x-1/2 w-[36%] min-w-[28px] h-3.5 sm:h-4 md:h-5 bg-black rounded-b-xl sm:rounded-b-2xl z-20"
-                aria-hidden
-              />
-              {/* Portrait mobile: recommend landscape overlay */}
-              {isPortraitMobile && (
-                <div className="absolute inset-0 z-30 flex flex-col items-center justify-center gap-2 sm:gap-3 bg-black/80 rounded-[1.625rem] sm:rounded-[2rem] md:rounded-[2.375rem] px-3 py-4">
-                  <RotateCw className="w-10 h-10 sm:w-12 sm:h-12 text-white shrink-0" aria-hidden />
-                  <p className="text-white text-center text-xs sm:text-sm font-medium leading-tight max-w-[85%]">
-                    Recommended to view in landscape mode
-                  </p>
-                </div>
-              )}
-              {/* Status bar: time left of notch, cellular/wifi/battery right of notch */}
-              <div className="absolute top-1 sm:top-1.5 md:top-2 left-1 sm:left-1.5 md:left-2 right-1 sm:right-1.5 md:right-2 z-10 flex flex-row items-center pointer-events-none">
-                <div className="flex-1 flex justify-start min-w-0">
-                  <span className="text-white text-[10px] sm:text-xs md:text-sm font-semibold tabular-nums leading-none ml-3">
-                    {currentTime}
-                  </span>
-                </div>
-                <div className="w-[36%] min-w-[28px] max-w-[80px] shrink-0" aria-hidden />
-                <div className="flex-1 flex flex-row items-center justify-end gap-1 sm:gap-1.5 pl-1 min-w-0 pr-0.5">
-                  <img
-                    src="/icons/cellular-bars.png"
-                    alt=""
-                    className="h-[12px] sm:h-3.5 md:h-4 w-auto shrink-0 object-contain"
-                    style={{ mixBlendMode: "lighten", maxWidth: "14px" }}
-                    aria-hidden
-                  />
-                  <img
-                    src="/icons/wifi-icon.png"
-                    alt=""
-                    className="h-[18px] sm:h-5 md:h-6 w-[18px] sm:w-5 md:w-6 shrink-0 object-contain aspect-square"
-                    style={{ filter: "brightness(0) invert(1)" }}
-                    aria-hidden
-                  />
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 12"
-                    className="h-[14px] sm:h-4 md:h-5 w-[18px] sm:w-5 md:w-6 shrink-0"
-                    aria-hidden
+          {/* Right - Phone (portrait: arrows + rotating phone + message; else phone only) */}
+          {isPortraitMobile ? (
+            <div className="flex flex-col items-center gap-2 sm:gap-3 w-full min-w-0 justify-self-center">
+              <div className="flex flex-row items-center justify-center gap-2 sm:gap-4">
+                <motion.div
+                  animate={{ x: [-8, 8, -8] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                  className="shrink-0 text-gray-600"
+                  aria-hidden
+                >
+                  <ChevronLeft className="w-8 h-8 sm:w-10 sm:h-10" />
+                </motion.div>
+                <motion.div
+                  animate={{ rotate: [0, -14, 14, 0] }}
+                  transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+                  className="shrink-0 w-full max-w-[70px] min-[400px]:max-w-[90px] sm:max-w-[140px] md:max-w-[200px] min-w-0 aspect-[9/16]"
+                >
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.8 }}
+                    className="relative w-full h-full rounded-[1.5rem] sm:rounded-[2.5rem] md:rounded-[3rem] bg-black p-1 sm:p-2 md:p-2.5 shadow-[0_0_0_2px_rgba(0,0,0,0.1),0_25px_50px_-12px_rgba(0,0,0,0.25)]"
                   >
-                    <rect x="1" y="2.5" width="14" height="7" rx="1.8" ry="1.8" fill="white" />
-                    <rect x="15" y="3.5" width="2" height="5" rx="0.9" ry="0.9" fill="white" />
-                    <rect x="2.2" y="3.5" width="11.6" height="5" rx="1.4" ry="1.4" fill="white" />
-                  </svg>
-                </div>
+                    {phoneScreenContent}
+                  </motion.div>
+                </motion.div>
+                <motion.div
+                  animate={{ x: [8, -8, 8] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                  className="shrink-0 text-gray-600"
+                  aria-hidden
+                >
+                  <ChevronRight className="w-8 h-8 sm:w-10 sm:h-10" />
+                </motion.div>
               </div>
+              <p className="text-gray-600 text-center text-xs sm:text-sm font-medium px-2">
+                Recommended to view in landscape mode
+              </p>
             </div>
-          </motion.div>
+          ) : (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8 }}
+              className="relative w-full max-w-[70px] min-[400px]:max-w-[90px] sm:max-w-[140px] md:max-w-[200px] lg:max-w-[260px] xl:max-w-[320px] min-w-0 aspect-[9/16] rounded-[1.5rem] sm:rounded-[2.5rem] md:rounded-[3rem] bg-black p-1 sm:p-2 md:p-2.5 shadow-[0_0_0_2px_rgba(0,0,0,0.1),0_25px_50px_-12px_rgba(0,0,0,0.25)] justify-self-center"
+            >
+              {phoneScreenContent}
+            </motion.div>
+          )}
         </div>
       </div>
     </section>
