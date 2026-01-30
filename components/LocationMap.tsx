@@ -425,9 +425,15 @@ function MapView() {
   useEffect(() => {
     // Center on continental US with standard zoom
     map.setView([39.8283, -98.5795], 4.5);
-    // Make zoom less sensitive by adjusting wheel zoom delta
-    // Higher value = less sensitive (requires more scrolling to zoom)
-    (map as any).options.wheelPxPerZoomLevel = 300;
+    // Zoom disabled: prevent all zoom interactions
+    map.scrollWheelZoom.disable();
+    map.doubleClickZoom.disable();
+    map.touchZoom.disable();
+    return () => {
+      map.scrollWheelZoom.enable();
+      map.doubleClickZoom.enable();
+      map.touchZoom.enable();
+    };
   }, [map]);
   
   return null;
@@ -460,13 +466,10 @@ function PhotoFunnelOverlayInner({
   const [markerPixelPosition, setMarkerPixelPosition] = useState<{ x: number; y: number } | null>(null);
   const [imageError, setImageError] = useState(false);
 
-  // When extended photo is open, disable map wheel zoom so zooming affects the whole page
+  // When extended photo is open, wheel zoom is already disabled globally; no need to re-enable on close
   useEffect(() => {
     if (!photo || !markerPosition) return;
     map.scrollWheelZoom.disable();
-    return () => {
-      map.scrollWheelZoom.enable();
-    };
   }, [photo, markerPosition, map]);
 
   useEffect(() => {
@@ -1012,15 +1015,15 @@ export default function LocationMap() {
     >
       <MapContainer
         center={[39.8283, -98.5795]}
-        zoom={4.5}
-        minZoom={4.5}
+        zoom={3}
+        minZoom={3}
         maxZoom={15}
         style={{ height: "100%", width: "100%", zIndex: 0 }}
         zoomControl={false}
-        scrollWheelZoom={true}
+        scrollWheelZoom={false}
         doubleClickZoom={false}
         dragging={true}
-        touchZoom={true}
+        touchZoom={false}
         worldCopyJump={true}
         className="map-container"
       >

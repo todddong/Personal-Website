@@ -3,7 +3,9 @@
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { RotateCw } from "lucide-react";
 import CloudImage from "./CloudImage";
+import { usePortraitMobile } from "@/hooks/usePortraitMobile";
 
 function TypingText({ text, speed = 100, delay = 0 }: { text: string; speed?: number; delay?: number }) {
   const [displayedText, setDisplayedText] = useState("");
@@ -63,6 +65,7 @@ function TypingText({ text, speed = 100, delay = 0 }: { text: string; speed?: nu
 export default function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [currentTime, setCurrentTime] = useState("");
+  const isPortraitMobile = usePortraitMobile();
 
   useEffect(() => {
     const video = videoRef.current;
@@ -165,40 +168,46 @@ export default function Hero() {
                 className="absolute top-0 left-1/2 -translate-x-1/2 w-[36%] min-w-[28px] h-3.5 sm:h-4 md:h-5 bg-black rounded-b-xl sm:rounded-b-2xl z-20"
                 aria-hidden
               />
-              {/* Status bar: time left of notch, cellular/wifi/battery right of notch; same height, scaled */}
-              <div className="absolute top-1 sm:top-1.5 md:top-2 left-2 sm:left-2.5 md:left-3 right-2 sm:right-2.5 md:right-3 z-10 flex flex-row items-center pointer-events-none">
-                {/* Left of notch: time */}
-                <div className="flex-1 flex justify-end pr-1 min-w-0">
-                  <span className="text-white text-[10px] sm:text-xs md:text-sm font-semibold tabular-nums leading-none">
+              {/* Portrait mobile: recommend landscape overlay */}
+              {isPortraitMobile && (
+                <div className="absolute inset-0 z-30 flex flex-col items-center justify-center gap-2 sm:gap-3 bg-black/80 rounded-[1.625rem] sm:rounded-[2rem] md:rounded-[2.375rem] px-3 py-4">
+                  <RotateCw className="w-10 h-10 sm:w-12 sm:h-12 text-white shrink-0" aria-hidden />
+                  <p className="text-white text-center text-xs sm:text-sm font-medium leading-tight max-w-[85%]">
+                    Recommended to view in landscape mode
+                  </p>
+                </div>
+              )}
+              {/* Status bar: time left of notch, cellular/wifi/battery right of notch */}
+              <div className="absolute top-1 sm:top-1.5 md:top-2 left-1 sm:left-1.5 md:left-2 right-1 sm:right-1.5 md:right-2 z-10 flex flex-row items-center pointer-events-none">
+                <div className="flex-1 flex justify-start min-w-0">
+                  <span className="text-white text-[10px] sm:text-xs md:text-sm font-semibold tabular-nums leading-none ml-3">
                     {currentTime}
                   </span>
                 </div>
-                {/* Center: reserve space for notch (no content) */}
                 <div className="w-[36%] min-w-[28px] max-w-[80px] shrink-0" aria-hidden />
-                {/* Right of notch: 3 icons, same height as time */}
-                <div className="flex-1 flex flex-row items-center justify-start gap-1 sm:gap-1.5 pl-1 min-w-0">
+                <div className="flex-1 flex flex-row items-center justify-end gap-1 sm:gap-1.5 pl-1 min-w-0 pr-0.5">
                   <img
                     src="/icons/cellular-bars.png"
                     alt=""
-                    className="h-[10px] sm:h-3 md:h-3.5 w-auto shrink-0 object-contain"
-                    style={{ mixBlendMode: "lighten", maxWidth: "12px" }}
+                    className="h-[12px] sm:h-3.5 md:h-4 w-auto shrink-0 object-contain"
+                    style={{ mixBlendMode: "lighten", maxWidth: "14px" }}
                     aria-hidden
                   />
                   <img
                     src="/icons/wifi-icon.png"
                     alt=""
-                    className="h-[10px] sm:h-3 md:h-3.5 w-[10px] sm:w-3 md:w-3.5 shrink-0 object-contain aspect-square"
+                    className="h-[18px] sm:h-5 md:h-6 w-[18px] sm:w-5 md:w-6 shrink-0 object-contain aspect-square"
                     style={{ filter: "brightness(0) invert(1)" }}
                     aria-hidden
                   />
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 12"
-                    className="h-[10px] sm:h-3 md:h-3.5 w-[14px] sm:w-4 md:w-4 shrink-0"
+                    className="h-[14px] sm:h-4 md:h-5 w-[18px] sm:w-5 md:w-6 shrink-0"
                     aria-hidden
                   >
-                    <rect x="1" y="2.5" width="14" height="7" rx="1.8" ry="1.8" fill="none" stroke="white" strokeWidth="0.6" />
-                    <rect x="15" y="3.5" width="2" height="5" rx="0.9" ry="0.9" fill="none" stroke="white" strokeWidth="0.6" />
+                    <rect x="1" y="2.5" width="14" height="7" rx="1.8" ry="1.8" fill="white" />
+                    <rect x="15" y="3.5" width="2" height="5" rx="0.9" ry="0.9" fill="white" />
                     <rect x="2.2" y="3.5" width="11.6" height="5" rx="1.4" ry="1.4" fill="white" />
                   </svg>
                 </div>
