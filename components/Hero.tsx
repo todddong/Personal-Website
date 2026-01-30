@@ -106,9 +106,9 @@ export default function Hero() {
           <source src="/media/swim-video.mp4" type="video/mp4" />
         </video>
       )}
-      {/* Notch (camera) - always visible; thinner in portrait */}
+      {/* Notch (camera) - always visible; clean minimal pill in portrait */}
       <div
-        className={`absolute top-0 left-1/2 -translate-x-1/2 bg-black z-20 ${isPortraitMobile ? "w-[24%] min-w-[20px] h-1.5 sm:h-2 rounded-b-md" : "w-[36%] min-w-[28px] h-3.5 sm:h-4 md:h-5 rounded-b-xl sm:rounded-b-2xl"}`}
+        className={`absolute top-0 left-1/2 -translate-x-1/2 bg-black z-20 ${isPortraitMobile ? "w-[18%] min-w-[16px] h-1 sm:h-1.5 rounded-full" : "w-[36%] min-w-[28px] h-3.5 sm:h-4 md:h-5 rounded-b-xl sm:rounded-b-2xl"}`}
         aria-hidden
       />
       {!isPortraitMobile && (
