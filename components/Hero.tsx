@@ -107,13 +107,13 @@ export default function Hero() {
           <source src="/media/swim-video.mp4" type="video/mp4" />
         </video>
       )}
+      {/* Notch (camera) - always visible */}
+      <div
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[36%] min-w-[28px] h-3.5 sm:h-4 md:h-5 bg-black rounded-b-xl sm:rounded-b-2xl z-20"
+        aria-hidden
+      />
       {!isPortraitMobile && (
-        <>
-          <div
-            className="absolute top-0 left-1/2 -translate-x-1/2 w-[36%] min-w-[28px] h-3.5 sm:h-4 md:h-5 bg-black rounded-b-xl sm:rounded-b-2xl z-20"
-            aria-hidden
-          />
-          <div className="absolute top-1 sm:top-1.5 md:top-2 left-1 sm:left-1.5 md:left-2 right-1 sm:right-1.5 md:right-2 z-10 flex flex-row items-center pointer-events-none">
+        <div className="absolute top-1 sm:top-1.5 md:top-2 left-1 sm:left-1.5 md:left-2 right-1 sm:right-1.5 md:right-2 z-10 flex flex-row items-center pointer-events-none">
             <div className="flex-1 flex justify-start min-w-0">
               <span className="text-white text-[10px] sm:text-xs md:text-sm font-semibold tabular-nums leading-none ml-3">
                 {currentTime}
@@ -147,7 +147,6 @@ export default function Hero() {
               </svg>
             </div>
           </div>
-        </>
       )}
     </div>
   );
@@ -208,18 +207,18 @@ export default function Hero() {
           {/* Right - Phone (portrait: arrows + rotating phone + message; else phone only) */}
           {isPortraitMobile ? (
             <div className="flex flex-col items-center gap-2 sm:gap-3 w-full min-w-0 justify-self-center">
-              <div className="flex flex-row items-center justify-center gap-2 sm:gap-4">
+              <div className="flex flex-row items-center justify-center gap-4 sm:gap-6 md:gap-8">
                 <motion.div
                   animate={{ opacity: [0.6, 1, 0.6] }}
-                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                  transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
                   className="shrink-0 text-gray-600 -rotate-90"
                   aria-hidden
                 >
-                  <RotateCcw className="w-10 h-10 sm:w-12 sm:h-12" />
+                  <RotateCcw className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9" />
                 </motion.div>
                 <motion.div
                   animate={{ rotate: [0, -90, 0] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                  transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
                   className="shrink-0 w-full max-w-[70px] min-[400px]:max-w-[90px] sm:max-w-[140px] md:max-w-[200px] min-w-0 aspect-[9/16]"
                 >
                   <motion.div
@@ -233,11 +232,11 @@ export default function Hero() {
                 </motion.div>
                 <motion.div
                   animate={{ opacity: [0.6, 1, 0.6] }}
-                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                  transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
                   className="shrink-0 text-gray-600 rotate-90"
                   aria-hidden
                 >
-                  <RotateCw className="w-10 h-10 sm:w-12 sm:h-12" />
+                  <RotateCw className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9" />
                 </motion.div>
               </div>
               <p className="text-gray-600 text-center text-xs sm:text-sm font-medium px-2">
