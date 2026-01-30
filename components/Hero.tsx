@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { RotateCcw, RotateCw } from "lucide-react";
 import CloudImage from "./CloudImage";
 import { usePortraitMobile } from "@/hooks/usePortraitMobile";
 
@@ -90,9 +89,9 @@ export default function Hero() {
   }, []);
 
   const phoneScreenContent = (
-    <div className="absolute inset-1.5 sm:inset-2 md:inset-2.5 rounded-[1.625rem] sm:rounded-[2rem] md:rounded-[2.375rem] overflow-hidden bg-black">
+    <div className={`absolute overflow-hidden bg-black ${isPortraitMobile ? "inset-0.5 sm:inset-1 rounded-[1.25rem] sm:rounded-[1.5rem]" : "inset-1.5 sm:inset-2 md:inset-2.5 rounded-[1.625rem] sm:rounded-[2rem] md:rounded-[2.375rem]"}`}>
       {isPortraitMobile ? (
-        <div className="absolute inset-0 bg-white rounded-[1.5rem] sm:rounded-[1.75rem] md:rounded-[2rem]" aria-hidden />
+        <div className="absolute inset-0 bg-white rounded-[1.125rem] sm:rounded-[1.25rem]" aria-hidden />
       ) : (
         <video
           ref={videoRef}
@@ -107,9 +106,9 @@ export default function Hero() {
           <source src="/media/swim-video.mp4" type="video/mp4" />
         </video>
       )}
-      {/* Notch (camera) - always visible */}
+      {/* Notch (camera) - always visible; thinner in portrait */}
       <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[36%] min-w-[28px] h-3.5 sm:h-4 md:h-5 bg-black rounded-b-xl sm:rounded-b-2xl z-20"
+        className={`absolute top-0 left-1/2 -translate-x-1/2 bg-black z-20 ${isPortraitMobile ? "w-[24%] min-w-[20px] h-1.5 sm:h-2 rounded-b-md" : "w-[36%] min-w-[28px] h-3.5 sm:h-4 md:h-5 rounded-b-xl sm:rounded-b-2xl"}`}
         aria-hidden
       />
       {!isPortraitMobile && (
@@ -175,7 +174,7 @@ export default function Hero() {
                   className="object-cover scale-150"
                   priority
                   objectFit="cover"
-                  objectPosition="55% center"
+                  objectPosition="58% center"
                   fallback="/media/headshot.PNG"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
@@ -208,13 +207,17 @@ export default function Hero() {
           {isPortraitMobile ? (
             <div className="flex flex-col items-center gap-2 sm:gap-3 w-full min-w-0 justify-self-center">
               <div className="flex flex-row items-center justify-center gap-4 sm:gap-6 md:gap-8">
+                {/* Left: curved arrow from bottom of phone upward (rotate this side up) */}
                 <motion.div
                   animate={{ opacity: [0.6, 1, 0.6] }}
                   transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-                  className="shrink-0 text-gray-600 -rotate-90"
+                  className="shrink-0 text-gray-600 flex items-center justify-center"
                   aria-hidden
                 >
-                  <RotateCcw className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9" />
+                  <svg viewBox="0 0 24 24" className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 20 L12 10 Q12 4 18 4" />
+                    <polyline points="18 4 15 7 18 4 18 7" />
+                  </svg>
                 </motion.div>
                 <motion.div
                   animate={{ rotate: [0, -90, 0] }}
@@ -225,18 +228,22 @@ export default function Hero() {
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.8 }}
-                    className="relative w-full h-full rounded-[1.5rem] sm:rounded-[2.5rem] md:rounded-[3rem] bg-black p-1 sm:p-2 md:p-2.5 shadow-[0_0_0_2px_rgba(0,0,0,0.1),0_25px_50px_-12px_rgba(0,0,0,0.25)]"
+                    className="relative w-full h-full rounded-[1.25rem] sm:rounded-[1.5rem] md:rounded-[2rem] bg-black p-0.5 sm:p-1 shadow-[0_0_0_2px_rgba(0,0,0,0.1),0_25px_50px_-12px_rgba(0,0,0,0.25)]"
                   >
                     {phoneScreenContent}
                   </motion.div>
                 </motion.div>
+                {/* Right: curved arrow from top of phone downward (rotate this side down) */}
                 <motion.div
                   animate={{ opacity: [0.6, 1, 0.6] }}
                   transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-                  className="shrink-0 text-gray-600 rotate-90"
+                  className="shrink-0 text-gray-600 flex items-center justify-center"
                   aria-hidden
                 >
-                  <RotateCw className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9" />
+                  <svg viewBox="0 0 24 24" className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 4 L12 14 Q12 20 6 20" />
+                    <polyline points="6 20 9 17 6 20 6 17" />
+                  </svg>
                 </motion.div>
               </div>
               <p className="text-gray-600 text-center text-xs sm:text-sm font-medium px-2">
