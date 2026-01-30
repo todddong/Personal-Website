@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { RotateCcw } from "lucide-react";
 import CloudImage from "./CloudImage";
 import { usePortraitMobile } from "@/hooks/usePortraitMobile";
 
@@ -92,20 +91,7 @@ export default function Hero() {
   const phoneScreenContent = (
     <div className={`absolute overflow-hidden bg-black ${isPortraitMobile ? "inset-0.5 sm:inset-1 rounded-[1.25rem] sm:rounded-[1.5rem]" : "inset-1.5 sm:inset-2 md:inset-2.5 rounded-[1.625rem] sm:rounded-[2rem] md:rounded-[2.375rem]"}`}>
       {isPortraitMobile ? (
-        <>
-          <div className="absolute inset-0 bg-white rounded-[1.125rem] sm:rounded-[1.25rem]" aria-hidden />
-          {/* Rotating arrow in center of screen (counter-clockwise) */}
-          <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
-            <motion.div
-              animate={{ rotate: -360 }}
-              transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-              className="text-gray-500"
-              aria-hidden
-            >
-              <RotateCcw className="w-10 h-10 sm:w-12 sm:h-12" />
-            </motion.div>
-          </div>
-        </>
+        <div className="absolute inset-0 bg-white rounded-[1.125rem] sm:rounded-[1.25rem]" aria-hidden />
       ) : (
         <video
           ref={videoRef}
@@ -220,11 +206,18 @@ export default function Hero() {
           {/* Right - Phone (portrait: arrows + rotating phone + message; else phone only) */}
           {isPortraitMobile ? (
             <div className="flex flex-col items-center gap-2 sm:gap-3 w-full min-w-0 justify-self-center">
-              <div className="relative shrink-0 w-full max-w-[70px] min-[400px]:max-w-[90px] sm:max-w-[140px] md:max-w-[200px] min-w-0 aspect-[9/16]">
+              <div className="flex flex-row items-center justify-center gap-3 sm:gap-4">
+                {/* Left: curved arrow high to low (parallel to left side of phone) */}
+                <div className="shrink-0 flex items-center text-gray-500" aria-hidden>
+                  <svg viewBox="0 0 16 48" className="w-4 h-12 sm:w-5 sm:h-14 md:w-6 md:h-16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M8 4 Q2 24 8 44" />
+                    <path d="M8 44 L5 38 M8 44 L11 38" />
+                  </svg>
+                </div>
                 <motion.div
                   animate={{ rotate: [0, -90, 0] }}
                   transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
-                  className="w-full h-full"
+                  className="shrink-0 w-full max-w-[70px] min-[400px]:max-w-[90px] sm:max-w-[140px] md:max-w-[200px] min-w-0 aspect-[9/16]"
                 >
                   <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
@@ -235,6 +228,13 @@ export default function Hero() {
                     {phoneScreenContent}
                   </motion.div>
                 </motion.div>
+                {/* Right: curved arrow low to high (parallel to right side of phone) */}
+                <div className="shrink-0 flex items-center text-gray-500" aria-hidden>
+                  <svg viewBox="0 0 16 48" className="w-4 h-12 sm:w-5 sm:h-14 md:w-6 md:h-16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M8 44 Q14 24 8 4" />
+                    <path d="M8 4 L5 10 M8 4 L11 10" />
+                  </svg>
+                </div>
               </div>
               <p className="text-gray-600 text-center text-xs sm:text-sm font-medium px-2">
                 Recommended to view in landscape mode
