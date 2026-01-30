@@ -207,29 +207,31 @@ export default function Hero() {
           {/* Right - Phone (portrait: arrows + rotating phone + message; else phone only) */}
           {isPortraitMobile ? (
             <div className="flex flex-col items-center gap-2 sm:gap-3 w-full min-w-0 justify-self-center">
-              {/* Single looping arrow on top of the phone */}
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                className="shrink-0 text-gray-600 -mb-1"
-                aria-hidden
-              >
-                <RotateCw className="w-8 h-8 sm:w-10 sm:h-10" />
-              </motion.div>
-              <motion.div
-                animate={{ rotate: [0, -90, 0] }}
-                transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
-                className="shrink-0 w-full max-w-[70px] min-[400px]:max-w-[90px] sm:max-w-[140px] md:max-w-[200px] min-w-0 aspect-[9/16]"
-              >
+              <div className="relative shrink-0 w-full max-w-[70px] min-[400px]:max-w-[90px] sm:max-w-[140px] md:max-w-[200px] min-w-0 aspect-[9/16]">
+                {/* Single looping arrow centered on top of the phone */}
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.8 }}
-                  className="relative w-full h-full rounded-[1.25rem] sm:rounded-[1.5rem] md:rounded-[2rem] bg-black p-0.5 sm:p-1 shadow-[0_0_0_2px_rgba(0,0,0,0.1),0_25px_50px_-12px_rgba(0,0,0,0.25)]"
+                  animate={{ rotate: -360 }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                  className="absolute left-1/2 -translate-x-1/2 -top-2 sm:-top-2.5 z-10 text-gray-600 flex justify-center"
+                  aria-hidden
                 >
-                  {phoneScreenContent}
+                  <RotateCw className="w-8 h-8 sm:w-10 sm:h-10" />
                 </motion.div>
-              </motion.div>
+                <motion.div
+                  animate={{ rotate: [0, -90, 0] }}
+                  transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
+                  className="w-full h-full"
+                >
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.8 }}
+                    className="relative w-full h-full rounded-[1.25rem] sm:rounded-[1.5rem] md:rounded-[2rem] bg-black p-0.5 sm:p-1 shadow-[0_0_0_2px_rgba(0,0,0,0.1),0_25px_50px_-12px_rgba(0,0,0,0.25)]"
+                  >
+                    {phoneScreenContent}
+                  </motion.div>
+                </motion.div>
+              </div>
               <p className="text-gray-600 text-center text-xs sm:text-sm font-medium px-2">
                 Recommended to view in landscape mode
               </p>
