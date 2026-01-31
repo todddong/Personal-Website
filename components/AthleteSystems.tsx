@@ -98,12 +98,20 @@ export default function AthleteSystems() {
                   alt={allSlides[currentSlide].alt}
                   fill
                   className={`object-cover ${
-                    allSlides[currentSlide].src === "swim-2.jpg"
-                      ? "object-[center_35%]"
-                      : ""
+                    allSlides[currentSlide].src === "swim-1.jpg"
+                      ? "object-[0%_center]"
+                      : allSlides[currentSlide].src === "swim-2.jpg"
+                        ? "object-[45%_35%]"
+                        : "object-center"
                   }`}
                   objectFit="cover"
-                  objectPosition={allSlides[currentSlide].src === "swim-2.jpg" ? "center 35%" : undefined}
+                  objectPosition={
+                    allSlides[currentSlide].src === "swim-1.jpg"
+                      ? "0% center"
+                      : allSlides[currentSlide].src === "swim-2.jpg"
+                        ? "45% 35%"
+                        : "center center"
+                  }
                   fallback={`/media/${allSlides[currentSlide].src}`}
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
