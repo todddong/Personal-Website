@@ -374,6 +374,39 @@ const locations = [
       { src: "/media/alaska/lincoln road.jpg", alt: "Lincoln Road, Miami Beach" },
     ],
   },
+  {
+    id: 25,
+    name: "New River, WV",
+    lat: 38.0676,
+    lng: -81.0829,
+    visitCount: 1,
+    activities: [],
+    photos: [
+      { src: "/media/general/new-river-wv.png", alt: "New River, West Virginia" },
+    ],
+  },
+  {
+    id: 26,
+    name: "Austin, TX",
+    lat: 30.2672,
+    lng: -97.7431,
+    visitCount: 1,
+    activities: [],
+    photos: [
+      { src: "/media/general/austin-river.png", alt: "Kayaking on the river in Austin, Texas with the city skyline" },
+    ],
+  },
+  {
+    id: 27,
+    name: "Indiana University Bloomington",
+    lat: 39.1653,
+    lng: -86.5264,
+    visitCount: 1,
+    activities: [],
+    photos: [
+      { src: "/media/general/indiana-bloomington-zones.png", alt: "Age group zones swimming championships" },
+    ],
+  },
 ];
 
 // Find Cleveland and Nashville locations
