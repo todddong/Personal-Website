@@ -407,6 +407,39 @@ const locations = [
       { src: "/media/general/indiana-bloomington-zones.png", alt: "Age group zones swimming championships" },
     ],
   },
+  {
+    id: 28,
+    name: "Audubon Zoo, New Orleans, LA",
+    lat: 29.9237,
+    lng: -90.1301,
+    visitCount: 1,
+    activities: [],
+    photos: [
+      { src: "/media/general/audubon-zoo-new-orleans.png", alt: "At the Audubon Zoo entrance in New Orleans" },
+    ],
+  },
+  {
+    id: 29,
+    name: "Washington, DC",
+    lat: 38.8893,
+    lng: -77.0352,
+    visitCount: 1,
+    activities: [],
+    photos: [
+      { src: "/media/general/washington-dc-tidal-basin.png", alt: "Tidal Basin, Washington DC" },
+    ],
+  },
+  {
+    id: 30,
+    name: "Little Rock, AR",
+    lat: 34.7465,
+    lng: -92.2896,
+    visitCount: 1,
+    activities: [],
+    photos: [
+      { src: "/media/general/little-rock-arkansas.png", alt: "Fishing by the water in Little Rock, Arkansas" },
+    ],
+  },
 ];
 
 // Find Cleveland and Nashville locations
