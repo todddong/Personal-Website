@@ -440,6 +440,17 @@ const locations = [
       { src: "/media/general/little-rock-arkansas.png", alt: "Fishing by the water in Little Rock, Arkansas" },
     ],
   },
+  {
+    id: 31,
+    name: "Cloud Gate (The Bean), Chicago, IL",
+    lat: 41.8827,
+    lng: -87.6233,
+    visitCount: 1,
+    activities: [],
+    photos: [
+      { src: "/media/general/chicago-bean.png", alt: "Friends at Cloud Gate, Millennium Park, Chicago" },
+    ],
+  },
 ];
 
 // Find Cleveland and Nashville locations
