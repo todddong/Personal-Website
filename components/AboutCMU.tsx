@@ -66,7 +66,7 @@ export default function AboutCMU() {
             <div className="space-y-2 mb-4">
               <div className="flex items-center gap-1 sm:gap-2 text-gray-600 text-xs sm:text-sm">
                 <Calendar className="text-[#93C572]" size={16} />
-                <span>Expected Graduation: May 2027</span>
+                <span>Expected Graduation: May 2028</span>
               </div>
               
               <div className="flex items-center gap-1 sm:gap-2 text-gray-600 text-xs sm:text-sm">

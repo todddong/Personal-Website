@@ -54,7 +54,7 @@ const timeline = [
     title: "Carnegie Mellon University",
     role: "Bachelor of Science in Computer Science, ML Concentration",
     location: "Pittsburgh, PA",
-    description: "Expected May 2027. Extracurriculars: CMU Varsity Swim and Dive, Volunteer swim lessons coach, Asian Student Association, ScottyLabs, HackCMU.",
+    description: "Expected May 2028. Extracurriculars: CMU Varsity Swim and Dive, Volunteer swim lessons coach, Asian Student Association, ScottyLabs, HackCMU.",
     icon: GraduationCap,
     logo: "/media/alaska/cs logo.png",
   },
