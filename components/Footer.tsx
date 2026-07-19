@@ -1,28 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, Phone, Github, Linkedin, Youtube } from "lucide-react";
-
-const contact = [
-  {
-    label: "School Email",
-    value: "todddong@andrew.cmu.edu",
-    href: "mailto:todddong@andrew.cmu.edu",
-    icon: Mail,
-  },
-  {
-    label: "Personal Email",
-    value: "todddong06@gmail.com",
-    href: "mailto:todddong06@gmail.com",
-    icon: Mail,
-  },
-  {
-    label: "Phone",
-    value: "(440) 228-6103",
-    href: "tel:+14402286103",
-    icon: Phone,
-  },
-];
+import { Mail, Phone, Github, Linkedin, Youtube, ArrowUpRight } from "lucide-react";
 
 const social = [
   {
@@ -44,69 +23,81 @@ const social = [
 
 export default function Footer() {
   return (
-    <footer id="contact" className="py-4 sm:py-6 px-4 sm:px-6 md:px-8 border-t border-gray-200 bg-[#faf8f4]">
-      <div className="max-w-7xl mx-auto">
-        <motion.h2
+    <footer id="contact" className="border-t border-line bg-cream px-6 pb-10 pt-20 md:px-10 md:pt-28">
+      <div className="mx-auto max-w-6xl">
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-sm sm:text-base md:text-xl lg:text-2xl font-normal mb-3 sm:mb-4 md:mb-6 text-left text-[#93C572]"
+          transition={{ duration: 0.5 }}
+          className="mb-12"
         >
-          contact
-        </motion.h2>
+          <span className="section-label">Contact</span>
+          <h2 className="mt-3 font-serif text-4xl tracking-tight text-ink md:text-5xl">
+            Get in touch
+          </h2>
 
-        <div className="grid grid-cols-3 gap-1 sm:gap-2 md:gap-3 lg:gap-4 mb-3 sm:mb-4 md:mb-6">
-          {contact.map((item, index) => {
-            const Icon = item.icon;
-            return (
-              <motion.a
-                key={item.label}
-                href={item.href}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="flex flex-col items-center text-center p-1.5 sm:p-2 md:p-3 lg:p-4 bg-gray-50 border border-gray-300 sm:border-2 rounded-lg sm:rounded-xl md:rounded-2xl hover:border-gray-400 transition-all group shadow-sm overflow-hidden"
-              >
-                <Icon className="text-[#93C572] mb-1 sm:mb-2 group-hover:scale-110 transition-transform w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5" />
-                <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wide mb-0.5 sm:mb-1">
-                  {item.label}
-                </span>
-                <span className="text-gray-700 text-[10px] sm:text-xs md:text-sm break-words">{item.value}</span>
-              </motion.a>
-            );
-          })}
-        </div>
+          <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
+            <a
+              href="mailto:todddong@andrew.cmu.edu"
+              className="group inline-flex items-center gap-2 font-serif text-xl text-clay underline decoration-clay/30 decoration-2 underline-offset-4 transition-colors hover:decoration-clay md:text-2xl"
+            >
+              todddong@andrew.cmu.edu
+              <ArrowUpRight
+                size={20}
+                className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              />
+            </a>
+          </div>
+        </motion.div>
 
-        {/* Social Links */}
-        <div className="flex justify-center gap-4 mb-4">
-          {social.map((item) => {
-            const Icon = item.icon;
-            return (
-              <motion.a
-                key={item.name}
-                href={item.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                whileHover={{ scale: 1.1 }}
-                className="text-gray-600 hover:text-[#93C572] transition-colors"
-              >
-                <Icon size={24} />
-              </motion.a>
-            );
-          })}
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="flex flex-col gap-6 border-t border-line pt-8 sm:flex-row sm:items-center sm:justify-between"
+        >
+          <div className="flex flex-col gap-2 text-sm text-stone-500 sm:flex-row sm:gap-6">
+            <a
+              href="mailto:todddong06@gmail.com"
+              className="flex items-center gap-2 transition-colors hover:text-clay"
+            >
+              <Mail size={14} />
+              todddong06@gmail.com
+            </a>
+            <a
+              href="tel:+14402286103"
+              className="flex items-center gap-2 transition-colors hover:text-clay"
+            >
+              <Phone size={14} />
+              (440) 228-6103
+            </a>
+          </div>
 
-        {/* Copyright */}
-        <div className="text-center text-gray-500 text-sm">
+          <div className="flex items-center gap-4">
+            {social.map((item) => {
+              const Icon = item.icon;
+              return (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={item.name}
+                  className="text-stone-500 transition-colors hover:text-clay"
+                >
+                  <Icon size={19} />
+                </a>
+              );
+            })}
+          </div>
+        </motion.div>
+
+        <div className="mt-8 text-sm text-stone-400">
           <p>© {new Date().getFullYear()} Todd Dong. All rights reserved.</p>
         </div>
       </div>
     </footer>
   );
 }
-

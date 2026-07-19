@@ -1,32 +1,42 @@
 "use client";
 
-import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { motion, useScroll, useSpring, useMotionValueEvent, AnimatePresence } from "framer-motion";
+import { useEffect, useState } from "react";
+import { Menu, Moon, Sun, X } from "lucide-react";
+import AccentPicker from "./AccentPicker";
 
 const navItems = [
-  { label: "About me", href: "#athlete-systems" },
-  { label: "Experience", href: "#experience" },
-  { label: "Places", href: "#places" },
-  { label: "Projects", href: "#projects" },
-  { label: "About CMU", href: "#about-cmu" },
-  { label: "Highlights", href: "#highlights" },
-  { label: "Contact", href: "#contact" },
+  { label: "about", href: "#about" },
+  { label: "experience", href: "#experience" },
+  { label: "projects", href: "#projects" },
+  { label: "places", href: "#places" },
+  { label: "gallery", href: "#gallery" },
+  { label: "contact", href: "#contact" },
 ];
 
 export default function Navbar() {
-  const [isVisible, setIsVisible] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { scrollY } = useScroll();
-
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    setIsScrolled(latest > 100);
-  });
+  const [isDark, setIsDark] = useState(false);
+  const { scrollY, scrollYProgress } = useScroll();
+  const progress = useSpring(scrollYProgress, { stiffness: 200, damping: 40 });
 
   useEffect(() => {
-    setIsVisible(true);
+    setIsDark(document.documentElement.classList.contains("dark"));
   }, []);
+
+  const toggleTheme = () => {
+    const next = !isDark;
+    setIsDark(next);
+    document.documentElement.classList.toggle("dark", next);
+    try {
+      localStorage.setItem("theme", next ? "dark" : "light");
+    } catch {}
+  };
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    setIsScrolled(latest > 24);
+  });
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
@@ -37,41 +47,20 @@ export default function Navbar() {
     }
   };
 
-  if (!isVisible) return null;
-
   return (
     <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.3 }}
-      className="fixed top-0 left-0 right-0 z-50 bg-[#faf8f4]/95 backdrop-blur-sm border-b border-gray-200"
+      initial={{ y: -80, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ${
+        isScrolled || isMobileMenuOpen
+          ? "border-b border-line bg-cream/90 backdrop-blur-md"
+          : "border-b border-transparent bg-transparent"
+      }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-        <div className="flex items-center justify-between h-14">
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-6 lg:gap-8">
-            {navItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                onClick={(e) => handleClick(e, item.href)}
-                className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                {item.label.toLowerCase()}
-              </a>
-            ))}
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 text-gray-600 hover:text-gray-900 transition-colors"
-            aria-label="Toggle menu"
-          >
-            {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
-
-          {/* Name/Brand */}
+      <div className="mx-auto max-w-6xl px-6 md:px-10">
+        <div className="flex h-16 items-center justify-between">
+          {/* Wordmark */}
           <a
             href="#"
             onClick={(e) => {
@@ -79,13 +68,56 @@ export default function Navbar() {
               setIsMobileMenuOpen(false);
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
-            className="text-sm font-medium text-gray-900 hover:text-gray-600 transition-colors"
+            className="font-serif text-lg tracking-tight text-ink transition-colors hover:text-clay"
           >
             todd dong
           </a>
+
+          {/* Desktop navigation */}
+          <div className="hidden items-center gap-7 md:flex">
+            {navItems.map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                onClick={(e) => handleClick(e, item.href)}
+                className="text-sm text-stone-600 transition-colors hover:text-clay"
+              >
+                {item.label}
+              </a>
+            ))}
+            <div className="flex items-center gap-2">
+              <AccentPicker />
+              <button
+                onClick={toggleTheme}
+                className="rounded-full border border-line p-2 text-stone-600 transition-colors hover:border-clay hover:text-clay"
+                aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
+              >
+                {isDark ? <Sun size={15} /> : <Moon size={15} />}
+              </button>
+            </div>
+          </div>
+
+          {/* Mobile: accent picker + theme toggle + menu button */}
+          <div className="flex items-center gap-1 md:hidden">
+            <AccentPicker />
+            <button
+              onClick={toggleTheme}
+              className="p-2 text-stone-600 transition-colors hover:text-clay"
+              aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
+            >
+              {isDark ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="p-2 text-stone-600 transition-colors hover:text-ink"
+              aria-label="Toggle menu"
+            >
+              {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile menu */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
@@ -93,15 +125,15 @@ export default function Navbar() {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.2 }}
-              className="md:hidden overflow-hidden border-t border-gray-200"
+              className="overflow-hidden border-t border-line md:hidden"
             >
-              <div className="flex flex-col py-2">
+              <div className="flex flex-col py-3">
                 {navItems.map((item) => (
                   <a
                     key={item.label}
                     href={item.href}
                     onClick={(e) => handleClick(e, item.href)}
-                    className="px-4 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors"
+                    className="px-2 py-2.5 text-sm text-stone-600 transition-colors hover:text-clay"
                   >
                     {item.label}
                   </a>
@@ -111,7 +143,13 @@ export default function Navbar() {
           )}
         </AnimatePresence>
       </div>
+
+      {/* Scroll progress */}
+      <motion.div
+        className="absolute bottom-0 left-0 right-0 h-[2px] origin-left bg-clay/70"
+        style={{ scaleX: progress }}
+        aria-hidden
+      />
     </motion.nav>
   );
 }
-

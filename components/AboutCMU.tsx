@@ -2,162 +2,172 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { GraduationCap, MapPin, Calendar } from "lucide-react";
+import {
+  MapPin,
+  Calendar,
+  Waves,
+  Users,
+  Layers,
+  LifeBuoy,
+  HeartHandshake,
+  Code,
+} from "lucide-react";
+
+const rankings = [
+  { rank: "#1", label: "CS Program" },
+  { rank: "#2", label: "Artificial Intelligence" },
+  { rank: "#1", label: "Software Engineering" },
+  { rank: "#1", label: "Cybersecurity" },
+];
+
+const courses = [
+  { code: "15-112", name: "Fundamentals of Programming" },
+  { code: "15-122", name: "Imperative Computation" },
+  { code: "15-150", name: "Functional Programming" },
+  { code: "15-151", name: "Mathematical Foundations for CS" },
+  { code: "15-213", name: "Computer Systems" },
+  { code: "15-251", name: "Theoretical Computer Science" },
+  { code: "21-241", name: "Linear Transformations" },
+  { code: "21-259", name: "Multivariable Calculus" },
+  { code: "05-391", name: "Human Centered Software" },
+];
+
+const activities = [
+  { icon: Waves, label: "CMU Varsity Swim and Dive" },
+  { icon: Users, label: "Asian Students Association Mentor" },
+  { icon: Layers, label: "Databricks Student Fellow" },
+  { icon: LifeBuoy, label: "Volunteer Swim Coach" },
+  { icon: HeartHandshake, label: "Special Olympics Volunteer" },
+  { icon: Code, label: "Scotty Labs Student Developer" },
+];
 
 export default function AboutCMU() {
   return (
-    <section id="about-cmu" className="py-6 sm:py-8 px-4 sm:px-6 md:px-8 relative bg-[#faf8f4] border-t border-gray-200">
-      <div className="max-w-7xl mx-auto">
-        <motion.h2
+    <section id="education" className="relative bg-cream px-6 pb-12 pt-16 md:px-10 md:pb-14 md:pt-20">
+      <div className="mx-auto max-w-6xl">
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-xl md:text-2xl font-normal mb-6 text-left text-[#93C572]"
+          transition={{ duration: 0.5 }}
+          className="mb-8 md:mb-10"
         >
-          about carnegie mellon
-        </motion.h2>
+          <span className="section-label">Education</span>
+          <h2 className="mt-3 font-serif text-4xl tracking-tight text-cmu text-balance md:text-5xl">
+            Carnegie Mellon University
+          </h2>
+          <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-stone-600">
+            <span className="font-medium text-ink">
+              B.S. in Computer Science · Machine Learning Concentration
+            </span>
+            <span className="flex items-center gap-1.5 text-stone-500">
+              <Calendar size={14} className="text-clay" />
+              Aug 2024 - May 2028
+            </span>
+            <span className="flex items-center gap-1.5 text-stone-500">
+              <MapPin size={14} className="text-clay" />
+              Pittsburgh, PA
+            </span>
+          </div>
+        </motion.div>
 
-        <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4 lg:gap-6 items-center">
-          {/* Photo */}
+        <div className="grid items-start gap-8 md:grid-cols-[1fr_1.4fr] lg:gap-12">
+          {/* Photo + rankings */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="relative h-[200px] sm:h-[250px] md:h-[300px] lg:h-[350px] xl:h-[400px] rounded-lg sm:rounded-xl md:rounded-2xl overflow-hidden border border-gray-300 sm:border-2 group order-2 md:order-1 shadow-sm"
+            transition={{ duration: 0.7 }}
+            className="space-y-3"
           >
-            <Image
-              src="/media/cmu-about.jpg"
-              alt="Carnegie Mellon University"
-              fill
-              className="object-cover transition-all duration-700 group-hover:scale-105"
-              onError={(e) => {
-                const target = e.target as HTMLImageElement;
-                target.style.display = 'none';
-                const parent = target.parentElement;
-                if (parent) {
-                  parent.innerHTML = `
-                    <div class="absolute inset-0 bg-gradient-to-br from-red-900/20 via-black to-red-900/20 flex items-center justify-center">
-                      <div class="text-center text-gray-500">
-                        <p class="text-sm mb-2">CMU Photo</p>
-                        <p class="text-xs">Add cmu-about.jpg to public/media folder</p>
-                      </div>
-                    </div>
-                  `;
-                }
-              }}
-            />
+            <div className="group relative h-[180px] overflow-hidden rounded-2xl border border-line shadow-sm sm:h-[220px] md:h-[230px]">
+              <Image
+                src="/media/cmu-about.jpg"
+                alt="Carnegie Mellon University"
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+            </div>
+
+            {/* Rankings — compact strip */}
+            <div className="grid grid-cols-4 gap-2">
+              {rankings.map((item, index) => (
+                <motion.div
+                  key={item.label}
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.35, delay: index * 0.06 }}
+                  className="rounded-xl border border-line bg-white p-2.5 text-center"
+                >
+                  <p className="font-serif text-lg leading-none text-clay">
+                    {item.rank}
+                  </p>
+                  <p className="mt-1 text-[10px] leading-tight text-stone-600">
+                    {item.label}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
           </motion.div>
 
-          {/* Content */}
+          {/* Courses + involvement */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="space-y-6 order-1 md:order-2"
+            transition={{ duration: 0.7, delay: 0.15 }}
+            className="space-y-6"
           >
-            <div className="flex items-center gap-3">
-              <GraduationCap className="text-[#93C572] w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
-              <h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-gray-900">Carnegie Mellon University</h3>
-            </div>
-
-            <div className="space-y-2 mb-4">
-              <div className="flex items-center gap-1 sm:gap-2 text-gray-600 text-xs sm:text-sm">
-                <Calendar className="text-[#93C572]" size={16} />
-                <span>Expected Graduation: May 2028</span>
-              </div>
-              
-              <div className="flex items-center gap-1 sm:gap-2 text-gray-600 text-xs sm:text-sm">
-                <MapPin className="text-[#93C572]" size={16} />
-                <span>Pittsburgh, Pennsylvania</span>
-              </div>
-              
-              <div className="flex items-center gap-1 sm:gap-2 text-gray-600 text-xs sm:text-sm">
-                <div className="w-4 h-4 flex items-center justify-center">
-                  <span className="text-[#93C572] text-xs">#1</span>
-                </div>
-                <span>CS Ranking</span>
-              </div>
-              
-              <div className="flex items-center gap-1 sm:gap-2 text-gray-600 text-xs sm:text-sm">
-                <div className="w-4 h-4 flex items-center justify-center">
-                  <span className="text-[#93C572] text-xs">#2</span>
-                </div>
-                <span>AI Ranking</span>
-              </div>
-              
-              <div className="flex items-center gap-1 sm:gap-2 text-gray-600 text-xs sm:text-sm">
-                <div className="w-4 h-4 flex items-center justify-center">
-                  <span className="text-[#93C572] text-xs">#1</span>
-                </div>
-                <span>Software Engineering</span>
-              </div>
-              
-              <div className="flex items-center gap-1 sm:gap-2 text-gray-600 text-xs sm:text-sm">
-                <div className="w-4 h-4 flex items-center justify-center">
-                  <span className="text-[#93C572] text-xs">#1</span>
-                </div>
-                <span>Cybersecurity</span>
-              </div>
-            </div>
-
-            <div className="pt-3 border-t border-gray-200">
-              <h4 className="text-xs sm:text-sm md:text-base font-semibold text-gray-900 mb-1 sm:mb-2">Degree Program</h4>
-              <p className="text-gray-600 text-xs sm:text-sm mb-2 sm:mb-3">
-                Bachelor of Science in Computer Science with concentration in Machine Learning
-              </p>
-            </div>
-
-            <div className="pt-3 border-t border-gray-200">
-              <h4 className="text-xs sm:text-sm md:text-base font-semibold text-gray-900 mb-1 sm:mb-2">Relevant Courses</h4>
-              <div className="flex flex-wrap gap-1 sm:gap-1.5 md:gap-2">
-                {[
-                  "Fundamentals of Programming",
-                  "Imperative Computation",
-                  "Mathematical Foundations for Computer Science",
-                  "Functional Programming",
-                  "Computer Systems",
-                  "Linear Transformations",
-                  "Theoretical Computer Science",
-                  "Multivariable Calculus",
-                  "Human Centered Software",
-                ].map((course, index) => (
-                  <span
-                    key={index}
-                    className="px-1 sm:px-1.5 md:px-2 py-0.5 sm:py-1 bg-gray-100 text-gray-700 text-[9px] sm:text-[10px] md:text-xs rounded-full border border-gray-200"
+            <div>
+              <h4 className="mb-3 text-sm font-semibold uppercase tracking-wide text-ink">
+                Relevant Courses
+              </h4>
+              <div className="flex flex-wrap gap-2">
+                {courses.map((course, index) => (
+                  <motion.span
+                    key={course.code}
+                    initial={{ opacity: 0, y: 8 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.3, delay: index * 0.03 }}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-line bg-white px-3 py-1.5 text-xs text-stone-600 transition-colors hover:border-clay/40"
                   >
-                    {course}
-                  </span>
+                    <span className="font-medium tabular-nums text-clay">
+                      {course.code}
+                    </span>
+                    {course.name}
+                  </motion.span>
                 ))}
               </div>
             </div>
 
-            <div className="pt-3 border-t border-gray-200">
-              <h4 className="text-xs sm:text-sm md:text-base font-semibold text-gray-900 mb-1 sm:mb-2">Extracurriculars</h4>
-              <div className="flex flex-wrap gap-1 sm:gap-1.5 md:gap-2">
-                {[
-                  "CMU Varsity Swim and Dive",
-                  "Volunteer Swim Coach",
-                  "Asian Student Association",
-                  "ScottyLabs",
-                  "HackCMU",
-                ].map((activity, index) => (
-                  <span
-                    key={index}
-                    className="px-1 sm:px-1.5 md:px-2 py-0.5 sm:py-1 bg-gray-100 text-gray-700 text-[9px] sm:text-[10px] md:text-xs rounded-full border border-gray-200"
-                  >
-                    {activity}
-                  </span>
-                ))}
+            <div>
+              <h4 className="mb-3 text-sm font-semibold uppercase tracking-wide text-ink">
+                Leadership &amp; Involvement
+              </h4>
+              <div className="flex flex-wrap gap-2">
+                {activities.map((activity, index) => {
+                  const Icon = activity.icon;
+                  return (
+                    <motion.span
+                      key={activity.label}
+                      initial={{ opacity: 0, y: 8 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.3, delay: index * 0.04 }}
+                      className="inline-flex items-center gap-1.5 rounded-full border border-line bg-white px-3 py-1.5 text-xs text-stone-600 transition-colors hover:border-clay/40"
+                    >
+                      <Icon size={12} className="shrink-0 text-clay" />
+                      {activity.label}
+                    </motion.span>
+                  );
+                })}
               </div>
             </div>
-
           </motion.div>
         </div>
       </div>
     </section>
   );
 }
-

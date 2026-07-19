@@ -1072,8 +1072,8 @@ export default function LocationMap() {
 
   if (!isClient) {
     return (
-      <div className="w-full h-[600px] sm:h-[700px] md:h-[800px] bg-gray-50 border border-gray-200 rounded-lg flex items-center justify-center">
-        <p className="text-gray-600">Loading map...</p>
+      <div className="w-full h-[600px] sm:h-[700px] md:h-[800px] bg-sand border border-line rounded-3xl flex items-center justify-center">
+        <p className="text-stone-500">Loading map...</p>
       </div>
     );
   }
@@ -1087,7 +1087,7 @@ export default function LocationMap() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
-      className={`relative w-full h-[600px] sm:h-[700px] md:h-[800px] rounded-2xl overflow-hidden border border-gray-200 shadow-sm bg-white${isExtendedViewOpen ? ' map-extended-view-open' : ''}`}
+      className={`relative w-full h-[600px] sm:h-[700px] md:h-[800px] rounded-3xl overflow-hidden border border-line shadow-sm bg-white${isExtendedViewOpen ? ' map-extended-view-open' : ''}`}
       style={{ touchAction: isExtendedViewOpen ? 'auto' : 'none' }}
     >
       <MapContainer

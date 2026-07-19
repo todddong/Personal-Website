@@ -1,10 +1,8 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Projects from "@/components/Projects";
-import AthleteSystems from "@/components/AthleteSystems";
 import Experience from "@/components/Experience";
 import Places from "@/components/Places";
-import AboutCMU from "@/components/AboutCMU";
 import Highlights from "@/components/Highlights";
 import HighSchoolSwim from "@/components/HighSchoolSwim";
 import Footer from "@/components/Footer";
@@ -14,15 +12,12 @@ export default function Home() {
     <main className="min-h-screen">
       <Navbar />
       <Hero />
-      <AthleteSystems />
       <Experience />
-      <Places />
       <Projects />
-      <AboutCMU />
       <HighSchoolSwim />
+      <Places />
       <Highlights />
       <Footer />
     </main>
   );
 }
-

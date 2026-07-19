@@ -1,18 +1,29 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const inter = Inter({ 
-  subsets: ["latin"],
-  variable: "--font-geist-sans",
+const inter = localFont({
+  src: "./fonts/inter-var-latin.woff2",
+  weight: "100 900",
+  variable: "--font-sans",
+  display: "swap",
+});
+
+const sourceSerif = localFont({
+  src: "./fonts/source-serif-4-var-latin.woff2",
+  weight: "200 900",
+  variable: "--font-serif",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
   title: "Todd Dong | Computer Science @ Carnegie Mellon",
-  description: "Building high-performance systems — in code and in competition.",
+  description:
+    "Computer science at Carnegie Mellon, varsity swimmer, and photographer. I build software with an athlete's discipline.",
   openGraph: {
     title: "Todd Dong | Computer Science @ Carnegie Mellon",
-    description: "Building high-performance systems — in code and in competition.",
+    description:
+      "Computer science at Carnegie Mellon, varsity swimmer, and photographer. I build software with an athlete's discipline.",
     url: "https://todddong.com",
     siteName: "Todd Dong",
     images: [
@@ -29,7 +40,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Todd Dong | Computer Science @ Carnegie Mellon",
-    description: "Building high-performance systems — in code and in competition.",
+    description:
+      "Computer science at Carnegie Mellon, varsity swimmer, and photographer. I build software with an athlete's discipline.",
     images: ["/media/headshot.PNG"],
   },
 };
@@ -46,9 +58,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className={`${inter.variable} antialiased`}>{children}</body>
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+      <body className={`${inter.variable} ${sourceSerif.variable} antialiased`}>
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{if(localStorage.getItem('theme')==='dark'){document.documentElement.classList.add('dark')}}catch(e){}",
+          }}
+        />
+        {children}
+      </body>
     </html>
   );
 }
-

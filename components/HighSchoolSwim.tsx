@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { Trophy, Award } from "lucide-react";
+import { Award } from "lucide-react";
 
 const achievements = [
   "First Place — CMU x Databricks x UN Datathon 2026",
@@ -17,82 +17,62 @@ const achievements = [
 
 export default function HighSchoolSwim() {
   return (
-    <section id="awards" className="py-6 sm:py-8 px-4 sm:px-6 md:px-8 relative bg-[#faf8f4] border-t border-gray-200">
-      <div className="max-w-7xl mx-auto">
-        <motion.h2
+    <section id="awards" className="relative bg-sand px-6 pb-16 pt-10 md:px-10 md:pb-20 md:pt-12">
+      <div className="mx-auto max-w-6xl">
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-sm sm:text-base md:text-xl lg:text-2xl font-normal mb-3 sm:mb-4 md:mb-6 text-left text-[#93C572]"
+          transition={{ duration: 0.5 }}
+          className="mb-8 md:mb-10"
         >
-          awards & accolades
-        </motion.h2>
+          <span className="section-label">Recognition</span>
+          <h2 className="section-heading">Awards &amp; accolades</h2>
+        </motion.div>
 
-        <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4 lg:gap-6 items-center">
+        <div className="grid items-center gap-8 md:grid-cols-[1fr_1.4fr] lg:gap-12">
           {/* Photo */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="relative h-[150px] sm:h-[200px] md:h-[250px] lg:h-[300px] rounded-lg sm:rounded-xl md:rounded-2xl overflow-hidden border border-gray-300 sm:border-2 group shadow-sm"
+            transition={{ duration: 0.7 }}
+            className="group relative h-[180px] overflow-hidden rounded-2xl border border-line shadow-sm sm:h-[220px] md:h-[250px]"
           >
             <Image
               src="/media/highlights/highschool-highlights.jpg"
-              alt="High School Highlights"
+              alt="Swimming highlights"
               fill
-              className="object-cover transition-all duration-700 group-hover:scale-105"
-              onError={(e) => {
-                const target = e.target as HTMLImageElement;
-                target.style.display = 'none';
-                const parent = target.parentElement;
-                if (parent) {
-                  parent.innerHTML = `
-                    <div class="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-black to-blue-900/20 flex items-center justify-center">
-                      <div class="text-center text-gray-500">
-                        <p class="text-sm mb-2">High School Photo</p>
-                        <p class="text-xs">Add highschool-highlights.jpg to public/media/highlights folder</p>
-                      </div>
-                    </div>
-                  `;
-                }
-              }}
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
             />
           </motion.div>
 
           {/* Achievements */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="space-y-6"
+            transition={{ duration: 0.7, delay: 0.15 }}
+            className="grid gap-2 sm:grid-cols-2"
           >
-            <div className="flex items-center gap-2 mb-4">
-              <Trophy className="text-[#93C572] w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
-              <h3 className="text-xs sm:text-sm md:text-base lg:text-lg font-semibold text-gray-900">Awards & Recognition</h3>
-            </div>
-            
-            <div className="space-y-2">
-              {achievements.map((achievement, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
-                  className="flex items-start gap-2 p-2 bg-gray-50 border-2 border-gray-300 rounded-xl hover:border-gray-400 transition-all shadow-sm"
-                >
-                  <Award className="text-[#93C572] mt-0.5 flex-shrink-0 w-3 h-3 sm:w-3.5 sm:h-3.5" />
-                  <span className="text-gray-700 text-xs sm:text-sm">{achievement}</span>
-                </motion.div>
-              ))}
-            </div>
+            {achievements.map((achievement, index) => (
+              <motion.div
+                key={achievement}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.3, delay: index * 0.04 }}
+                className="flex items-center gap-2.5 rounded-xl border border-line bg-white px-3 py-2"
+              >
+                <Award size={13} className="shrink-0 text-clay" />
+                <span className="text-[13px] leading-snug text-stone-700">
+                  {achievement}
+                </span>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </div>
     </section>
   );
 }
-

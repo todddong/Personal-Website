@@ -1,34 +1,51 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import CloudImage from "./CloudImage";
 import Image from "next/image";
+import CloudImage from "./CloudImage";
 import { useState, useEffect, useRef } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
-// Add your Alaska photos here - they'll automatically appear in the gallery
+// Add your Alaska photos here - they'll automatically appear in the collage
 // Using Supabase Storage paths (relative to 'images' bucket)
 const alaskaHighlights = [
   { src: "alaska/alaska-1.jpg", alt: "Alaska Highlight 1", title: "Anchorage" },
   { src: "alaska/alaska-2.jpg", alt: "Alaska Highlight 2", title: "Alaska" },
-  { src: "alaska/alaska-3.jpg", alt: "Alaska Highlight 3", title: "Alaska" },
+  { src: "alaska/alaska-3.jpg", alt: "Alaska Highlight 3", title: "Girdwood" },
   { src: "alaska/alaksa-5.jpg", alt: "Alaska Highlight 5", title: "Alaska" },
   { src: "alaska/alaska-6.jpg", alt: "Alaska Highlight 6", title: "Alaska" },
   { src: "alaska/alaska-7.jpg", alt: "Alaska Highlight 7", title: "Alaska" },
   { src: "alaska/alaska-8.jpg", alt: "Alaska Highlight 8", title: "Alaska" },
   { src: "alaska/alaska-9.jpg", alt: "Alaska Highlight 9", title: "Alaska" },
   { src: "alaska/alaska-10.jpg", alt: "Alaska Highlight 10", title: "Alaska" },
-  { src: "alaska/alaska-11.jpg", alt: "Alaska Highlight 11", title: "Alaska" },
+  { src: "alaska/alaska-11.jpg", alt: "Alaska Highlight 11", title: "Port of Anchorage" },
   { src: "alaska/alaska-12.jpg", alt: "Alaska Highlight 12", title: "Alaska" },
   { src: "alaska/alaska-13.jpg", alt: "Alaska Highlight 13", title: "Alaska" },
 ];
 
-function HighlightItem({ 
-  highlight, 
-  index, 
-  onSelect 
-}: { 
-  highlight: typeof alaskaHighlights[0]; 
+// Deterministic scatter so the collage feels hand-placed but stable across renders
+const rotations = [-4, 3, -2, 5, -5, 2, 4, -3, 3, -4, 2, -2];
+const verticalOffsets = [
+  "md:mt-0",
+  "md:mt-10",
+  "md:mt-4",
+  "md:mt-14",
+  "md:mt-2",
+  "md:mt-8",
+  "md:mt-0",
+  "md:mt-12",
+  "md:mt-6",
+  "md:mt-2",
+  "md:mt-10",
+  "md:mt-4",
+];
+
+function CollageItem({
+  highlight,
+  index,
+  onSelect,
+}: {
+  highlight: typeof alaskaHighlights[0];
   index: number;
   onSelect: (index: number) => void;
 }) {
@@ -37,32 +54,30 @@ function HighlightItem({
   if (imageError) return null;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.05 }}
-      className="relative group cursor-pointer overflow-hidden rounded-lg border border-gray-300 hover:border-gray-400 transition-all duration-300 hover:scale-[1.04]"
+    <motion.button
+      initial={{ opacity: 0, y: 30, rotate: 0 }}
+      whileInView={{ opacity: 1, y: 0, rotate: rotations[index % rotations.length] }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.5, delay: (index % 4) * 0.08, ease: "easeOut" }}
+      whileHover={{ rotate: 0, scale: 1.05, zIndex: 20 }}
       onClick={() => onSelect(index)}
+      className={`relative block w-[44%] cursor-pointer rounded-lg bg-paper p-2 pb-7 shadow-2xl shadow-night/50 sm:w-[30%] md:w-[22%] ${
+        verticalOffsets[index % verticalOffsets.length]
+      } ${index % 2 === 0 ? "-mr-3 md:-mr-5" : "-ml-1 md:-ml-4"}`}
+      aria-label={`View ${highlight.title}`}
     >
-      <div className="aspect-square relative overflow-hidden">
+      <div className="relative aspect-square overflow-hidden rounded-sm">
         <CloudImage
           src={highlight.src}
           alt={highlight.alt}
           fill
-          className="object-cover group-hover:scale-125 transition-transform duration-300 ease-out"
+          className="object-cover"
           objectFit="cover"
           fallback={`/media/${highlight.src}`}
           onError={() => setImageError(true)}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        <div className="absolute bottom-0 left-0 right-0 p-2 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-          <span className="text-white font-medium text-xs drop-shadow-lg">
-            {highlight.title}
-          </span>
-        </div>
       </div>
-    </motion.div>
+    </motion.button>
   );
 }
 
@@ -105,26 +120,39 @@ export default function Highlights() {
   };
 
   return (
-    <section id="highlights" className="py-6 px-4 sm:px-6 md:px-8 relative bg-[#faf8f4] border-t border-gray-200">
-      <div className="max-w-7xl mx-auto">
+    <section id="gallery" className="relative overflow-hidden px-6 py-20 md:px-10 md:py-28">
+      {/* Denali backdrop */}
+      <div className="absolute inset-0">
+        <Image
+          src="/media/cities/alaska-bg.jpg"
+          alt="Wonder Lake and Denali, Alaska"
+          fill
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-night/70 via-night/40 to-night/80" />
+      </div>
+
+      <div className="relative mx-auto max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-left mb-4"
+          transition={{ duration: 0.5 }}
+          className="mb-12 md:mb-16"
         >
-          <h2 className="text-sm sm:text-base md:text-xl lg:text-2xl font-normal mb-1 sm:mb-2 text-[#93C572]">
-            alaska highlights
-          </h2>
-          <p className="text-gray-500 text-xs sm:text-sm max-w-2xl">
-            Summer 2025 internship in Anchorage — exploring the Last Frontier
+          <span className="section-label text-clay">Gallery</span>
+          <h2 className="section-heading text-paper">Alaska, summer 2025</h2>
+          <p className="mt-3 max-w-2xl text-base text-paper/80">
+            Shot between workdays during my internship in Anchorage — exploring
+            the Last Frontier.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-6 gap-0.5 sm:gap-1">
+        {/* Overlapping photo collage */}
+        <div className="flex flex-wrap items-start justify-center gap-y-4 pb-6 md:pb-14">
           {alaskaHighlights.map((highlight, index) => (
-            <HighlightItem
+            <CollageItem
               key={index}
               highlight={highlight}
               index={index}
@@ -141,84 +169,88 @@ export default function Highlights() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4"
+              className="fixed inset-0 z-50 flex items-center justify-center bg-night/95 p-4"
               onClick={() => setSelectedIndex(null)}
             >
-            <motion.div
-              initial={{ scale: 0.9 }}
-              animate={{ scale: 1 }}
-              className="relative max-w-6xl max-h-[90vh] w-full rounded-2xl overflow-hidden bg-black/50 group/slideshow"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button
-                onClick={() => setSelectedIndex(null)}
-                className="absolute top-4 right-4 z-20 text-gray-900 hover:text-gray-600 transition-colors bg-white/90 rounded-full p-2 shadow-md"
+              <motion.div
+                initial={{ scale: 0.95 }}
+                animate={{ scale: 1 }}
+                className="relative max-h-[90vh] w-full max-w-5xl"
+                onClick={(e) => e.stopPropagation()}
               >
-                <X size={24} />
-              </button>
+                <button
+                  onClick={() => setSelectedIndex(null)}
+                  className="absolute -top-12 right-0 z-20 rounded-full bg-paper/90 p-2 text-night shadow-md transition-colors hover:bg-paper"
+                  aria-label="Close"
+                >
+                  <X size={20} />
+                </button>
 
-              <div className="relative w-full h-full aspect-video rounded-2xl overflow-hidden bg-black/50">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={currentSlide}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    transition={{ duration: 0.3 }}
-                    className="absolute inset-0 rounded-2xl overflow-hidden [&_img]:rounded-2xl [&_span]:rounded-2xl [&_span]:overflow-hidden"
-                  >
-                    <CloudImage
-                      src={currentHighlight.src}
-                      alt={currentHighlight.alt}
-                      fill
-                      className="object-contain rounded-2xl"
-                      objectFit="contain"
-                      fallback={`/media/${currentHighlight.src}`}
+                {/* Enlarged polaroid frame */}
+                <div className="relative rounded-lg bg-paper p-3 pb-16 shadow-2xl shadow-night/60 sm:p-4 sm:pb-20">
+                  <div className="relative aspect-video w-full overflow-hidden rounded-sm">
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={currentSlide}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -20 }}
+                        transition={{ duration: 0.3 }}
+                        className="absolute inset-0"
+                      >
+                        <CloudImage
+                          src={currentHighlight.src}
+                          alt={currentHighlight.alt}
+                          fill
+                          className="object-contain"
+                          objectFit="contain"
+                          fallback={`/media/${currentHighlight.src}`}
+                        />
+                      </motion.div>
+                    </AnimatePresence>
+
+                    {/* Navigation arrows */}
+                    <button
+                      onClick={prevSlide}
+                      className="absolute left-3 top-1/2 z-10 -translate-y-1/2 rounded-full bg-paper/90 p-2.5 text-night shadow-md transition-colors hover:bg-paper"
+                      aria-label="Previous slide"
+                    >
+                      <ChevronLeft size={22} />
+                    </button>
+                    <button
+                      onClick={nextSlide}
+                      className="absolute right-3 top-1/2 z-10 -translate-y-1/2 rounded-full bg-paper/90 p-2.5 text-night shadow-md transition-colors hover:bg-paper"
+                      aria-label="Next slide"
+                    >
+                      <ChevronRight size={22} />
+                    </button>
+                  </div>
+
+                </div>
+
+                {/* Slide indicators */}
+                <div className="mt-4 flex justify-center gap-1.5">
+                  {alaskaHighlights.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedIndex(index);
+                      }}
+                      className={`h-1.5 rounded-full transition-all ${
+                        index === currentSlide
+                          ? "w-6 bg-clay"
+                          : "w-1.5 bg-paper/60 hover:bg-paper"
+                      }`}
+                      aria-label={`Go to slide ${index + 1}`}
                     />
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-
-              {/* Navigation Arrows */}
-              <button
-                onClick={prevSlide}
-                className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white text-gray-900 rounded-full p-2 sm:p-2.5 shadow-md transition-colors"
-                aria-label="Previous slide"
-              >
-                <ChevronLeft size={22} className="sm:w-6 sm:h-6" />
-              </button>
-              <button
-                onClick={nextSlide}
-                className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white text-gray-900 rounded-full p-2 sm:p-2.5 shadow-md transition-colors"
-                aria-label="Next slide"
-              >
-                <ChevronRight size={22} className="sm:w-6 sm:h-6" />
-              </button>
-
-              {/* Slide Indicators */}
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex gap-2">
-                {alaskaHighlights.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setSelectedIndex(index);
-                    }}
-                    className={`h-2 rounded-full transition-all ${
-                      index === currentSlide
-                        ? "w-8 bg-[#93C572]"
-                        : "w-2 bg-gray-300 hover:bg-gray-400"
-                    }`}
-                    aria-label={`Go to slide ${index + 1}`}
-                  />
-                ))}
-              </div>
+                  ))}
+                </div>
+              </motion.div>
             </motion.div>
-          </motion.div>
           )}
         </AnimatePresence>
       </div>
     </section>
   );
 }
-

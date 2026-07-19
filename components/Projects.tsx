@@ -1,116 +1,126 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
-import { ExternalLink, Github, Youtube } from "lucide-react";
+import { motion } from "framer-motion";
+import { ExternalLink, Github, Youtube, Award } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
 
-const projects = [
+type Project = {
+  title: string;
+  badge?: string;
+  description: string;
+  tech: string[];
+  link: string;
+  github: string;
+  youtube?: string;
+  previewImages?: string[];
+  previewFit?: "cover" | "contain";
+  previewPosition?: string;
+};
+
+const projects: Project[] = [
   {
-    title: "CMU x Databricks x UN Datathon Winner",
-    description: "First Place Winner — CMU x Databricks x UN Datathon. Data science competition project featuring interactive dashboard, map visualizations, and deep search capabilities for analyzing complex datasets",
-    problem: "Large-scale datasets require intuitive visualization and search tools to extract meaningful insights and patterns",
-    system: "Interactive web dashboard with map visualizations, deep search functionality, and comprehensive data analysis pipeline built with Jupyter Notebooks and data science tools",
-    impact: "Won first place at the CMU x Databricks x UN Datathon. Developed comprehensive data analysis solution with interactive visualizations, enabling users to explore and understand complex datasets through intuitive interface",
-    tech: ["Python", "Jupyter Notebooks", "Data Science", "Data Visualization", "Interactive Dashboard"],
+    title: "Humanitarian Aid Allocation Intelligence Platform",
+    badge: "1st Place",
+    description:
+      "1st place at the Databricks x UN Hackathon — agents forecasting crises across 2M+ rows of UN data.",
+    tech: ["Python", "JavaScript", "SQL", "Supabase"],
     link: "https://youtu.be/_cCfMuyg-Jw",
     github: "https://github.com/45seconds/datathon-2026",
     youtube: "https://youtu.be/_cCfMuyg-Jw",
-    image: "/media/general/databricks rewards.jpg",
     previewImages: [
       "/media/general/datathon-research.png",
       "/media/general/datathon-country-view.png",
     ],
   },
   {
-    title: "Artificial Neural Network for Number Recognition",
-    description: "Built and trained a 3-layer neural network with TensorFlow on 60,000 MNIST image dataset to classify handwritten digits",
-    problem: "Handwritten digit recognition requires robust models that work across varied image dimensions and real-world inputs",
-    system: "3-layer neural network with image normalization, grayscale conversion, resizing, inversion, and center of mass alignment. Trained using Adam optimizer achieving peak accuracy in 5 epochs",
-    impact: "Improved classification accuracy from 92% to 98% on real-world inputs, achieving peak accuracy in less than 30 seconds",
-    tech: ["Python", "TensorFlow", "Neural Networks", "Computer Vision"],
+    title: "Healthcare Access Gap Mapper",
+    badge: "Code for Good",
+    description:
+      "Agentic data app mapping healthcare access gaps across 10,000+ Indian ICU facilities.",
+    tech: ["Python", "Next.js", "SQL", "Genie", "Lakehouse"],
+    link: "https://devpost.com/software/medindia",
+    github: "https://github.com/DeerEdge/databricks-apps-agents",
+    previewImages: [
+      "/media/general/medindia-map.png",
+      "/media/general/medindia-chat.png",
+    ],
+  },
+  {
+    title: "Neural Network for Digit Recognition",
+    description:
+      "TensorFlow network trained on 60,000 MNIST digits — 98% real-world accuracy.",
+    tech: ["Python", "TensorFlow", "Computer Vision"],
     link: "#",
-    github: "#",
+    github: "https://github.com/todddong/Digit-Detector",
+    previewImages: ["/media/general/digit-mnist.png"],
+    previewPosition: "center top",
   },
   {
     title: "AI Nutrition Estimator",
-    description: "HackCMU 2025 AI Track project: Calorie estimation system with 85-95% accuracy for common foods",
-    problem: "Nutrition tracking requires accurate calorie estimation across diverse food items and serving sizes",
-    system: "Full-stack application combining frontend, backend, SQL database, and USDA food database for comprehensive food search system",
-    impact: "Led complete project lifecycle from ideation through deployment, achieving 85-95% accuracy for common foods",
-    tech: ["Python", "HTML", "JavaScript", "SQL", "USDA API"],
+    description:
+      "Calorie estimator reaching 85–95% accuracy on common foods, built at HackCMU 2025.",
+    tech: ["Python", "JavaScript", "SQL", "USDA API"],
     link: "#",
-    github: "#",
+    github: "https://github.com/todddong/HackCMU-2025",
+    previewImages: ["/media/general/hackcmu-scottylabs.png"],
+    previewFit: "contain",
   },
   {
-    title: "AI Workout Assistant for CMU Swim Team",
-    description: "Wrapped OpenAI's API to generate tailored routines supporting 1 million+ unique plans for any sport or workout goals",
-    problem: "Generic workout plans don't adapt to individual needs, goals, and constraints for athletes",
-    system: "AI-powered recommendation system that generates personalized gym and cardio routines based on user preferences and goals",
-    impact: "Created personalized routines for 20+ teammates during swim offseason, helping maintain strength and conditioning. Resulted in personal weight loss of over 10 lbs",
+    title: "AI Workout Assistant",
+    description:
+      "OpenAI-powered training routine generator used by 20+ CMU swim teammates.",
     tech: ["JavaScript", "HTML", "CSS", "OpenAI API"],
     link: "#",
-    github: "#",
+    github: "https://github.com/todddong/AI-Workout-Assistant",
+    youtube: "https://youtu.be/o8jpGh9b0dQ",
+    previewImages: ["/media/general/workout-demo.png"],
   },
   {
-    title: "Bookly",
-    description: "A modern book management and tracking application",
-    problem: "Users need an efficient way to manage, track, and organize their reading lists and book collections",
-    system: "Full-stack application with intuitive interface for book discovery, tracking reading progress, and managing personal libraries",
-    impact: "Provides users with a streamlined solution for organizing their reading journey and discovering new books",
-    tech: ["JavaScript", "React", "Node.js", "Database"],
-    link: "#",
-    github: "https://github.com/DeerEdge/Bookly",
-  },
-  {
-    title: "AI Wordle Game",
-    description: "Designed and programmed traditional Wordle as well as a computer guessing mode, with advanced hints based on user input and multiple guessing algorithms",
-    problem: "Wordle games lack intelligent computer opponents with varying difficulty levels and adaptive hint systems",
-    system: "Python-based Wordle implementation with traditional gameplay and AI computer mode featuring multiple guessing algorithms and advanced hint generation based on user input",
-    impact: "Created an engaging word puzzle game with competitive AI opponents, demonstrating algorithm design and game development skills",
-    tech: ["Python", "Algorithms", "Game Development"],
+    title: "AI Wordle",
+    description:
+      "Wordle with a computer-guessing mode and adaptive hints — 15-112 term project.",
+    tech: ["Python", "Algorithms", "Game Dev"],
     link: "#",
     github: "https://github.com/todddong/15-112-Term-Project",
+    youtube: "https://www.youtube.com/watch?v=79BA4dGW4vg",
+    previewImages: ["/media/general/wordle-demo.png"],
+    previewPosition: "62% 20%",
   },
 ];
 
-function ProjectCard({ project, index }: { project: typeof projects[0]; index: number }) {
-  const [isHovered, setIsHovered] = useState(false);
-
+function ProjectCard({ project, index }: { project: Project; index: number }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
-      className="group bg-white border border-gray-300 sm:border-2 rounded-lg sm:rounded-xl md:rounded-2xl p-1.5 sm:p-2 md:p-3 lg:p-4 hover:border-gray-400 transition-all duration-300 shadow-sm hover:shadow-xl self-start min-h-[80px] sm:min-h-[100px] md:min-h-[120px]"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      transition={{ duration: 0.5, delay: index * 0.08 }}
+      className="group flex flex-col rounded-2xl border border-line bg-white p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
     >
-      <div className="flex items-start justify-between min-h-[60px]">
-        <h3 className="text-xs sm:text-sm md:text-base lg:text-lg font-normal text-gray-900 group-hover:text-[#93C572] transition-colors flex-1">
-          {project.title}
-        </h3>
-        <div className="flex gap-2">
-          {(project as any).youtube && (
+      <div className="mb-2.5 flex items-start justify-between">
+        <span className="font-serif text-sm text-stone-400">
+          {String(index + 1).padStart(2, "0")}
+        </span>
+        <div className="flex gap-3">
+          {project.youtube && (
             <a
-              href={(project as any).youtube}
+              href={project.youtube}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-red-400 transition-colors"
-              title="Video Demo"
+              className="text-stone-400 transition-colors hover:text-clay"
+              title="Video demo"
             >
-              <Youtube size={14} className="sm:w-4 sm:h-4 md:w-5 md:h-5" />
+              <Youtube size={17} />
             </a>
           )}
-          {project.link !== "#" && project.link !== (project as any).youtube && (
+          {project.link !== "#" && project.link !== project.youtube && (
             <a
               href={project.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-[#93C572] transition-colors"
+              className="text-stone-400 transition-colors hover:text-clay"
             >
-              <ExternalLink size={14} className="sm:w-4 sm:h-4 md:w-5 md:h-5" />
+              <ExternalLink size={17} />
             </a>
           )}
           {project.github !== "#" && (
@@ -118,84 +128,83 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
               href={project.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-[#93C572] transition-colors"
+              className="text-stone-400 transition-colors hover:text-clay"
             >
-              <Github size={14} className="sm:w-4 sm:h-4 md:w-5 md:h-5" />
+              <Github size={17} />
             </a>
           )}
         </div>
       </div>
 
-      {/* Expanded content within the same card */}
-      <AnimatePresence>
-        {isHovered && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.6 }}
-            className="overflow-hidden"
-          >
-            <p className="text-gray-600 mb-2 sm:mb-3 md:mb-4 text-xs sm:text-sm mt-2 sm:mt-3 md:mt-4">{project.description}</p>
-
-            {(project as any).previewImages && (project as any).previewImages.length > 0 && (
-              <div className="grid grid-cols-2 gap-2 mb-4">
-                {(project as any).previewImages.map((img: string, idx: number) => (
-                  <div key={idx} className="relative w-full h-32 rounded-lg overflow-hidden border border-gray-800">
-                    <Image
-                      src={img}
-                      alt={`${project.title} preview ${idx + 1}`}
-                      fill
-                      className="object-cover transition-transform duration-300 group-hover:scale-105"
-                    />
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {(project as any).image && !(project as any).previewImages && (
-              <div className="relative w-full h-48 mb-4 rounded-lg overflow-hidden border border-gray-800">
-                <Image
-                  src={(project as any).image}
-                  alt={project.title}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            )}
-
-            <div className="flex flex-wrap gap-2 mt-4">
-              {project.tech.map((tech) => (
-                <span
-                  key={tech}
-                    className="px-1.5 sm:px-2 md:px-3 py-0.5 sm:py-1 bg-gray-100 text-gray-700 text-[10px] sm:text-xs rounded-full border border-gray-200"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
-          </motion.div>
+      <div className="mb-1.5 flex flex-wrap items-center gap-2">
+        <h3 className="text-base font-semibold leading-snug text-ink transition-colors group-hover:text-clay">
+          {project.title}
+        </h3>
+        {project.badge && (
+          <span className="inline-flex items-center gap-1 rounded-full bg-clay/10 px-2 py-0.5 text-[11px] font-medium text-clay">
+            <Award size={10} />
+            {project.badge}
+          </span>
         )}
-      </AnimatePresence>
+      </div>
+
+      <p className="mb-3.5 flex-1 text-[13px] leading-relaxed text-stone-600">
+        {project.description}
+      </p>
+
+      {project.previewImages && project.previewImages.length > 0 && (
+        <div className="mb-3.5 grid grid-cols-2 gap-2">
+          {project.previewImages.map((img, idx) => (
+            <div
+              key={idx}
+              className="relative h-20 w-full overflow-hidden rounded-lg border border-line bg-paper"
+            >
+              <Image
+                src={img}
+                alt={`${project.title} preview ${idx + 1}`}
+                fill
+                style={{ objectPosition: project.previewPosition ?? "center" }}
+                className={`transition-transform duration-300 group-hover:scale-105 ${
+                  project.previewFit === "contain"
+                    ? "object-contain p-1"
+                    : "object-cover"
+                }`}
+              />
+            </div>
+          ))}
+        </div>
+      )}
+
+      <div className="flex flex-wrap gap-1.5">
+        {project.tech.map((tech) => (
+          <span
+            key={tech}
+            className="rounded-full bg-sand px-2 py-0.5 text-[11px] text-stone-600"
+          >
+            {tech}
+          </span>
+        ))}
+      </div>
     </motion.div>
   );
 }
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-6 sm:py-8 px-4 sm:px-6 md:px-8 relative bg-[#faf8f4] border-t border-gray-200">
-      <div className="max-w-7xl mx-auto">
-        <motion.h2
+    <section id="projects" className="relative bg-sand px-6 pb-14 pt-12 md:px-10 md:pb-16 md:pt-14">
+      <div className="mx-auto max-w-6xl">
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-xl md:text-2xl font-normal mb-6 text-left text-[#93C572]"
+          transition={{ duration: 0.5 }}
+          className="mb-8 md:mb-10"
         >
-          projects
-        </motion.h2>
+          <span className="section-label">Projects</span>
+          <h2 className="section-heading">Selected work</h2>
+        </motion.div>
 
-        <div className="grid grid-cols-3 gap-2 sm:gap-3 md:gap-4 lg:gap-6 xl:gap-8 items-start">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {projects.map((project, index) => (
             <ProjectCard key={project.title} project={project} index={index} />
           ))}
@@ -204,4 +213,3 @@ export default function Projects() {
     </section>
   );
 }
-

@@ -3,11 +3,49 @@
 @tailwind utilities;
 
 :root {
-  --background: #faf8f4;
-  --foreground: #1a1a1a;
-  --grid-color: rgba(0, 0, 0, 0.03);
-  --accent: #93C572;
-  --accent-hover: #7fb05a;
+  --background: #faf9f5;
+  --surface: #f0eee6;
+  --foreground: #1f1e1d;
+  --line: #e8e6dc;
+  --accent: #d97757;
+  --accent-hover: #c96442;
+
+  /* RGB triplets consumed by Tailwind (see tailwind.config.ts) */
+  --c-cream: 250 249 245;
+  --c-sand: 240 238 230;
+  --c-ink: 31 30 29;
+  --c-line: 232 230 220;
+  --c-card: 255 255 255;
+  --c-stone-400: 168 162 158;
+  --c-stone-500: 120 113 108;
+  --c-stone-600: 87 83 78;
+  --c-stone-700: 68 64 60;
+  --c-gray-100: 243 244 246;
+  --c-gray-200: 229 231 235;
+
+  /* Accent (clay) — adjustable via the accent picker */
+  --c-clay: 217 119 87;
+  --c-clay-dark: 201 100 66;
+}
+
+.dark {
+  color-scheme: dark;
+  --background: #181715;
+  --surface: #201f1c;
+  --foreground: #f0eee9;
+  --line: #37352f;
+
+  --c-cream: 24 23 21;
+  --c-sand: 32 31 28;
+  --c-ink: 240 238 233;
+  --c-line: 55 53 47;
+  --c-card: 38 37 34;
+  --c-stone-400: 138 133 125;
+  --c-stone-500: 168 163 155;
+  --c-stone-600: 196 190 180;
+  --c-stone-700: 214 209 199;
+  --c-gray-100: 39 38 35;
+  --c-gray-200: 46 44 41;
 }
 
 * {
@@ -23,27 +61,37 @@ html {
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgb(var(--c-clay) / 0.22);
+}
+
+/* Subtle paper-grain noise, à la dzierson.com */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
-  
-  .grid-pattern {
-    background-image: 
-      linear-gradient(var(--grid-color) 1px, transparent 1px),
-      linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-    background-size: 50px 50px;
+
+  /* Small uppercase eyebrow above section headings */
+  .section-label {
+    @apply block text-xs font-medium uppercase tracking-[0.2em] text-clay;
   }
-  
-  .gradient-text {
-    background: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+
+  .section-heading {
+    @apply mt-3 font-serif text-3xl md:text-4xl text-ink tracking-tight text-balance;
   }
 }
-
