@@ -28,10 +28,10 @@ export const metadata: Metadata = {
     siteName: "Todd Dong",
     images: [
       {
-        url: "/media/headshot.PNG",
+        url: "/media/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Todd Dong - Computer Science @ Carnegie Mellon",
+        alt: "Pittsburgh skyline",
       },
     ],
     locale: "en_US",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     title: "Todd Dong | Computer Science @ Carnegie Mellon",
     description:
       "Computer science at Carnegie Mellon, varsity swimmer, and photographer. I build software with an athlete's discipline.",
-    images: ["/media/headshot.PNG"],
+    images: ["/media/og-image.jpg"],
   },
 };
 
